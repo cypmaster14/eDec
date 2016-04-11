@@ -1,0 +1,42 @@
+  hr.style-six {
+    border: 0;
+    height: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+div.align-right { text-align:right; }
+
+#poza_campanie { 
+   position: relative; 
+   max-width: 100%;
+   max-height: 100%;
+   margin:auto;
+}
+#product{
+	position: relative;
+}
+
+#paralel{ 
+	position: absolute;
+	 bottom: 3%;
+	 left: 0; 
+	 width: 100%; 
+}
+#section {
+    width:350px;
+    float:left;
+    padding:10px; 
+}
+#paralel span
+{ 
+	color: white; 
+	font: bold 18px/38px Helvetica, Sans-Serif; 
+	letter-spacing: -1px;  
+	background: rgb(0, 0, 0); 
+	background: rgba(0, 0, 0, 0.7); 
+	padding: 10px; 
+}
+#paralel span.spacer{ 
+	padding: 0 2px; 
+	background: none; 
+}
