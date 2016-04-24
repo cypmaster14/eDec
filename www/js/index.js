@@ -27,6 +27,17 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
         }
       }
     })
+
+    .state('tabs.register',{
+      url:"/register",      
+      views: {
+        'home-tab': {
+          templateUrl: "templates/register.html"
+        }
+      }
+    })
+
+
     .state('tabs.product', {
       url: "/product",
 	   params:

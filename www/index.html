@@ -12,6 +12,8 @@
 	<script src="js/index.js"></script>
 	<link rel="stylesheet" href="css/produs.css">
 	<link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/register.css">
+  <link rel="stylesheet" href="css/facts.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script>-+
         $(document).ready(function()
@@ -81,6 +83,16 @@
       </ion-view>
     </script>
 
+
+      <script id="templates/register.html" type="text/ng-template">
+      <ion-view view-title="Register">
+        <ion-content class="padding">
+      <div ng-include src="'html/register.html'"></div>
+        </ion-content>
+      </ion-view>
+    </script>
+
+
     <script id="templates/product.html"  type="text/ng-template">
       <ion-view view-title="Product details">
         <ion-content class="padding">
@@ -96,6 +108,8 @@
         </ion-content>
       </ion-view>
     </script>
+
+
 
   </body>
 </html>
