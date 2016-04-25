@@ -1,5 +1,13 @@
 [
     {
+        "merged": "C:\\Users\\George\\Desktop\\eDec\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\launcher_icon.png",
+        "source": "C:\\Users\\George\\Desktop\\eDec\\platforms\\android\\res\\drawable-hdpi\\launcher_icon.png"
+    },
+    {
+        "merged": "C:\\Users\\George\\Desktop\\eDec\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\icon.png",
+        "source": "C:\\Users\\George\\Desktop\\eDec\\platforms\\android\\res\\drawable-hdpi\\icon.png"
+    },
+    {
         "merged": "C:\\Users\\George\\Desktop\\eDec-master\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\icon.png",
         "source": "C:\\Users\\George\\Desktop\\eDec-master\\platforms\\android\\res\\drawable-hdpi\\icon.png"
     },
@@ -10,5 +18,9 @@
     {
         "merged": "C:\\Users\\George\\Desktop\\eDec-master\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\shopper_icon.png",
         "source": "C:\\Users\\George\\Desktop\\eDec-master\\platforms\\android\\res\\drawable-hdpi\\shopper_icon.png"
+    },
+    {
+        "merged": "C:\\Users\\George\\Desktop\\eDec\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\shopper_icon.png",
+        "source": "C:\\Users\\George\\Desktop\\eDec\\platforms\\android\\res\\drawable-hdpi\\shopper_icon.png"
     }
 ]

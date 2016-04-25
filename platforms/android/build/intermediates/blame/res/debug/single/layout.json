@@ -8,16 +8,40 @@
         "source": "C:\\Users\\George\\Desktop\\eDec-master\\platforms\\android\\res\\layout\\share.xml"
     },
     {
+        "merged": "C:\\Users\\George\\Desktop\\eDec\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\layout\\search_book_contents_list_item.xml",
+        "source": "C:\\Users\\George\\Desktop\\eDec\\platforms\\android\\res\\layout\\search_book_contents_list_item.xml"
+    },
+    {
+        "merged": "C:\\Users\\George\\Desktop\\eDec\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\layout\\history_list_item.xml",
+        "source": "C:\\Users\\George\\Desktop\\eDec\\platforms\\android\\res\\layout\\history_list_item.xml"
+    },
+    {
         "merged": "C:\\Users\\George\\Desktop\\eDec-master\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\layout\\history_list_item.xml",
         "source": "C:\\Users\\George\\Desktop\\eDec-master\\platforms\\android\\res\\layout\\history_list_item.xml"
+    },
+    {
+        "merged": "C:\\Users\\George\\Desktop\\eDec\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\layout\\search_book_contents_header.xml",
+        "source": "C:\\Users\\George\\Desktop\\eDec\\platforms\\android\\res\\layout\\search_book_contents_header.xml"
+    },
+    {
+        "merged": "C:\\Users\\George\\Desktop\\eDec\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\layout\\help.xml",
+        "source": "C:\\Users\\George\\Desktop\\eDec\\platforms\\android\\res\\layout\\help.xml"
     },
     {
         "merged": "C:\\Users\\George\\Desktop\\eDec-master\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\layout\\search_book_contents.xml",
         "source": "C:\\Users\\George\\Desktop\\eDec-master\\platforms\\android\\res\\layout\\search_book_contents.xml"
     },
     {
+        "merged": "C:\\Users\\George\\Desktop\\eDec\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\layout\\share.xml",
+        "source": "C:\\Users\\George\\Desktop\\eDec\\platforms\\android\\res\\layout\\share.xml"
+    },
+    {
         "merged": "C:\\Users\\George\\Desktop\\eDec-master\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\layout\\encode.xml",
         "source": "C:\\Users\\George\\Desktop\\eDec-master\\platforms\\android\\res\\layout\\encode.xml"
+    },
+    {
+        "merged": "C:\\Users\\George\\Desktop\\eDec\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\layout\\capture.xml",
+        "source": "C:\\Users\\George\\Desktop\\eDec\\platforms\\android\\res\\layout\\capture.xml"
     },
     {
         "merged": "C:\\Users\\George\\Desktop\\eDec-master\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\layout\\search_book_contents_header.xml",
@@ -32,7 +56,19 @@
         "source": "C:\\Users\\George\\Desktop\\eDec-master\\platforms\\android\\res\\layout\\capture.xml"
     },
     {
+        "merged": "C:\\Users\\George\\Desktop\\eDec\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\layout\\encode.xml",
+        "source": "C:\\Users\\George\\Desktop\\eDec\\platforms\\android\\res\\layout\\encode.xml"
+    },
+    {
+        "merged": "C:\\Users\\George\\Desktop\\eDec\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\layout\\bookmark_picker_list_item.xml",
+        "source": "C:\\Users\\George\\Desktop\\eDec\\platforms\\android\\res\\layout\\bookmark_picker_list_item.xml"
+    },
+    {
         "merged": "C:\\Users\\George\\Desktop\\eDec-master\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\layout\\search_book_contents_list_item.xml",
         "source": "C:\\Users\\George\\Desktop\\eDec-master\\platforms\\android\\res\\layout\\search_book_contents_list_item.xml"
+    },
+    {
+        "merged": "C:\\Users\\George\\Desktop\\eDec\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\layout\\search_book_contents.xml",
+        "source": "C:\\Users\\George\\Desktop\\eDec\\platforms\\android\\res\\layout\\search_book_contents.xml"
     }
 ]

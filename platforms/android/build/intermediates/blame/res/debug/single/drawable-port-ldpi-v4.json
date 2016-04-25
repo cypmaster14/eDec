@@ -1,5 +1,9 @@
 [
     {
+        "merged": "C:\\Users\\George\\Desktop\\eDec\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\drawable-port-ldpi-v4\\screen.png",
+        "source": "C:\\Users\\George\\Desktop\\eDec\\platforms\\android\\res\\drawable-port-ldpi\\screen.png"
+    },
+    {
         "merged": "C:\\Users\\George\\Desktop\\eDec-master\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\drawable-port-ldpi-v4\\screen.png",
         "source": "C:\\Users\\George\\Desktop\\eDec-master\\platforms\\android\\res\\drawable-port-ldpi\\screen.png"
     }
