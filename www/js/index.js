@@ -117,7 +117,7 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
                 prenume:'Lazar'};
 
 
-      var res=$http.post('http://172.17.254.163:80',obj);
+      var res=$http.post('http://192.168.0.100:80',obj);
       res.success(function (data,status,headers,config) {
         if (status == 200) {
           $scope.mesaj=data;
@@ -127,7 +127,8 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
       });
 
       res.error(function (data,status,headers,config) {
-         alert("Error on request") ;
+         alert("Error on request"+status) ;
+
       });
 
   }
