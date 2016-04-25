@@ -95,4 +95,41 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
 			console.log("An error happened -> " + error);
         });
     };
+}])
+
+.config(function($httpProvider) {
+    //Enable cross domain calls
+   //  $httpProvider.defaults.useXDomain = true;
+ 
+    //Remove the header containing XMLHttpRequest used to identify ajax call 
+    //that would prevent CORS from working
+    delete $httpProvider.defaults.headers.common['X-Requested-With'];
+})
+
+.controller("registerPerson",['$scope','$http',function($scope,$http) {
+
+
+  $scope.register=function () {
+
+      var obj={ nume:'Ciprian',
+                prenume:'Lazar'};
+
+      var res=$http.post('http://192.168.0.102:80',obj);
+      res.success(function (data,status,headers,confir) {
+         $scope.mesaj=data; 
+      });
+
+      res.error(function (data,status,headers,confir) {
+         alert("Error on request") ;
+      });
+
+
+     console.log($scope.mesaj);
+     alert($scope.mesaj);
+  }
+
+  
+
+
 }]);
+
