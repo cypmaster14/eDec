@@ -100,6 +100,8 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
 .config(function($httpProvider) {
     //Enable cross domain calls
    //  $httpProvider.defaults.useXDomain = true;
+
+   //$httpProvider.defaults.headers.post['Content-Type'] = 'application/json; charset=utf-8';
  
     //Remove the header containing XMLHttpRequest used to identify ajax call 
     //that would prevent CORS from working
@@ -114,18 +116,20 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
       var obj={ nume:'Ciprian',
                 prenume:'Lazar'};
 
-      var res=$http.post('http://192.168.0.102:80',obj);
-      res.success(function (data,status,headers,confir) {
-         $scope.mesaj=data; 
+
+      var res=$http.post('http://172.17.254.163:80',obj);
+      res.success(function (data,status,headers,config) {
+        if (status == 200) {
+          $scope.mesaj=data;
+          console.log($scope.mesaj.user);
+          alert($scope.mesaj.pass);
+        }
       });
 
-      res.error(function (data,status,headers,confir) {
+      res.error(function (data,status,headers,config) {
          alert("Error on request") ;
       });
 
-
-     console.log($scope.mesaj);
-     alert($scope.mesaj);
   }
 
   
