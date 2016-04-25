@@ -1,0 +1,130 @@
+   
+	 <div style="">
+            <header id="first">
+                <img src="img/tommy.png" alt="Poza">
+                <p id="numeProdus" style="padding-top: 55px">
+                   Tomy ketchup
+                </p>
+
+                <p id="pretProdus">
+                    9.48 lei
+                </p>
+
+                <div class="acidjs-rating-stars acidjs-rating-disabled">
+                    <form>
+                        <input disabled="disabled" type="radio" name="group-3" id="group-3-0" value="5" /><label for="group-3-0"></label>
+                        <input disabled="disabled" type="radio"  name="group-3" id="group-3-1" value="4" /><label for="group-3-1"></label>
+                        <input disabled="disabled" type="radio" checked="checked" name="group-3" id="group-3-2" value="3" /><label for="group-3-2"></label>
+                        <input disabled="disabled" type="radio" name="group-3" id="group-3-3" value="2" /><label for="group-3-3"></label>
+                        <input disabled="disabled" type="radio" name="group-3" id="group-3-4"  value="1" /><label for="group-3-4"></label>
+                    </form>
+                </div>
+            </header>
+        </div>
+        <div  class="spacer"></div>
+        <div style="font-size:18px">
+            <section id="second">
+                <p>
+                    Barcode:
+                    <span id="barcode">{{barcode}}</span>
+                </p>
+                <p>
+                    Weight:(kg/l):
+                    <span id="greutate"> 1.00 </span>
+                </p>
+
+
+            </section>
+        </div>
+        <div style="">
+            <div id="third">
+                <button id="buton_ingrediente" onclick = "$('.ingredient').fadeToggle();" >Ingredients</button>
+				
+                <br>                
+                <div class="ingredient" id="div1" >
+                    <img src="img/like_image.png" alt="like" >
+                    <img src="img/unlike_image.png" alt="like" >
+                    <p>
+                        Glutamat de sodiu(E541)
+                    </p>
+
+                </div>
+                <div class="ingredient" >
+                    <img src="img/like_image.png" alt="like" >
+                    <img src="img/unlike_image.png" alt="like" >
+                    <p >
+                        Glutamat de potasiu(E547)
+                    </p>
+                </div>
+
+                <div class="ingredient" >
+                    <img src="img/like_image.png" alt="like" >
+                    <img src="img/unlike_image.png" alt="like" >
+                    <p >
+                        Praf de ceapa(E57)
+                    </p>
+                </div>
+
+                <button id="buton_pareri" onclick = "$('.parere').fadeToggle();">Consumer Opinion</button>
+                <br> 
+
+                <div class="parere" id="div1" >
+                    <textarea name="comenatriu" rows="4" col="50" placeholder="Comentariu" ></textarea>
+                    <button id="post_comment"> Post </button>
+					<div class="opinie_utilizator">
+                       
+                        <div class="acidjs-rating-stars acidjs-rating-disabled">
+                            <form>
+                            <input disabled="disabled" type="radio" name="group-3" id="group-3-0" value="5" /><label for="group-3-0"></label>
+                            <input disabled="disabled" type="radio"  name="group-3" id="group-3-1" value="4" /><label for="group-3-1"></label>
+                            <input disabled="disabled" type="radio"  name="group-3" id="group-3-2" value="3" /><label for="group-3-2"></label>
+                            <input disabled="disabled" type="radio" name="group-3" id="group-3-3" value="2" /><label for="group-3-3"></label>
+                            <input disabled="disabled" type="radio" checked="checked" name="group-3" id="group-3-4"  value="1" /><label for="group-3-4"></label>
+                            </form>
+                        </div>
+                        <article>
+                            Nu merita banii
+                        </article>
+
+                        <p class="typo name-date"><span>4/9/2015 3:32:24 PM</span>|<span>Valentin Iulian</span></p>
+
+                        <hr>
+                     </div>
+                     <div class="opinie_utilizator">
+                        
+                         <div class="acidjs-rating-stars acidjs-rating-disabled">
+                            <form>
+                            <input disabled="disabled" type="radio" name="group-3" id="group-3-0" value="5" /><label for="group-3-0"></label>
+                            <input disabled="disabled" type="radio" checked="checked" name="group-3" id="group-3-1" value="4" /><label for="group-3-1"></label>
+                            <input disabled="disabled" type="radio"  name="group-3" id="group-3-2" value="3" /><label for="group-3-2"></label>
+                            <input disabled="disabled" type="radio" name="group-3" id="group-3-3" value="2" /><label for="group-3-3"></label>
+                            <input disabled="disabled" type="radio"  name="group-3" id="group-3-4"  value="1" /><label for="group-3-4"></label>
+                            </form>
+                        </div>
+
+                        <article>
+                            Foarte bun pentru copii
+                        </article>
+                        
+                       <p class="typo name-date">
+
+                            <span>2/12/2015 12:28:33 PM</span>|<span>Cezar Voinea</span>
+                        </p>
+
+                        <hr>
+                    </div>
+				</div>
+				<button id="buton_campanie" onclick = "$('.campanie').fadeToggle();">Product Campaign</button>
+				
+				<button id="button_produse_similare" onclick="$('.produse_similare').fadeToggle();"> Similar Products</button>
+                <div class="produse_similare" >             
+
+                    <p> Heinz Ketchup </p>
+                    <p> La minut </p>
+
+                </div>
+
+
+
+            </div>
+        </div>

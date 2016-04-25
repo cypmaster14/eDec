@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "C:\\Users\\George\\Desktop\\eDec-master\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\icon.png",
+        "source": "C:\\Users\\George\\Desktop\\eDec-master\\platforms\\android\\res\\drawable-xxhdpi\\icon.png"
+    },
+    {
+        "merged": "C:\\Users\\George\\Desktop\\eDec-master\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\launcher_icon.png",
+        "source": "C:\\Users\\George\\Desktop\\eDec-master\\platforms\\android\\res\\drawable-xxhdpi\\launcher_icon.png"
+    }
+]

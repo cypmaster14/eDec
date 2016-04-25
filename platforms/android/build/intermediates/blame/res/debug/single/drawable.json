@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "C:\\Users\\George\\Desktop\\eDec-master\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\drawable\\shopper_icon.png",
+        "source": "C:\\Users\\George\\Desktop\\eDec-master\\platforms\\android\\res\\drawable\\shopper_icon.png"
+    },
+    {
+        "merged": "C:\\Users\\George\\Desktop\\eDec-master\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\drawable\\launcher_icon.png",
+        "source": "C:\\Users\\George\\Desktop\\eDec-master\\platforms\\android\\res\\drawable\\launcher_icon.png"
+    },
+    {
+        "merged": "C:\\Users\\George\\Desktop\\eDec-master\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\drawable\\share_via_barcode.png",
+        "source": "C:\\Users\\George\\Desktop\\eDec-master\\platforms\\android\\res\\drawable\\share_via_barcode.png"
+    }
+]
