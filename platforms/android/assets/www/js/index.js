@@ -117,7 +117,7 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
                 prenume:'Lazar'};
 
 
-      var res=$http.post('http://127.0.0.1:80',obj);
+      var res=$http.post('https://nodeserve-cypmaster14.c9users.io',obj);
       res.success(function (data,status,headers,config) {
         if (status == 200) {
           $scope.mesaj=data;
