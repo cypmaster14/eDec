@@ -1,26 +1,28 @@
 
 <div id="register_page" ng-controller="registerPerson">
 	<h1  id="titluRegister"> EDeC </h1>
-	<form  class="list ng-pristine ng-valid">
-            <div class="list inputRegister">
-              <label class="item item-input" class="inputRegister" >
+	<form class="list ng-pristine ng-valid" name="registration">
+            <div class="ion-list">
+             <label class="item item-input item-floating-label">
+                <i class="icon ion-ios-email placeholder-icon"></i>
                 <span class="input-label">Email</span>
-                <input type="text" id="email">
+                <input type="email" placeholder="Email" autocorrect="off" autocapitalize="off" ng-model="email">
               </label>
-
-              <label class="item item-input">
+              <label class="item item-input item-floating-label">
+                <i class="icon ion-android-person placeholder-icon"></i>
                 <span class="input-label">FirstName</span>
-                <input type="text" id="firstname">
+                <input type="text" placeholder="FirstName" ng-model="firstName" >
               </label>
 
-              <label class="item item-input">
+              <label class="item item-input item-floating-label">
+                <i class="icon ion-android-person placeholder-icon"></i>
                 <span class="input-label">LastName</span>
-                <input type="text" id="lastname">
+                <input type="text" placeholder="LastName" autocorrect="off" autocapitalize="off" ng-model="lastName">
               </label>
-
-              <label class="item item-input">
+              <label class="item item-input item-floating-label">
+                <i class="icon ion-locked placeholder-icon"></i>
                 <span class="input-label">Password</span>
-                <input type="password" id="password">
+                <input type="password" placeholder="Password" ng-model="password">
               </label>
             </div>
 

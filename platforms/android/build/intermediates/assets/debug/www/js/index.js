@@ -110,19 +110,38 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
 
 .controller("registerPerson",['$scope','$http',function($scope,$http) {
 
+  
+
 
   $scope.register=function () {
 
-      var obj={ nume:'Ciprian',
-                prenume:'Lazar'};
+    if(!$scope.email || !$scope.firstName || !$scope.lastName || !$scope.password)
+    {
 
+        alert("All field must be completede");
+        return;
+    }
 
-      var res=$http.post('http://127.0.0.1:80',obj);
+    var email=$scope.email;
+    var firstName=$scope.firstName;
+    var lastName=$scope.lastName;
+    var password=$scope.password;
+
+    var obj={ 
+                email:email,
+                firstName:firstName,
+                lastName:lastName,
+                password:password
+              };
+
+      console.log(obj);
+
+      var res=$http.post('https://nodeserve-cypmaster14.c9users.io',obj);
       res.success(function (data,status,headers,config) {
         if (status == 200) {
           $scope.mesaj=data;
-          console.log($scope.mesaj.user);
-          alert($scope.mesaj.pass);
+          console.log($scope.mesaj.email+" Text:"+$scope.mesaj.text);
+          alert($scope.mesaj.email+" Text:"+$scope.mesaj.text);
         }
       });
 

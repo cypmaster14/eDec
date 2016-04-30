@@ -11,6 +11,10 @@
                         {
                             "xml": "<feature name=\"BarcodeScanner\"><param name=\"android-package\" value=\"com.phonegap.plugins.barcodescanner.BarcodeScanner\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Whitelist\"><param name=\"android-package\" value=\"org.apache.cordova.whitelist.WhitelistPlugin\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -537,6 +541,9 @@
         },
         "phonegap-plugin-barcodescanner": {
             "PACKAGE_NAME": "com.ionicframework.test649324"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.ionicframework.test649324"
         }
     },
     "dependent_plugins": {},
@@ -551,6 +558,7 @@
     ],
     "plugin_metadata": {
         "cordova-plugin-console": "1.0.3",
-        "phonegap-plugin-barcodescanner": "4.1.0"
+        "phonegap-plugin-barcodescanner": "4.1.0",
+        "cordova-plugin-whitelist": "1.2.2"
     }
 }

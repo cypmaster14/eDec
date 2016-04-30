@@ -12,7 +12,15 @@
         "source": "C:\\Users\\George\\Desktop\\eDec\\platforms\\android\\res\\layout-land\\encode.xml"
     },
     {
+        "merged": "F:\\Ionic\\test2\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\layout-land\\share.xml",
+        "source": "F:\\Ionic\\test2\\platforms\\android\\res\\layout-land\\share.xml"
+    },
+    {
         "merged": "C:\\Users\\George\\Desktop\\eDec\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\layout-land\\share.xml",
         "source": "C:\\Users\\George\\Desktop\\eDec\\platforms\\android\\res\\layout-land\\share.xml"
+    },
+    {
+        "merged": "F:\\Ionic\\test2\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\layout-land\\encode.xml",
+        "source": "F:\\Ionic\\test2\\platforms\\android\\res\\layout-land\\encode.xml"
     }
 ]

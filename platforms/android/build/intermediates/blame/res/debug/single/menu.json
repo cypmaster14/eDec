@@ -1,7 +1,19 @@
 [
     {
+        "merged": "F:\\Ionic\\test2\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\menu\\history.xml",
+        "source": "F:\\Ionic\\test2\\platforms\\android\\res\\menu\\history.xml"
+    },
+    {
         "merged": "C:\\Users\\George\\Desktop\\eDec-master\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\menu\\capture.xml",
         "source": "C:\\Users\\George\\Desktop\\eDec-master\\platforms\\android\\res\\menu\\capture.xml"
+    },
+    {
+        "merged": "F:\\Ionic\\test2\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\menu\\encode.xml",
+        "source": "F:\\Ionic\\test2\\platforms\\android\\res\\menu\\encode.xml"
+    },
+    {
+        "merged": "F:\\Ionic\\test2\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\menu\\capture.xml",
+        "source": "F:\\Ionic\\test2\\platforms\\android\\res\\menu\\capture.xml"
     },
     {
         "merged": "C:\\Users\\George\\Desktop\\eDec\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\menu\\capture.xml",

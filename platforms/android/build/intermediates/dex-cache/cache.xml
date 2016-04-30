@@ -2,18 +2,18 @@
 <items version="2" >
 
     <item
-        jar="C:\Users\George\Desktop\eDec\platforms\android\build\intermediates\exploded-aar\android\CordovaLib\unspecified\debug\jars\classes.jar"
+        jar="F:\Ionic\test2\platforms\android\build\intermediates\exploded-aar\android\CordovaLib\unspecified\debug\jars\classes.jar"
         jumboMode="false"
         revision="23.0.3"
-        sha1="bbdb28817990b6eaf968dfb02ec32dd9eb602f3a">
-        <dex dex="C:\Users\George\Desktop\eDec\platforms\android\build\intermediates\pre-dexed\debug\CordovaLib-unspecified-debug_d60ad20f6e941c72d4214830e356ea1b0e60b8f2.jar" />
+        sha1="63589be137ad86cbf1023580c18b2c9044f0863e">
+        <dex dex="F:\Ionic\test2\platforms\android\build\intermediates\pre-dexed\debug\CordovaLib-unspecified-debug_8defcb9d32953571aacc938fd1c0be9a66a72eaa.jar" />
     </item>
     <item
-        jar="C:\Users\George\Desktop\eDec\platforms\android\libs\com.google.zxing.client.android.captureactivity.jar"
+        jar="F:\Ionic\test2\platforms\android\libs\com.google.zxing.client.android.captureactivity.jar"
         jumboMode="false"
         revision="23.0.3"
         sha1="daca75b7de34e1ca229682f2cd54b54e1c324be6">
-        <dex dex="C:\Users\George\Desktop\eDec\platforms\android\build\intermediates\pre-dexed\debug\com.google.zxing.client.android.captureactivity_6781604ccb7543b2d1c4470cf56e21f245b74720.jar" />
+        <dex dex="F:\Ionic\test2\platforms\android\build\intermediates\pre-dexed\debug\com.google.zxing.client.android.captureactivity_105ddf950640e558f48267dda0ee71ad3cce2504.jar" />
     </item>
 
 </items>

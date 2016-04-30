@@ -8,3 +8,15 @@
 	width: 283px; 
 	height: 146px;
 }
+
+
+.item-floating-label .placeholder-icon {
+  padding-right: 18px;
+  position: absolute;
+  bottom: 9px;
+  left: 17px;
+}
+
+.item-floating-label {
+  padding-left: 40px !important;
+}

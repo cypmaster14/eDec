@@ -110,19 +110,35 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
 
 .controller("registerPerson",['$scope','$http',function($scope,$http) {
 
-
   $scope.register=function () {
 
-      var obj={ nume:'Ciprian',
-                prenume:'Lazar'};
+    if(!$scope.email || !$scope.firstName || !$scope.lastName || !$scope.password)
+    {
 
+        alert("All field must be completede");
+        return;
+    }
 
-      var res=$http.post('https://nodeserve-cypmaster14.c9users.io',obj);
+    var email=$scope.email;
+    var firstName=$scope.firstName;
+    var lastName=$scope.lastName;
+    var password=$scope.password;
+
+    var obj={ 
+                email:email,
+                firstName:firstName,
+                lastName:lastName,
+                password:password
+              };
+
+      console.log(obj);
+
+      var res=$http.post('https://nodeserve-cypmaster14.c9users.io/register',obj);
       res.success(function (data,status,headers,config) {
         if (status == 200) {
           $scope.mesaj=data;
-          console.log($scope.mesaj.user);
-          alert($scope.mesaj.pass);
+          console.log($scope.mesaj.email+" Text:"+$scope.mesaj.text);
+          alert($scope.mesaj.email+" Text:"+$scope.mesaj.text);
         }
       });
 
@@ -133,8 +149,44 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
 
   }
 
-  
+}])
 
+
+.controller("logIn",['$scope','$http',function ($scope,$http) {
+   
+  $scope.login=function () {
+     
+     if(!$scope.email || !$scope.password)
+     {
+        alert("All fields must be completted");
+        return;
+     } 
+
+     var email=$scope.email;
+     var password=$scope.password;
+
+     var obj={
+                email:email,
+                password:password
+              };
+
+    console.log(obj);
+
+    var res=$http.post('https://nodeserve-cypmaster14.c9users.io/login',obj);
+
+    res.success(function (data,status,headers,config) {
+       if(status==200) //succes
+       {
+          $scope.mesaj=data;
+           console.log($scope.mesaj.email+" Text:"+$scope.mesaj.text);
+          alert($scope.mesaj.email+" Text:"+$scope.mesaj.text);
+       } 
+    });
+
+    res.error(function  (data,status,headers,config) {
+       alert("Error on request"+status+' '+headers);
+    });
+
+  }
 
 }]);
-

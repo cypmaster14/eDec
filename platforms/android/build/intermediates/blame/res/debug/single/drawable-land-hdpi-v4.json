@@ -1,5 +1,9 @@
 [
     {
+        "merged": "F:\\Ionic\\test2\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\drawable-land-hdpi-v4\\screen.png",
+        "source": "F:\\Ionic\\test2\\platforms\\android\\res\\drawable-land-hdpi\\screen.png"
+    },
+    {
         "merged": "C:\\Users\\George\\Desktop\\eDec-master\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\drawable-land-hdpi-v4\\screen.png",
         "source": "C:\\Users\\George\\Desktop\\eDec-master\\platforms\\android\\res\\drawable-land-hdpi\\screen.png"
     },

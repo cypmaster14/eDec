@@ -1,5 +1,9 @@
 [
     {
+        "merged": "F:\\Ionic\\test2\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\raw\\beep.ogg",
+        "source": "F:\\Ionic\\test2\\platforms\\android\\res\\raw\\beep.ogg"
+    },
+    {
         "merged": "C:\\Users\\George\\Desktop\\eDec-master\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\raw\\beep.ogg",
         "source": "C:\\Users\\George\\Desktop\\eDec-master\\platforms\\android\\res\\raw\\beep.ogg"
     },
