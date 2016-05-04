@@ -1,4 +1,8 @@
+
 angular.module('ionicApp', ['ionic', 'ngCordova'])
+
+
+
 
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
   $ionicConfigProvider.tabs.position('bottom');
@@ -108,14 +112,26 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
 })
 
-.controller("registerPerson",['$scope','$http',function($scope,$http) {
+.controller("registerPerson",['$scope','$http','$window', '$ionicPopup', '$timeout',function($scope,$http,$window,$ionicPopup,$timeout) {
+
+  $scope.showAlert=function(titlu,mesaj)
+  {
+      var alertPopup=$ionicPopup.alert({
+        title:titlu,
+        template:mesaj
+      });
+
+      alertPopup.then(function (res) {
+         
+      });
+  };
 
   $scope.register=function () {
 
     if(!$scope.email || !$scope.firstName || !$scope.lastName || !$scope.password)
     {
 
-        alert("All field must be completede");
+        $scope.showAlert('Try Again',"All field must be completed");
         return;
     }
 
@@ -137,8 +153,17 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
       res.success(function (data,status,headers,config) {
         if (status == 200) {
           $scope.mesaj=data;
-          console.log($scope.mesaj.email+" Text:"+$scope.mesaj.text);
-          alert($scope.mesaj.email+" Text:"+$scope.mesaj.text);
+          console.log("Text:"+$scope.mesaj.text);
+
+          if($scope.mesaj.text.localeCompare('Account created')==0)
+          {
+            $window.location.href="/#/tab/facts";
+          }
+
+          else
+          {
+            $scope.showAlert('Registration failed',$scope.mesaj.text)
+          }
         }
       });
 
@@ -152,13 +177,25 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
 }])
 
 
-.controller("logIn",['$scope','$http',function ($scope,$http) {
+.controller("logIn",['$scope','$http','$window', '$ionicPopup', '$timeout',function ($scope,$http,$window,$ionicPopup,$timeout) {
    
+  $scope.showAlert=function(titlu,mesaj)
+  {
+      var alertPopup=$ionicPopup.alert({
+        title:titlu,
+        template:mesaj
+      });
+
+        alertPopup.then(function (res) {
+         console.log("You clicked Ok"); 
+      });
+  };
+
   $scope.login=function () {
      
      if(!$scope.email || !$scope.password)
      {
-        alert("All fields must be completted");
+        $scope.showAlert("Try Again","All fields must be completted");
         return;
      } 
 
@@ -178,8 +215,15 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
        if(status==200) //succes
        {
           $scope.mesaj=data;
-           console.log($scope.mesaj.email+" Text:"+$scope.mesaj.text);
-          alert($scope.mesaj.email+" Text:"+$scope.mesaj.text);
+
+          if($scope.mesaj.text.localeCompare('Login Succes')==0)
+          {
+            $window.location.href="/#/tab/home";
+          }
+          else
+          {
+            $scope.showAlert('Login failed',$scope.mesaj.text)
+          }
        } 
     });
 
@@ -190,3 +234,5 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
   }
 
 }]);
+
+
