@@ -2,18 +2,18 @@
 <items version="2" >
 
     <item
-        jar="F:\Ionic\test2\platforms\android\build\intermediates\exploded-aar\android\CordovaLib\unspecified\debug\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.3"
-        sha1="63589be137ad86cbf1023580c18b2c9044f0863e">
-        <dex dex="F:\Ionic\test2\platforms\android\build\intermediates\pre-dexed\debug\CordovaLib-unspecified-debug_8defcb9d32953571aacc938fd1c0be9a66a72eaa.jar" />
-    </item>
-    <item
         jar="F:\Ionic\test2\platforms\android\libs\com.google.zxing.client.android.captureactivity.jar"
         jumboMode="false"
         revision="23.0.3"
         sha1="daca75b7de34e1ca229682f2cd54b54e1c324be6">
         <dex dex="F:\Ionic\test2\platforms\android\build\intermediates\pre-dexed\debug\com.google.zxing.client.android.captureactivity_105ddf950640e558f48267dda0ee71ad3cce2504.jar" />
+    </item>
+    <item
+        jar="F:\Ionic\test2\platforms\android\build\intermediates\exploded-aar\android\CordovaLib\unspecified\debug\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="63589be137ad86cbf1023580c18b2c9044f0863e">
+        <dex dex="F:\Ionic\test2\platforms\android\build\intermediates\pre-dexed\debug\CordovaLib-unspecified-debug_8defcb9d32953571aacc938fd1c0be9a66a72eaa.jar" />
     </item>
 
 </items>

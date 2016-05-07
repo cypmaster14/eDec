@@ -61,6 +61,9 @@ textarea{
 .ingredient >p ,.parere >p , .produse_similare >p, .campanie >p {
 	float:left;font-size:1.4em;margin-left:10px; padding-top:-10px
 }
+#numeIngredient{
+	margin-top: 12px;
+}
 
 .ingredient img:nth-child(odd)
 {
@@ -118,7 +121,7 @@ p.name-date {
 	color: #bfbfbf;
 }
 
-button {
+#buton_ingrediente,#buton_pareri,#buton_campanie,#button_produse_similare {
     background-color:#62a0fc;
 	-moz-border-radius:28px;
 	-webkit-border-radius:28px;
@@ -139,12 +142,12 @@ button {
 
 }
 
-button:hover
+button[id="buton_ingrediente"]:hover
 {
 	background-color:#483ede;
 }
 
-button:active
+button [id="buton_ingrediente"]:active
 {
 	position: relative;
 	top:3px;

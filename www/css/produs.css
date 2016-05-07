@@ -61,6 +61,9 @@ textarea{
 .ingredient >p ,.parere >p , .produse_similare >p, .campanie >p {
 	float:left;font-size:1.4em;margin-left:10px; padding-top:-10px
 }
+#numeIngredient{
+	margin-top: 14px;
+}
 
 .ingredient img:nth-child(odd)
 {

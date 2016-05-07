@@ -1,4 +1,8 @@
+
 angular.module('ionicApp', ['ionic', 'ngCordova'])
+
+
+
 
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
   $ionicConfigProvider.tabs.position('bottom');
@@ -80,9 +84,73 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
 .controller('HomeTabCtrl',['$scope','$state', '$stateParams',function($scope,$state,$stateParams) {
 }])
 
-.controller('ProductCtrl',['$scope','$state', '$stateParams',function($scope,$state,$stateParams) {
+.controller('ProductCtrl',['$scope','$state', '$stateParams','$http',function($scope,$state,$stateParams,$http) {
 	if ($stateParams.barcode != "empty") { 
 		$scope.barcode = $stateParams.barcode;
+
+     $scope.showAlert=function(titlu,mesaj)
+  {
+      var alertPopup=$ionicPopup.alert({
+        title:titlu,
+        template:mesaj
+      });
+
+      alertPopup.then(function (res) {
+         
+      });
+  };
+
+
+    var res=$http.get('https://nodeserve-cypmaster14.c9users.io/product?barcode='+$scope.barcode);
+
+    res.success(function (data,status,headers,config) {
+
+        if(status==200)
+        {
+          $scope.mesaj=data;
+         
+          if($scope.mesaj.mesaj.localeCompare("Gasit")==0) //produsul a fost gasit
+          {
+              alert("Produs gasit");
+              var resIngredients=$http.get('https://nodeserve-cypmaster14.c9users.io/ingredients?barcode='+$scope.barcode);
+              resIngredients.success(function (data,status,headers,config){
+
+                    if(status==200)
+                      {
+                          alert("Ingrediente gasite");
+                          $scope.ingrediente=data.ingrediente;// setez ingredientele spre a fi puse in pagina de produse
+                          
+                      }
+
+
+                  });
+
+                resIngredients.error(function (data,status,headers,config) {
+                      alert("Error on request la obtinerea ingredientelor"+status+' '+headers) ;
+
+                        });
+
+          }
+          else
+          {
+            $state.go("/tab/home");
+            $scope.showAlert("Product","Product was not found");
+          }
+        }
+
+
+    });
+
+    res.error(function (data,status,headers,config) {
+         alert("Error on request la obtinerea produsului"+status+' '+headers) ;
+
+      });
+
+
+   
+
+
+
 	}
 }])
 
@@ -108,17 +176,26 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
 })
 
-.controller("registerPerson",['$scope','$http',function($scope,$http) {
+.controller("registerPerson",['$scope','$http','$window', '$ionicPopup', '$timeout',function($scope,$http,$window,$ionicPopup,$timeout) {
 
-  
+  $scope.showAlert=function(titlu,mesaj)
+  {
+      var alertPopup=$ionicPopup.alert({
+        title:titlu,
+        template:mesaj
+      });
 
+      alertPopup.then(function (res) {
+         
+      });
+  };
 
   $scope.register=function () {
 
     if(!$scope.email || !$scope.firstName || !$scope.lastName || !$scope.password)
     {
 
-        alert("All field must be completede");
+        $scope.showAlert('Try Again',"All field must be completed");
         return;
     }
 
@@ -136,12 +213,21 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
 
       console.log(obj);
 
-      var res=$http.post('https://nodeserve-cypmaster14.c9users.io',obj);
+      var res=$http.post('https://nodeserve-cypmaster14.c9users.io/register',obj);
       res.success(function (data,status,headers,config) {
         if (status == 200) {
           $scope.mesaj=data;
-          console.log($scope.mesaj.email+" Text:"+$scope.mesaj.text);
-          alert($scope.mesaj.email+" Text:"+$scope.mesaj.text);
+          console.log("Text:"+$scope.mesaj.text);
+
+          if($scope.mesaj.text.localeCompare('Account created')==0)
+          {
+            $window.location.href="/#/tab/facts";
+          }
+
+          else
+          {
+            $scope.showAlert('Registration failed',$scope.mesaj.text)
+          }
         }
       });
 
@@ -152,8 +238,65 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
 
   }
 
-  
+}])
 
+
+.controller("logIn",['$scope','$http','$window', '$ionicPopup', '$timeout',function ($scope,$http,$window,$ionicPopup,$timeout) {
+   
+  $scope.showAlert=function(titlu,mesaj)
+  {
+      var alertPopup=$ionicPopup.alert({
+        title:titlu,
+        template:mesaj
+      });
+
+        alertPopup.then(function (res) {
+         console.log("You clicked Ok"); 
+      });
+  };
+
+  $scope.login=function () {
+     
+     if(!$scope.email || !$scope.password)
+     {
+        $scope.showAlert("Try Again","All fields must be completted");
+        return;
+     } 
+
+     var email=$scope.email;
+     var password=$scope.password;
+
+     var obj={
+                email:email,
+                password:password
+              };
+
+    console.log(obj);
+
+    var res=$http.post('https://nodeserve-cypmaster14.c9users.io/login',obj);
+
+    res.success(function (data,status,headers,config) {
+       if(status==200) //succes
+       {
+          $scope.mesaj=data;
+
+          if($scope.mesaj.text.localeCompare('Login Succes')==0)
+          {
+            $window.location.href="/#/tab/home";
+          }
+          else
+          {
+            $scope.showAlert('Login failed',$scope.mesaj.text)
+          }
+       } 
+    });
+
+    res.error(function  (data,status,headers,config) {
+       alert("Error on request"+status+' '+headers);
+    });
+
+  }
 
 }]);
+
 

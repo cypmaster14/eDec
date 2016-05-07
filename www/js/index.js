@@ -84,9 +84,73 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
 .controller('HomeTabCtrl',['$scope','$state', '$stateParams',function($scope,$state,$stateParams) {
 }])
 
-.controller('ProductCtrl',['$scope','$state', '$stateParams',function($scope,$state,$stateParams) {
+.controller('ProductCtrl',['$scope','$state', '$stateParams','$http',function($scope,$state,$stateParams,$http) {
 	if ($stateParams.barcode != "empty") { 
 		$scope.barcode = $stateParams.barcode;
+
+     $scope.showAlert=function(titlu,mesaj)
+  {
+      var alertPopup=$ionicPopup.alert({
+        title:titlu,
+        template:mesaj
+      });
+
+      alertPopup.then(function (res) {
+         
+      });
+  };
+
+
+    var res=$http.get('https://nodeserve-cypmaster14.c9users.io/product?barcode='+$scope.barcode);
+
+    res.success(function (data,status,headers,config) {
+
+        if(status==200)
+        {
+          $scope.mesaj=data;
+         
+          if($scope.mesaj.mesaj.localeCompare("Gasit")==0) //produsul a fost gasit
+          {
+              alert("Produs gasit");
+              var resIngredients=$http.get('https://nodeserve-cypmaster14.c9users.io/ingredients?barcode='+$scope.barcode);
+              resIngredients.success(function (data,status,headers,config){
+
+                    if(status==200)
+                      {
+                          alert("Ingrediente gasite");
+                          $scope.ingrediente=data.ingrediente;// setez ingredientele spre a fi puse in pagina de produse
+                          
+                      }
+
+
+                  });
+
+                resIngredients.error(function (data,status,headers,config) {
+                      alert("Error on request la obtinerea ingredientelor"+status+' '+headers) ;
+
+                        });
+
+          }
+          else
+          {
+            $state.go("/tab/home");
+            $scope.showAlert("Product","Product was not found");
+          }
+        }
+
+
+    });
+
+    res.error(function (data,status,headers,config) {
+         alert("Error on request la obtinerea produsului"+status+' '+headers) ;
+
+      });
+
+
+   
+
+
+
 	}
 }])
 

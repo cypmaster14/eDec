@@ -40,3 +40,16 @@ div.align-right { text-align:right; }
 	padding: 0 2px; 
 	background: none; 
 }
+
+.button.button-positive.activated
+{
+	background-color: #387ef5;
+
+
+}
+
+#button_nav{
+
+	
+}
+

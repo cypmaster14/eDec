@@ -1,13 +1,13 @@
    
 	 <div style="">
             <header id="first">
-                <img src="img/tommy.png" alt="Poza">
+                <img src="{{mesaj.image}}" alt="Poza">
                 <p id="numeProdus" style="padding-top: 55px">
-                   Tomy ketchup
+                   {{mesaj.name}}
                 </p>
 
                 <p id="pretProdus">
-                    9.48 lei
+                    {{mesaj.price}}
                 </p>
 
                 <div class="acidjs-rating-stars acidjs-rating-disabled">
@@ -26,11 +26,11 @@
             <section id="second">
                 <p>
                     Barcode:
-                    <span id="barcode">{{barcode}}</span>
+                    <span id="barcode">{{mesaj.barcode}}</span>
                 </p>
                 <p>
                     Weight:(kg/l):
-                    <span id="greutate"> 1.00 </span>
+                    <span id="greutate"> {{mesaj.weight}} </span>
                 </p>
 
 
@@ -39,7 +39,7 @@
         <div style="">
             <div id="third">
                 <button id="buton_ingrediente" onclick = "$('.ingredient').fadeToggle();" >Ingredients</button>
-				
+				<!--
                 <br>                
                 <div class="ingredient" id="div1" >
                     <img src="img/like_image.png" alt="like" >
@@ -64,6 +64,20 @@
                         Praf de ceapa(E57)
                     </p>
                 </div>
+                    -->
+
+                <br>
+                <div class="ingredient" id="div1" ng-repeat="ingredient in ingrediente">
+                     <img src="img/like_image.png" alt="like" >
+                    <img src="img/unlike_image.png" alt="like" >
+                    <p id="numeIngredient">
+                        {{ingredient.name}}
+                    </p>
+                    
+
+
+                </div>
+
 
                 <button id="buton_pareri" onclick = "$('.parere').fadeToggle();">Consumer Opinion</button>
                 <br> 
