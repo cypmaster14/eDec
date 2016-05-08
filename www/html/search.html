@@ -1,4 +1,4 @@
-<div id="searchPage" ng-controller="searchProduct">
+<div id="searchPage" ng-controller="searchProduct" ng-init="cautat=false;paginaExista=false;existaNext=false;existaPrevious=false; numarProduse=0 ">
 
 	<div class="bar bar-header item-input-inset">
 		<label class="item-input-wrapper">
@@ -11,22 +11,30 @@
 
 	</div>
 
-	<div id="produs" ng-repeat="product in products">
 	
-		<div id="produs">
-			 <img src="{{product.image}}" alt="Image" id="searchPage">
-			 <div id="informatiiProdus">
-			 	<p id="productName"> {{product.name}} </p>
-			 	<p id="productPrice"> {{product.price}}</p>
-			 </div>
+		<ion-list ng-show="cautat">
 			 
-			 
-		 </div>
-		 <div  class="spacer"></div>
-		 <hr class="style-six">
+			<ion-item id="produs" ng-repeat="product in products"  ng-click="clickOnProduct({{product.barcode}})">
+				<div id="produs">
+					 <img src="{{product.image}}" alt="Image" id="searchPage">
+					 <div id="informatiiProdus">
+					 	<p id="productName"> {{product.name}} </p>
+					 	<p id="productPrice"> {{product.price}}</p>
+					 </div>
+				 
+			 	</div>
+			 </ion-item>
+		 	
+		
+		</ion-list>
+
+		<ul id="navigation" ng-show="paginaExista">
+			<li class="left" ng-show="existaPrevious"> <button ng-click="previous()" >Back </button></li>
+			<li class="right" ng-show="existaNext"> <button ng-click="search()" > Next</button> </li>
+		</ul>
 
 
-
-	</div>
+	
+	
 
 </div>

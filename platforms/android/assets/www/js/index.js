@@ -2,6 +2,7 @@
 angular.module('ionicApp', ['ionic', 'ngCordova'])
 
 .value('pagina',1)
+.value('produs','')
 
 
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
@@ -241,8 +242,11 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
 }])
 
 
-.controller("searchProduct",['$scope','$http','$window', '$ionicPopup', '$timeout','pagina',function ($scope,$http,$window,$ionicPopup,$timeout,pagina) {
+.controller("searchProduct",['$scope','$http','$window', '$ionicPopup', '$timeout','pagina','produs',function ($scope,$http,$window,$ionicPopup,$timeout,pagina,produs) {
   
+
+  $scope.products=[];
+
   $scope.showAlert=function(titlu,mesaj)
   {
       var alertPopup=$ionicPopup.alert({
@@ -255,11 +259,73 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
       });
   };
 
+  $scope.clickOnProduct=function (produs) {
+     
+     alert("Click on "+produs)
+  };
+
+
+  $scope.previous=function () {
+     pagina=pagina-2;
+     $scope.search();
+  };
 
 
   $scope.search=function () {
      
+      $scope.cautat=true;
+      $scope.aux=0;
+
+
+      if(produs.localeCompare($scope.searchedProduct)==0)
+      {
+        pagina=pagina+1;
+      }
+      else
+      {
+        produs=$scope.searchedProduct;
+        pagina=1;
+      }
       $scope.showAlert('Search','You search'+$scope.searchedProduct+" pagina"+pagina);
+
+
+      if(1==1)
+      {
+        var numarProduse=$http.get('https://nodeserve-cypmaster14.c9users.io/numarProduse?product='+$scope.searchedProduct);
+
+        numarProduse.success( function (data,status,headers,config) {
+
+          if(status==200)
+           {
+              $scope.nrProduse=data.linii;
+               if(data.linii!=0)
+               {
+                 console.log("Numar produse in functie:"+$scope.nrProduse);
+                 console.log("Pagina:"+pagina);
+                  if(pagina*10-10<=0)
+                      $scope.existaPrevious=false;
+                  else
+                      $scope.existaPrevious=true;
+
+                  if(pagina*10<data.linii)
+                     $scope.existaNext=true;
+                   else
+                       $scope.existaNext=false;
+               }
+
+               console.log("Next:"+$scope.existaNext);
+               console.log("Previous:"+$scope.existaPrevious);
+
+          }
+       });
+
+       numarProduse.error(function  (data,status,headers,config) {
+               $scope.showAlert("Error on request",status+' '+headers);
+            });
+
+
+      }
+
 
 
       var res=$http.get('https://nodeserve-cypmaster14.c9users.io/products?product='+$scope.searchedProduct+"&pagina="+pagina);
@@ -271,11 +337,20 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
               $scope.text=data.text;
               if($scope.text.localeCompare("Gasit")==0) //produsul a fost gasit
               {
+                  
                   $scope.products=data.products;
+                  $scope.paginaExista=true;
+                  console.log($scope.paginaExista);
+                  console.log("Numar produse in afara:"+$scope.nrProduse);
+
+                  
+
+                  console.log("next:" +$scope.existaNext);
+                  console.log("previous:" +$scope.existaPrevious);
               }
               else
               {
-                $scope.shoWAlert("Find","Product was not found");
+                $scope.showAlert("Find","Product was not found");
               }
           }
 
