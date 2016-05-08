@@ -1,7 +1,7 @@
 
 angular.module('ionicApp', ['ionic', 'ngCordova'])
 
-
+.value('pagina',1)
 
 
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
@@ -235,6 +235,57 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
          alert("Error on request"+status+' '+headers) ;
 
       });
+
+  }
+
+}])
+
+
+.controller("searchProduct",['$scope','$http','$window', '$ionicPopup', '$timeout','pagina',function ($scope,$http,$window,$ionicPopup,$timeout,pagina) {
+  
+  $scope.showAlert=function(titlu,mesaj)
+  {
+      var alertPopup=$ionicPopup.alert({
+        title:titlu,
+        template:mesaj
+      });
+
+        alertPopup.then(function (res) {
+         console.log("You clicked Ok"); 
+      });
+  };
+
+
+
+  $scope.search=function () {
+     
+      $scope.showAlert('Search','You search'+$scope.searchedProduct+" pagina"+pagina);
+
+
+      var res=$http.get('https://nodeserve-cypmaster14.c9users.io/products?product='+$scope.searchedProduct+"&pagina="+pagina);
+
+      res.success(function (data,status,headers,config) {
+         
+          if(status==200)
+          {
+              $scope.text=data.text;
+              if($scope.text.localeCompare("Gasit")==0) //produsul a fost gasit
+              {
+                  $scope.products=data.products;
+              }
+              else
+              {
+                $scope.shoWAlert("Find","Product was not found");
+              }
+          }
+
+      });
+
+      res.error(function  (data,status,headers,config) {
+            $scope.showAlert("Error on request",status+' '+headers);
+        });
+
+
 
   }
 

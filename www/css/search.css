@@ -1,0 +1,23 @@
+#searchPage  img {
+	clear:left;
+	float:left;
+	width:7em;
+	height:12em;
+	margin-right:30px;;
+}
+
+#productName , $productPage{
+	float: left;
+}
+
+#informatiiProdus{
+
+	margin-top: 50px;
+}
+
+
+#searchPage div.spacer{
+	height: 10px;
+	width: 100%;
+	clear:both;
+}
