@@ -242,7 +242,7 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
 }])
 
 
-.controller("searchProduct",['$scope','$http','$window', '$ionicPopup', '$timeout','pagina','produs',function ($scope,$http,$window,$ionicPopup,$timeout,pagina,produs) {
+.controller("searchProduct",['$scope','$http','$window', '$ionicPopup','$anchorScroll', '$timeout','pagina','produs',function ($scope,$http,$window,$ionicPopup,$anchorScroll,$timeout,pagina,produs) {
   
 
   $scope.products=[];
@@ -268,6 +268,7 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
   $scope.previous=function () {
      pagina=pagina-2;
      $scope.search();
+     $anchorScroll('top-nav');
   };
 
 
@@ -302,7 +303,7 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
                {
                  console.log("Numar produse in functie:"+$scope.nrProduse);
                  console.log("Pagina:"+pagina);
-                  if(pagina*10-10<=0)
+                  if(pagina*10-10<=0) // am pus 10 pt ca am 10 produse pe pagina daca vreau sa modific trebuie sa modific si din serve
                       $scope.existaPrevious=false;
                   else
                       $scope.existaPrevious=true;
@@ -315,6 +316,7 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
 
                console.log("Next:"+$scope.existaNext);
                console.log("Previous:"+$scope.existaPrevious);
+               $anchorScroll('top-nav');
 
           }
        });
