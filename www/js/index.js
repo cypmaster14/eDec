@@ -1,4 +1,5 @@
 
+
 angular.module('ionicApp', ['ionic', 'ngCordova'])
 
 .value('pagina',1)
@@ -82,24 +83,78 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
 
 
 
-.controller('HomeTabCtrl',['$scope','$state', '$stateParams',function($scope,$state,$stateParams) {
+.controller('HomeTabCtrl',['$scope','$state', '$stateParams', '$ionicPopup', '$timeout',function($scope,$state,$stateParams,$ionicPopup,$timeout) {
+
+   $scope.showAlert=function(titlu,mesaj)
+    {
+        var alertPopup=$ionicPopup.alert({
+          title:titlu,
+          template:mesaj
+        });
+
+        alertPopup.then(function (res) {
+           
+        });
+    };
+
+  $scope.afiseaza=function () {
+     $scope.showAlert('AAA','mesaj');
+  }
 }])
 
-.controller('ProductCtrl',['$scope','$state', '$stateParams','$http',function($scope,$state,$stateParams,$http) {
+.controller('ProductCtrl',['$scope','$state', '$stateParams','$http', '$ionicPopup', '$timeout',function($scope,$state,$stateParams,$http,$ionicPopup,$timeout) {
 	if ($stateParams.barcode != "empty") { 
 		$scope.barcode = $stateParams.barcode;
 
      $scope.showAlert=function(titlu,mesaj)
-  {
-      var alertPopup=$ionicPopup.alert({
-        title:titlu,
-        template:mesaj
+    {
+        var alertPopup=$ionicPopup.alert({
+          title:titlu,
+          template:mesaj
+        });
+
+        alertPopup.then(function (res) {
+           
+        });
+    };
+
+  $scope.likeImage=function (ingredient,optiune) {
+
+     $scope.showAlert(optiune,ingredient);
+     var obj={
+                ingredient:ingredient,
+                user:'cypmaster14',            
+                optiune:optiune
+     };
+     var res=$http.post('https://nodeserve-cypmaster14.c9users.io/optiuneIngredient',obj);
+
+     res.success(function (data,status,headers,config) {
+
+          if(status==200)
+          {
+            $scope.showAlert('Optiune',opriune+' trimisa cu succes');
+          }
+
+          else
+          {
+            $scope.showAlert("Product","Probleme la votarea optiunii");
+          }
+
+    });
+
+
+    res.error(function (data,status,headers,config) {
+         alert("Error on request la trimiterea optiunii asupra ingredientului"+status+' '+headers) ;
+
       });
 
-      alertPopup.then(function (res) {
-         
-      });
+
   };
+
+  $scope.dislikeImage=function(ingredient){
+    alert('Dislike'+ingredient);
+  };
+
 
 
     var res=$http.get('https://nodeserve-cypmaster14.c9users.io/product?barcode='+$scope.barcode);
@@ -112,13 +167,13 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
          
           if($scope.mesaj.mesaj.localeCompare("Gasit")==0) //produsul a fost gasit
           {
-              alert("Produs gasit");
+              $scope.showAlert("Produs","Produs gasit");
               var resIngredients=$http.get('https://nodeserve-cypmaster14.c9users.io/ingredients?barcode='+$scope.barcode);
               resIngredients.success(function (data,status,headers,config){
 
                     if(status==200)
                       {
-                          alert("Ingrediente gasite");
+                          $scope.showAlert("Ingrediente gasite");
                           $scope.ingrediente=data.ingrediente;// setez ingredientele spre a fi puse in pagina de produse
                           
                       }
