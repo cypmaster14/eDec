@@ -297,7 +297,7 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
 }])
 
 
-.controller("searchProduct",['$scope','$http','$window', '$ionicPopup','$anchorScroll', '$timeout','pagina','produs',function ($scope,$http,$window,$ionicPopup,$anchorScroll,$timeout,pagina,produs) {
+.controller("searchProduct",['$scope','$http','$window', '$ionicPopup','$anchorScroll', '$timeout','$state','pagina','produs',function ($scope,$http,$window,$ionicPopup,$anchorScroll,$timeout,$state,pagina,produs) {
   
 
   $scope.products=[];
@@ -316,7 +316,7 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
 
   $scope.clickOnProduct=function (produs) {
      
-     alert("Click on "+produs)
+     $state.go("tabs.product",{'ok':'ok','barcode':produs});
   };
 
 
