@@ -85,7 +85,7 @@
                 <div class="parere" id="div1" >
                     <textarea name="comenatriu" rows="4" col="50" placeholder="Comentariu" ></textarea>
                     <button id="post_comment"> Post </button>
-					<div class="opinie_utilizator">
+					<div class="opinie_utilizator" ng-repeat="comentariu in comentarii">
                        
                         <div class="acidjs-rating-stars acidjs-rating-disabled">
                             <form>
@@ -97,36 +97,13 @@
                             </form>
                         </div>
                         <article>
-                            Nu merita banii
+                            {{comentariu.content}}
                         </article>
 
-                        <p class="typo name-date"><span>4/9/2015 3:32:24 PM</span>|<span>Valentin Iulian</span></p>
+                        <p class="typo name-date"><span>{{comentariu.data}}</span>|<span>{{comentariu.prenume}} {{comentariu.nume}}</span></p>
 
                         <hr>
-                     </div>
-                     <div class="opinie_utilizator">
-                        
-                         <div class="acidjs-rating-stars acidjs-rating-disabled">
-                            <form>
-                            <input disabled="disabled" type="radio" name="group-3" id="group-3-0" value="5" /><label for="group-3-0"></label>
-                            <input disabled="disabled" type="radio" checked="checked" name="group-3" id="group-3-1" value="4" /><label for="group-3-1"></label>
-                            <input disabled="disabled" type="radio"  name="group-3" id="group-3-2" value="3" /><label for="group-3-2"></label>
-                            <input disabled="disabled" type="radio" name="group-3" id="group-3-3" value="2" /><label for="group-3-3"></label>
-                            <input disabled="disabled" type="radio"  name="group-3" id="group-3-4"  value="1" /><label for="group-3-4"></label>
-                            </form>
-                        </div>
-
-                        <article>
-                            Foarte bun pentru copii
-                        </article>
-                        
-                       <p class="typo name-date">
-
-                            <span>2/12/2015 12:28:33 PM</span>|<span>Cezar Voinea</span>
-                        </p>
-
-                        <hr>
-                    </div>
+                     </div>                     
 				</div>
 				<button id="buton_campanie" onclick = "$('.campanie').fadeToggle();">Product Campaign</button>
 				

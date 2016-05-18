@@ -4,7 +4,8 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
 
 .value('pagina',1)
 .value('produs','')
-
+.value('logat','true')
+.value('user',"")
 
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
   $ionicConfigProvider.tabs.position('bottom');
@@ -175,6 +176,27 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
                       {
                           $scope.showAlert("Ingrediente gasite");
                           $scope.ingrediente=data.ingrediente;// setez ingredientele spre a fi puse in pagina de produse
+
+                          var resComments=$http.get('https://nodeserve-cypmaster14.c9users.io/reviews?barcode='+$scope.barcode);
+
+                          resComments.success(function (data,status,headers,config){
+
+                              if(status==200)
+                              {
+                                $scope.showAlert("Comentarii Primite");
+                                if(data.comentarii.length>0)
+                                  $scope.comentarii=data.comentarii;
+                              }
+
+                          });
+
+                          resComments.error(function (data,status,headers,config) {
+                                  alert("Error on request la obtinerea comentariilor"+status+' '+headers) ;
+
+                        });
+
+
+
                           
                       }
 
@@ -277,6 +299,7 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
 
           if($scope.mesaj.text.localeCompare('Account created')==0)
           {
+            $scope.showAlert('Register','Succes');
             $window.location.href="/#/tab/facts";
           }
 
@@ -424,7 +447,7 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
 }])
 
 
-.controller("logIn",['$scope','$http','$window', '$ionicPopup', '$timeout',function ($scope,$http,$window,$ionicPopup,$timeout) {
+.controller("logIn",['$scope','$http','$window', '$ionicPopup', '$timeout','logat','user',function ($scope,$http,$window,$ionicPopup,$timeout,logat,user) {
    
   $scope.showAlert=function(titlu,mesaj)
   {
@@ -465,6 +488,10 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
 
           if($scope.mesaj.text.localeCompare('Login Succes')==0)
           {
+            logat=true;
+            $scope.logat=true;
+            user=obj.email;
+            $scope.showAlert('Login','Loged as '+user+"(Log="+logat+")");
             $window.location.href="/#/tab/home";
           }
           else
