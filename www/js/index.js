@@ -4,12 +4,14 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
 
 .value('pagina',1)
 .value('produs','')
-.value('logat','true')
+.value('logat',false)
 .value('user',"")
+
+
 
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
   $ionicConfigProvider.tabs.position('bottom');
-  
+
   $stateProvider
     .state('tabs', {
       url: "/tab",
@@ -36,7 +38,7 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
     })
 
     .state('tabs.register',{
-      url:"/register",      
+      url:"/register",
       views: {
         'home-tab': {
           templateUrl: "templates/register.html"
@@ -65,7 +67,7 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
         }
       }
     })
-    
+
 
 	.state('tabs.scan', {
       url: "/scan",
@@ -94,17 +96,17 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
         });
 
         alertPopup.then(function (res) {
-           
+
         });
     };
 
-  $scope.afiseaza=function () {
-     $scope.showAlert('AAA','mesaj');
-  }
+
+
+
 }])
 
-.controller('ProductCtrl',['$scope','$state', '$stateParams','$http', '$ionicPopup', '$timeout',function($scope,$state,$stateParams,$http,$ionicPopup,$timeout) {
-	if ($stateParams.barcode != "empty") { 
+.controller('ProductCtrl',['$scope','$state', '$stateParams','$http', '$ionicPopup', '$timeout','$rootScope','logat','user',function($scope,$state,$stateParams,$http,$ionicPopup,$timeout,$rootScope,logat,user) {
+	if ($stateParams.barcode != "empty") {
 		$scope.barcode = $stateParams.barcode;
 
      $scope.showAlert=function(titlu,mesaj)
@@ -115,7 +117,7 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
         });
 
         alertPopup.then(function (res) {
-           
+
         });
     };
 
@@ -124,7 +126,7 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
      $scope.showAlert(optiune,ingredient);
      var obj={
                 ingredient:ingredient,
-                user:'cypmaster14',            
+                user:'cypmaster14',
                 optiune:optiune
      };
      var res=$http.post('https://nodeserve-cypmaster14.c9users.io/optiuneIngredient',obj);
@@ -152,8 +154,69 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
 
   };
 
-  $scope.dislikeImage=function(ingredient){
-    alert('Dislike'+ingredient);
+  $scope.postareComentariu=function()
+  {
+    console.log($rootScope.logat);
+    console.log($rootScope.user);
+    if(!$rootScope.logat || $rootScope.logat==false)
+    {
+      $scope.showAlert('LogIn','You must login first');
+      return;
+    }
+    else if($scope.iol.length!=0)
+    { 
+
+      console.log($rootScope.logat);
+      var review= $scope.iol
+      if(review.length==0)
+      {
+        $scope.showAlert('Review','Insert a review');
+        return;
+      }
+      $scope.showAlert('Postare comentariu','('+$rootScope.user+')Mesaj:'+review);
+      console.log('Email:'+$rootScope.user);
+      console.log('Barcode:'+$scope.barcode);
+      console.log('Comentariu:'+review);
+
+      var obj={
+                  email:$rootScope.user,
+                  barcode:$scope.barcode,
+                  review:review
+              };
+
+      var res=$http.post('https://nodeserve-cypmaster14.c9users.io/adaugaComentariu',obj);
+      res.success (function (data,status,headers,config) {
+         
+         if(status==200)
+         {
+            $scope.showAlert('Titlu','Mesajul a fost postat cu succes');
+            var resComments=$http.get('https://nodeserve-cypmaster14.c9users.io/reviews?barcode='+$scope.barcode);
+
+                          resComments.success(function (data,status,headers,config){
+
+                              if(status==200)
+                              {
+                                $scope.showAlert("Comentarii Primite");
+                                if(data.comentarii.length>0)
+                                  $scope.comentarii=data.comentarii;
+                              }
+
+                          });
+
+                          resComments.error(function (data,status,headers,config) {
+                                  alert("Error on request la obtinerea comentariilor"+status+' '+headers) ;
+
+                        });
+         }
+      });
+
+      res.error(function (data,status,headers,config) {
+         alert("Error on request postarea comentariului"+status+' '+headers) ;
+
+      });
+
+    }
+    
   };
 
 
@@ -165,7 +228,7 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
         if(status==200)
         {
           $scope.mesaj=data;
-         
+
           if($scope.mesaj.mesaj.localeCompare("Gasit")==0) //produsul a fost gasit
           {
               $scope.showAlert("Produs","Produs gasit");
@@ -197,7 +260,7 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
 
 
 
-                          
+
                       }
 
 
@@ -225,7 +288,7 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
       });
 
 
-   
+
 
 
 
@@ -248,8 +311,8 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
    //  $httpProvider.defaults.useXDomain = true;
 
    //$httpProvider.defaults.headers.post['Content-Type'] = 'application/json; charset=utf-8';
- 
-    //Remove the header containing XMLHttpRequest used to identify ajax call 
+
+    //Remove the header containing XMLHttpRequest used to identify ajax call
     //that would prevent CORS from working
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
 })
@@ -264,7 +327,7 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
       });
 
       alertPopup.then(function (res) {
-         
+
       });
   };
 
@@ -282,7 +345,7 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
     var lastName=$scope.lastName;
     var password=$scope.password;
 
-    var obj={ 
+    var obj={
                 email:email,
                 firstName:firstName,
                 lastName:lastName,
@@ -321,7 +384,7 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
 
 
 .controller("searchProduct",['$scope','$http','$window', '$ionicPopup','$anchorScroll', '$timeout','$state','pagina','produs',function ($scope,$http,$window,$ionicPopup,$anchorScroll,$timeout,$state,pagina,produs) {
-  
+
 
   $scope.products=[];
 
@@ -333,12 +396,12 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
       });
 
         alertPopup.then(function (res) {
-         console.log("You clicked Ok"); 
+         console.log("You clicked Ok");
       });
   };
 
   $scope.clickOnProduct=function (produs) {
-     
+
      $state.go("tabs.product",{'ok':'ok','barcode':produs});
   };
 
@@ -351,7 +414,7 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
 
 
   $scope.search=function () {
-     
+
       $scope.cautat=true;
       $scope.aux=0;
 
@@ -411,19 +474,19 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
       var res=$http.get('https://nodeserve-cypmaster14.c9users.io/products?product='+$scope.searchedProduct+"&pagina="+pagina);
 
       res.success(function (data,status,headers,config) {
-         
+
           if(status==200)
           {
               $scope.text=data.text;
               if($scope.text.localeCompare("Gasit")==0) //produsul a fost gasit
               {
-                  
+
                   $scope.products=data.products;
                   $scope.paginaExista=true;
                   console.log($scope.paginaExista);
                   console.log("Numar produse in afara:"+$scope.nrProduse);
 
-                  
+
 
                   console.log("next:" +$scope.existaNext);
                   console.log("previous:" +$scope.existaPrevious);
@@ -447,8 +510,8 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
 }])
 
 
-.controller("logIn",['$scope','$http','$window', '$ionicPopup', '$timeout','logat','user',function ($scope,$http,$window,$ionicPopup,$timeout,logat,user) {
-   
+.controller("logIn",['$scope','$http','$window', '$ionicPopup', '$timeout','$rootScope','logat','user',function ($scope,$http,$window,$ionicPopup,$timeout,$rootScope,logat,user) {
+
   $scope.showAlert=function(titlu,mesaj)
   {
       var alertPopup=$ionicPopup.alert({
@@ -457,17 +520,17 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
       });
 
         alertPopup.then(function (res) {
-         console.log("You clicked Ok"); 
+         console.log("You clicked Ok");
       });
   };
 
   $scope.login=function () {
-     
+
      if(!$scope.email || !$scope.password)
      {
         $scope.showAlert("Try Again","All fields must be completted");
         return;
-     } 
+     }
 
      var email=$scope.email;
      var password=$scope.password;
@@ -487,18 +550,21 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
           $scope.mesaj=data;
 
           if($scope.mesaj.text.localeCompare('Login Succes')==0)
-          {
+          {            
             logat=true;
-            $scope.logat=true;
-            user=obj.email;
-            $scope.showAlert('Login','Loged as '+user+"(Log="+logat+")");
+            $rootScope.logat=true;            
+            $rootScope.user=obj.email;
+            console.log("Nume:"+data.firstName);
+            $rootScope.firstName=data.firstName;
+            $rootScope.lastName=data.lastName;
+            $scope.showAlert('Login','Loged as '+$rootScope.user+"(Log="+$rootScope.logat+")"+$rootScope.firstName+" "+$rootScope.lastName);
             $window.location.href="/#/tab/home";
           }
           else
           {
             $scope.showAlert('Login failed',$scope.mesaj.text)
           }
-       } 
+       }
     });
 
     res.error(function  (data,status,headers,config) {

@@ -1,4 +1,4 @@
-   
+<div ng-controller="ProductCtrl">
 	 <div style="">
             <header id="first">
                 <img src="{{mesaj.image}}" alt="Poza">
@@ -20,7 +20,7 @@
                     </form>
                 </div>
             </header>
-        </div>
+    </div>
         <div  class="spacer"></div>
         <div style="font-size:18px">
             <section id="second">
@@ -40,7 +40,7 @@
             <div id="third">
                 <button id="buton_ingrediente" onclick = "$('.ingredient').fadeToggle();" >Ingredients</button>
 				<!--
-                <br>                
+                <br>
                 <div class="ingredient" id="div1" >
                     <img src="img/like_image.png" alt="like" >
                     <img src="img/unlike_image.png" alt="like" >
@@ -66,34 +66,35 @@
                 </div>
                     -->
 
-                <br>
+              <br>
                 <div class="ingredient" id="div1" ng-repeat="ingredient in ingrediente">
                      <img src="img/like_image.png" alt="like" id="{{ingredient.name}}" ng-click="likeImage('{{ingredient.name}}','like');" >
                     <img src="img/unlike_image.png" alt="like" id="{{ingredient.name}}" ng-click="likeImage({{'ingredient.name'}},'dislike');"  >
                     <p id="numeIngredient">
                         {{ingredient.name}}
                     </p>
-                    
+
 
 
                 </div>
 
 
                 <button id="buton_pareri" onclick = "$('.parere').fadeToggle();">Consumer Opinion</button>
-                <br> 
+                <br>
 
                 <div class="parere" id="div1" >
-                    <textarea name="comenatriu" rows="4" col="50" placeholder="Comentariu" ></textarea>
-                    <button id="post_comment"> Post </button>
+                    <textarea id="comment"  rows="4" col="50" placeholder="Comentariu" ng-model="iol"></textarea>
+                    <button id="post_comment" ng-click="postareComentariu()"> Post </button>
+                    <div id='comentariuNou'> </div>
 					<div class="opinie_utilizator" ng-repeat="comentariu in comentarii">
-                       
+
                         <div class="acidjs-rating-stars acidjs-rating-disabled">
                             <form>
-                            <input disabled="disabled" type="radio" name="group-3" id="group-3-0" value="5" /><label for="group-3-0"></label>
-                            <input disabled="disabled" type="radio"  name="group-3" id="group-3-1" value="4" /><label for="group-3-1"></label>
-                            <input disabled="disabled" type="radio"  name="group-3" id="group-3-2" value="3" /><label for="group-3-2"></label>
-                            <input disabled="disabled" type="radio" name="group-3" id="group-3-3" value="2" /><label for="group-3-3"></label>
-                            <input disabled="disabled" type="radio" checked="checked" name="group-3" id="group-3-4"  value="1" /><label for="group-3-4"></label>
+                                <input disabled="disabled" type="radio" name="group-3" id="group-3-0" value="5" /><label for="group-3-0"></label>
+                                <input disabled="disabled" type="radio"  name="group-3" id="group-3-1" value="4" /><label for="group-3-1"></label>
+                                <input disabled="disabled" type="radio"  name="group-3" id="group-3-2" value="3" /><label for="group-3-2"></label>
+                                <input disabled="disabled" type="radio" name="group-3" id="group-3-3" value="2" /><label for="group-3-3"></label>
+                                <input disabled="disabled" type="radio" checked="checked" name="group-3" id="group-3-4"  value="1" /><label for="group-3-4"></label>
                             </form>
                         </div>
                         <article>
@@ -103,12 +104,12 @@
                         <p class="typo name-date"><span>{{comentariu.data}}</span>|<span>{{comentariu.prenume}} {{comentariu.nume}}</span></p>
 
                         <hr>
-                     </div>                     
+                     </div>
 				</div>
 				<button id="buton_campanie" onclick = "$('.campanie').fadeToggle();">Product Campaign</button>
-				
+
 				<button id="button_produse_similare" onclick="$('.produse_similare').fadeToggle();"> Similar Products</button>
-                <div class="produse_similare" >             
+                <div class="produse_similare" >
 
                     <p> Heinz Ketchup </p>
                     <p> La minut </p>
@@ -119,3 +120,4 @@
 
             </div>
         </div>
+</div>
