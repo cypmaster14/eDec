@@ -135,7 +135,7 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
 
           if(status==200)
           {
-            $scope.showAlert('Optiune',opriune+' trimisa cu succes');
+            $scope.showAlert('Optiune',optiune+' trimisa cu succes');
           }
 
           else
