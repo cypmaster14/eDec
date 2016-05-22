@@ -2,10 +2,6 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-	
-
-
-
 
     <title>EDEC</title>
 
@@ -20,7 +16,7 @@
   <link rel="stylesheet" href="css/facts.css">
   <link rel="stylesheet" href="css/search.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    <script>+-  
+    <script>+-
         $(document).ready(function()
         {
             $("#buton_ingrediente").click(function(){
@@ -34,19 +30,19 @@
 		function ingredienteclick() {
 		    $(".ingredient").fadeToggle();
 		};
-		
-</script>  
+
+</script>
   </head>
 
   <body>
-    
+
     <ion-nav-bar class="bar-positive" >
       <ion-nav-buttons id="button_nav"  ng-hide='$rootScope.logat'>
         <a href="#/tab/facts" class="icon ion-log-in button button-positive">LogIn </a>
       </ion-nav-buttons>
     </ion-nav-bar>
-             
-    <ion-nav-view>      
+
+    <ion-nav-view>
     </ion-nav-view>
 
 
@@ -60,11 +56,11 @@
 		<ion-tab title="Scan" icon="ion-ios-barcode-outline"  href="#/tab/scan">
 			<ion-nav-view name="scan-tab"></ion-nav-view>
 		</ion-tab>
-		
+
         <ion-tab title="Search" icon="ion-ios-search-strong" href="#/tab/search">
           <ion-nav-view name="search-tab"></ion-nav-view>
-        </ion-tab>		
-		
+        </ion-tab>
+
       </ion-tabs>
     </script>
 
@@ -75,15 +71,15 @@
         </ion-content>
       </ion-view>
     </script>
-	
-	
+
+
 	<script id="templates/scan.html" type="text/ng-template">
       <ion-view view-title="Scan" ng-controller="BarCode" ng-init="scanBarcode()">
       </ion-view>
     </script>
 
-	
-	
+
+
     <script id="templates/facts.html" type="text/ng-template">
       <ion-view view-title="Authentication">
         <ion-content class="padding">
