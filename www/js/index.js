@@ -135,7 +135,7 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
 
           if(status==200)
           {
-            $scope.showAlert('Optiune',opriune+' trimisa cu succes');
+            $scope.showAlert('Optiune',optiune+' trimisa cu succes');
           }
 
           else
@@ -221,6 +221,39 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
 
 
 
+  ////Noul Request/////////////
+  var res=$http.get('https://nodeserve-cypmaster14.c9users.io/productPage?barcode='+$scope.barcode);
+
+  res.success(function (data,status,headers,config) {
+     if(status==200) 
+     {
+        if(data.mesaj.localeCompare("Gasit")==0)
+        {
+            $scope.mesaj=data;
+            $scope.showAlert("Produs","Produs gasit");
+            $scope.ingrediente=data.ingrediente;
+            $scope.showAlert("Ingrediente gasite");
+            $scope.comentarii=data.comentarii;
+            $scope.showAlert("Comentarii Primite");
+
+        }
+        else
+        {
+          $state.go("/tab/home");
+          $scope.showAlert("Product","Product was not found");
+        }
+     }
+  });
+
+  res.error(function (data,status,headers,config) {
+         alert("Error on request la obtinerea produsului"+status+' '+headers) ;
+
+      });
+
+  /////Sfarsitul Noului Request////
+
+  /*
+
     var res=$http.get('https://nodeserve-cypmaster14.c9users.io/product?barcode='+$scope.barcode);
 
     res.success(function (data,status,headers,config) {
@@ -287,12 +320,12 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
 
       });
 
+  */
 
 
 
-
-
-	}
+}
+	
 }])
 
 .controller("BarCode", ['$scope','$cordovaBarcodeScanner','$state',function($scope,$cordovaBarcodeScanner,$state) {
