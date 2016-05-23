@@ -1,5 +1,3 @@
-
-
 angular.module('ionicApp', ['ionic', 'ngCordova'])
 
 .value('pagina',1)
@@ -117,60 +115,17 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
           logat=true;
       }
     };
-    
-
-
-
 
     $scope.logout=function () {
-       $scope.showAlert('Logout','I want to leave') ;
-       //Sa fac requestul ce distruge sesiunea
-      // window.localeStorage.clear();
+      $scope.showAlert('Logout','I want to leave');
       logat=false;
+      window.localStorage.clear();
       $rootScope.logat=false;
-      /* window.localeStorage.logat=false;
-       window.localeStorage.user="";
-       window.localeStorage.firstName="";
-       window.localeStorage.lastName="";*/
-    }
+      $rootScope.user="";
+      $rootScope.firstName="";
+      $rootScope.lastName="";
 
-    //Trebuie sa fac requestul ce deschide sesiunea
-
-    $scope.initializareSesiune=function () {
-       
-        var res=$http.get('https://nodeserve-cypmaster14.c9users.io/user');
-        res.success(function (data,status,headers,config) {
-           
-           if(status==200)
-           {
-              console.log(JSON.stringify(data));
-              if(data.text.localeCompare("Este Logat")==0)
-              {
-                
-                $rootScope.logat=true;
-                $rootScope.firstName=data.first_name;
-                $rootScope.lastName=data.last_name;
-                $rootScope.email=data.email;
-                logat=true;
-                $scope.showAlert('Login','Loged as '+$rootScope.user+"(Log="+$rootScope.logat+")"+$rootScope.firstName+" "+$rootScope.lastName);
-              }
-              else{
-                $scope.showAlert('Sesiune','Nu exista niciuna');
-              }
-           }
-        });
-
-        res.error(function (data,status,headers,config) {
-          alert('Error on request for Session '+status+" "+headers);
-        });
-    
     };
-    
-
-    //alert(window.localStorage.getItem('email'));
-
-
-
 
 }])
 
@@ -240,10 +195,10 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
       return;
     }
     else if($scope.iol.length!=0)
-    { 
+    {
 
       console.log($rootScope.logat);
-      var review= $scope.iol
+      var review= $scope.iol;
       if(review.length==0)
       {
         $scope.showAlert('Review','Insert a review');
@@ -268,7 +223,7 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
       $scope.iol="";
       var res=$http.post('https://nodeserve-cypmaster14.c9users.io/adaugaComentariu',obj);
       res.success (function (data,status,headers,config) {
-         
+
          if(status==200)
          {
             $scope.showAlert('Titlu','Mesajul a fost postat cu succes');
@@ -295,10 +250,10 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
          alert("Error on request postarea comentariului"+status+' '+headers) ;
 
       });
-      
+
 
     }
-    
+
   };
 
 
@@ -307,7 +262,7 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
   var res=$http.get('https://nodeserve-cypmaster14.c9users.io/productPage?barcode='+$scope.barcode);
 
   res.success(function (data,status,headers,config) {
-     if(status==200) 
+     if(status==200)
      {
         if(data.mesaj.localeCompare("Gasit")==0)
         {
@@ -339,7 +294,7 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
 
 
 }
-	
+
 }])
 
 .controller("BarCode", ['$scope','$cordovaBarcodeScanner','$state',function($scope,$cordovaBarcodeScanner,$state) {
@@ -415,7 +370,7 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
 
           else
           {
-            $scope.showAlert('Registration failed',$scope.mesaj.text)
+            $scope.showAlert('Registration failed',$scope.mesaj.text);
           }
         }
       });
@@ -425,7 +380,7 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
 
       });
 
-  }
+  };
 
 }])
 
@@ -609,9 +564,9 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
           $scope.mesaj=data;
 
           if($scope.mesaj.text.localeCompare('Login Succes')==0)
-          {            
+          {
             logat=true;
-            $rootScope.logat=true;            
+            $rootScope.logat=true;
             $rootScope.user=obj.email;
             console.log("Nume:"+data.firstName);
             $rootScope.firstName=data.firstName;
@@ -622,12 +577,11 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
             window.localStorage.setItem("firstName",$rootScope.firstName);
             window.localStorage.setItem("lastName",$rootScope.lastName);
             window.localStorage.setItem("logat",$rootScope.logat);
-
             console.log("LocaleStorage:"+window.localStorage.getItem('email'));
           }
           else
           {
-            $scope.showAlert('Login failed',$scope.mesaj.text)
+            $scope.showAlert('Login failed',$scope.mesaj.text);
           }
        }
     });
@@ -636,11 +590,6 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
        alert("Error on request"+status+' '+headers);
     });
 
-  }
+  };
 
 }]);
-
-
-
-
-
