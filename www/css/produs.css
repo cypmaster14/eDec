@@ -28,6 +28,8 @@
 	width: unset;
 	margin-top: 0px;
 	margin-right: unset;
+	margin-left: 30px;
+	border-radius: 15px;
 }
 
 .spacer{
@@ -52,8 +54,11 @@ textarea{
 	margin:15px 0 10px 0;
 	padding: 3px;
 	resize: none;
+	border-radius:8px;
 
 }
+
+
 .ingredient , .parere, .campanie, .produse_similare{
 	clear: left;
 	display: none;

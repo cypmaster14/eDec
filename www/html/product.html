@@ -83,14 +83,23 @@
                 <br>
 
                 <div class="parere" id="div1" >
+                    <textarea id="title" rows="1" col="50" placeholder="Titlu"></textarea>
                     <textarea id="comment"  rows="4" col="50" placeholder="Comentariu" ng-model="iol"></textarea>
+                    <div class="acidjs-rating-stars">
+                            <form id="my_form">
+                                <input type="radio" name="comm" id="group-3-0" value="5"/><label ng-click='setRating(5)'></label>
+                                <input type="radio" name="comm" id="group-3-1" value="4"/><label ng-click='setRating(4)'></label>
+                                <input type="radio" name="comm" id="group-3-2" value="3"/><label ng-click='setRating(3)'></label>
+                                <input type="radio" name="comm" id="group-3-3" value="2"/><label ng-click='setRating(2)'></label>
+                                <input type="radio" name="comm" id="group-3-4" value="1" checked /><label ng-click='setRating(1)'></label>
+                            </form>
+                    </div>
                     <button id="post_comment" ng-click="postareComentariu()"> Post </button>
                     <div id='comentariuNou'> </div>
 					<div class="opinie_utilizator" ng-repeat="comentariu in comentarii">
-
                         <div class="acidjs-rating-stars acidjs-rating-disabled">
                             <form>
-                                <input disabled="disabled" type="radio" name="group-3" id="group-3-0" value="5" /><label for="group-3-0"></label>
+                                <input disabled="disabled" type="radio" name="group-3" id="group-3-0" value="5"  /><label for="group-3-0"></label>
                                 <input disabled="disabled" type="radio"  name="group-3" id="group-3-1" value="4" /><label for="group-3-1"></label>
                                 <input disabled="disabled" type="radio"  name="group-3" id="group-3-2" value="3" /><label for="group-3-2"></label>
                                 <input disabled="disabled" type="radio" name="group-3" id="group-3-3" value="2" /><label for="group-3-3"></label>
@@ -104,7 +113,7 @@
                         <p class="typo name-date"><span>{{comentariu.data}}</span>|<span>{{comentariu.prenume}} {{comentariu.nume}}</span></p>
 
                         <hr>
-                     </div>
+                    </div>
 				</div>
 				<button id="buton_campanie" onclick = "$('.campanie').fadeToggle();">Product Campaign</button>
 

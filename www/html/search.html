@@ -4,7 +4,7 @@
 			<i class="icon ion-search placeholder-icon"></i>
 			<input type="search" placeholder="Search Product" ng-model="searchedProduct">
 		</label>
-		 <button class="button button-clear icon ion-arrow-right-c" ng-click="search()">
+		 <button class="button button-clear icon ion-arrow-right-c" ng-click="search('no')"> <!-- Pun no ca atunci cand functia are no ca param sa nu interpreteza ca next -->
 		</button>
 	</div>	
 		<ion-list ng-show="cautat">
@@ -21,6 +21,6 @@
 		</ion-list>
 		<ul id="navigation" ng-show="paginaExista">
 			<li class="left" ng-show="existaPrevious"> <button ng-click="previous()" >Back </button></li>
-			<li class="right" ng-show="existaNext"> <button ng-click="search()" > Next</button> </li>
+			<li class="right" ng-show="existaNext"> <button ng-click="search('yes')" > Next</button> </li> <!-- Pun yes ca sa interpreteze ca next -->
 		</ul>
 </div>

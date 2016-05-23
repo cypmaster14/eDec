@@ -86,7 +86,7 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
 
 
 
-.controller('HomeTabCtrl',['$scope','$state', '$stateParams', '$ionicPopup', '$timeout',function($scope,$state,$stateParams,$ionicPopup,$timeout) {
+.controller('HomeTabCtrl',['$scope','$state', '$stateParams', '$ionicPopup', '$timeout','$rootScope',function($scope,$state,$stateParams,$ionicPopup,$timeout,$rootScope) {
 
    $scope.showAlert=function(titlu,mesaj)
     {
@@ -99,6 +99,19 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
 
         });
     };
+
+
+    $scope.showAlert('Stare:'+$rootScope.logat);
+
+
+    $scope.logout=function () {
+       $scope.showAlert('Logout','I want to leave') ;
+       //Sa fac requestul ce distruge sesiunea
+    }
+
+    //Trebuie sa fac requestul ce deschide sesiunea
+
+
 
 
 
@@ -154,10 +167,16 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
 
   };
 
+  $scope.ratingValue=1;
+  $scope.setRating=function(rating) {
+     $scope.ratingValue=rating;
+  };
+
   $scope.postareComentariu=function()
   {
     console.log($rootScope.logat);
     console.log($rootScope.user);
+    console.log("Scor"+$scope.ratingValue);
     if(!$rootScope.logat || $rootScope.logat==false)
     {
       $scope.showAlert('LogIn','You must login first');
@@ -239,7 +258,7 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
         }
         else
         {
-          $state.go("/tab/home");
+          $state.go("tabs.home");
           $scope.showAlert("Product","Product was not found");
         }
      }
@@ -441,26 +460,40 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
 
   $scope.previous=function () {
      pagina=pagina-2;
-     $scope.search();
+     $scope.search('yes');
      $anchorScroll('top-nav');
   };
 
 
-  $scope.search=function () {
+  $scope.search=function (option) {
 
       $scope.cautat=true;
       $scope.aux=0;
-
-
-      if(produs.localeCompare($scope.searchedProduct)==0)
+      if(!$scope.searchedProduct)
       {
-        pagina=pagina+1;
+        $scope.showAlert('Search',"Enter a product");
+        return;
       }
-      else
+
+      if(option.localeCompare('no')==0)
       {
         produs=$scope.searchedProduct;
         pagina=1;
       }
+      else
+        pagina=pagina+1;
+
+
+      // if(produs.localeCompare($scope.searchedProduct)==0)
+      // {
+
+      //   pagina=pagina+1;
+      // }
+      // else
+      // {
+      //   produs=$scope.searchedProduct;
+      //   pagina=1;
+      // }
       $scope.showAlert('Search','You search'+$scope.searchedProduct+" pagina"+pagina);
 
 
@@ -536,14 +569,12 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
             $scope.showAlert("Error on request",status+' '+headers);
         });
 
-
-
-  }
+  };
 
 }])
 
 
-.controller("logIn",['$scope','$http','$window', '$ionicPopup', '$timeout','$rootScope','logat','user',function ($scope,$http,$window,$ionicPopup,$timeout,$rootScope,logat,user) {
+.controller("logIn",['$scope','$state', '$stateParams','$http','$window', '$ionicPopup', '$timeout','$rootScope','logat','user',function ($scope,$state,$stateParams,$http,$window,$ionicPopup,$timeout,$rootScope,logat,user) {
 
   $scope.showAlert=function(titlu,mesaj)
   {
@@ -591,7 +622,7 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
             $rootScope.firstName=data.firstName;
             $rootScope.lastName=data.lastName;
             $scope.showAlert('Login','Loged as '+$rootScope.user+"(Log="+$rootScope.logat+")"+$rootScope.firstName+" "+$rootScope.lastName);
-            $window.location.href="/#/tab/home";
+            $state.go("tabs.home");
           }
           else
           {
@@ -607,5 +638,8 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
   }
 
 }]);
+
+
+
 
 
