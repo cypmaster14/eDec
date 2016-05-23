@@ -170,6 +170,7 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
   $scope.ratingValue=1;
   $scope.setRating=function(rating) {
      $scope.ratingValue=rating;
+     console.log('Modific rating:'+$scope.ratingValue);
   };
 
   $scope.postareComentariu=function()
@@ -205,9 +206,10 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
                   review:review
 
               };
-      console.log(JSON.stringify(obj));
+      console.log("Trimit obiectul:"+JSON.stringify(obj));
 
-      
+      $scope.titlu="";
+      $scope.iol="";
       var res=$http.post('https://nodeserve-cypmaster14.c9users.io/adaugaComentariu',obj);
       res.success (function (data,status,headers,config) {
          
@@ -242,10 +244,6 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
     }
     
   };
-
-  $scope.setRating=function () {
-      
-  }
 
 
 
