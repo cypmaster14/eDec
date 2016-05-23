@@ -170,6 +170,7 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
   $scope.ratingValue=1;
   $scope.setRating=function(rating) {
      $scope.ratingValue=rating;
+     console.log('Modific rating:'+$scope.ratingValue);
   };
 
   $scope.postareComentariu=function()
@@ -200,9 +201,15 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
       var obj={
                   email:$rootScope.user,
                   barcode:$scope.barcode,
+                  title:$scope.titlu,
+                  grade:$scope.ratingValue,
                   review:review
-              };
 
+              };
+      console.log("Trimit obiectul:"+JSON.stringify(obj));
+
+      $scope.titlu="";
+      $scope.iol="";
       var res=$http.post('https://nodeserve-cypmaster14.c9users.io/adaugaComentariu',obj);
       res.success (function (data,status,headers,config) {
          
@@ -211,21 +218,20 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
             $scope.showAlert('Titlu','Mesajul a fost postat cu succes');
             var resComments=$http.get('https://nodeserve-cypmaster14.c9users.io/reviews?barcode='+$scope.barcode);
 
-                          resComments.success(function (data,status,headers,config){
+            resComments.success(function (data,status,headers,config){
+              if(status==200)
+              {
+                $scope.comentarii=data.comentarii;
+                console.log(JSON.stringify(data));
+                $scope.showAlert("Comentarii Primite");
 
-                              if(status==200)
-                              {
-                                $scope.showAlert("Comentarii Primite");
-                                if(data.comentarii.length>0)
-                                  $scope.comentarii=data.comentarii;
-                              }
+              }
 
-                          });
+            });
 
-                          resComments.error(function (data,status,headers,config) {
-                                  alert("Error on request la obtinerea comentariilor"+status+' '+headers) ;
-
-                        });
+            resComments.error(function (data,status,headers,config) {
+              alert("Error on request la obtinerea comentariilor"+status+' '+headers) ;
+            });
          }
       });
 
@@ -233,6 +239,7 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
          alert("Error on request postarea comentariului"+status+' '+headers) ;
 
       });
+      
 
     }
     
@@ -254,6 +261,7 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
             $scope.showAlert("Ingrediente gasite");
             $scope.comentarii=data.comentarii;
             $scope.showAlert("Comentarii Primite");
+            console.log(JSON.stringify(data.comentarii));
 
         }
         else
