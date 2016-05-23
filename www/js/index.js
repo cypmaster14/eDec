@@ -86,7 +86,7 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
 
 
 
-.controller('HomeTabCtrl',['$scope','$state', '$stateParams', '$ionicPopup', '$timeout','$rootScope',function($scope,$state,$stateParams,$ionicPopup,$timeout,$rootScope) {
+.controller('HomeTabCtrl',['$scope','$state', '$stateParams', '$ionicPopup', '$timeout','$rootScope','$http','$window','logat','user',function($scope,$state,$stateParams,$ionicPopup,$timeout,$rootScope,$http,$window,logat,user) {
 
    $scope.showAlert=function(titlu,mesaj)
     {
@@ -101,17 +101,73 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
     };
 
 
-    $scope.showAlert('Stare:'+$rootScope.logat);
+    $scope.showAlert('Stare:'+window.localStorage.getItem('logat'));
+
+    $scope.initializeaza=function () {
+       console.log("LocaleStorage Begin:"+window.localStorage.getItem('email'));
+       var aux=window.localStorage.getItem('logat');
+       console.log("Stare:"+aux);
+      if(aux &&  aux.localeCompare("true")==0)
+      {
+          console.log("Sunt logat si initializez");
+          $rootScope.user=window.localStorage.getItem('email');
+          $rootScope.firstName=window.localStorage.getItem('firstName');
+          $rootScope.lastName=window.localStorage.getItem('lastName');
+          $rootScope.logat=true;
+          logat=true;
+      }
+    };
+    
+
+
 
 
     $scope.logout=function () {
        $scope.showAlert('Logout','I want to leave') ;
        //Sa fac requestul ce distruge sesiunea
+      // window.localeStorage.clear();
+      logat=false;
+      $rootScope.logat=false;
+      /* window.localeStorage.logat=false;
+       window.localeStorage.user="";
+       window.localeStorage.firstName="";
+       window.localeStorage.lastName="";*/
     }
 
     //Trebuie sa fac requestul ce deschide sesiunea
 
+    $scope.initializareSesiune=function () {
+       
+        var res=$http.get('https://nodeserve-cypmaster14.c9users.io/user');
+        res.success(function (data,status,headers,config) {
+           
+           if(status==200)
+           {
+              console.log(JSON.stringify(data));
+              if(data.text.localeCompare("Este Logat")==0)
+              {
+                
+                $rootScope.logat=true;
+                $rootScope.firstName=data.first_name;
+                $rootScope.lastName=data.last_name;
+                $rootScope.email=data.email;
+                logat=true;
+                $scope.showAlert('Login','Loged as '+$rootScope.user+"(Log="+$rootScope.logat+")"+$rootScope.firstName+" "+$rootScope.lastName);
+              }
+              else{
+                $scope.showAlert('Sesiune','Nu exista niciuna');
+              }
+           }
+        });
 
+        res.error(function (data,status,headers,config) {
+          alert('Error on request for Session '+status+" "+headers);
+        });
+    
+    };
+    
+
+    //alert(window.localStorage.getItem('email'));
 
 
 
@@ -279,75 +335,6 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
 
   /////Sfarsitul Noului Request////
 
-  /*
-
-    var res=$http.get('https://nodeserve-cypmaster14.c9users.io/product?barcode='+$scope.barcode);
-
-    res.success(function (data,status,headers,config) {
-
-        if(status==200)
-        {
-          $scope.mesaj=data;
-
-          if($scope.mesaj.mesaj.localeCompare("Gasit")==0) //produsul a fost gasit
-          {
-              $scope.showAlert("Produs","Produs gasit");
-              var resIngredients=$http.get('https://nodeserve-cypmaster14.c9users.io/ingredients?barcode='+$scope.barcode);
-              resIngredients.success(function (data,status,headers,config){
-
-                    if(status==200)
-                      {
-                          $scope.showAlert("Ingrediente gasite");
-                          $scope.ingrediente=data.ingrediente;// setez ingredientele spre a fi puse in pagina de produse
-
-                          var resComments=$http.get('https://nodeserve-cypmaster14.c9users.io/reviews?barcode='+$scope.barcode);
-
-                          resComments.success(function (data,status,headers,config){
-
-                              if(status==200)
-                              {
-                                $scope.showAlert("Comentarii Primite");
-                                if(data.comentarii.length>0)
-                                  $scope.comentarii=data.comentarii;
-                              }
-
-                          });
-
-                          resComments.error(function (data,status,headers,config) {
-                                  alert("Error on request la obtinerea comentariilor"+status+' '+headers) ;
-
-                        });
-
-
-
-
-                      }
-
-
-                  });
-
-                resIngredients.error(function (data,status,headers,config) {
-                      alert("Error on request la obtinerea ingredientelor"+status+' '+headers) ;
-
-                        });
-
-          }
-          else
-          {
-            $state.go("/tab/home");
-            $scope.showAlert("Product","Product was not found");
-          }
-        }
-
-
-    });
-
-    res.error(function (data,status,headers,config) {
-         alert("Error on request la obtinerea produsului"+status+' '+headers) ;
-
-      });
-
-  */
 
 
 
@@ -631,6 +618,12 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
             $rootScope.lastName=data.lastName;
             $scope.showAlert('Login','Loged as '+$rootScope.user+"(Log="+$rootScope.logat+")"+$rootScope.firstName+" "+$rootScope.lastName);
             $state.go("tabs.home");
+            window.localStorage.setItem("email",$rootScope.user);
+            window.localStorage.setItem("firstName",$rootScope.firstName);
+            window.localStorage.setItem("lastName",$rootScope.lastName);
+            window.localStorage.setItem("logat",$rootScope.logat);
+
+            console.log("LocaleStorage:"+window.localStorage.getItem('email'));
           }
           else
           {
