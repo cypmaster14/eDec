@@ -179,7 +179,7 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
       buttons:[
         {text:'Cancel'},
         {
-          text:'Submit Reason',
+          text:'Submit',
           type:'button-positive',
           onTap:function(e)
           {
@@ -320,6 +320,11 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
 
   $scope.showAditionalMenu=function(ingredient)
   {
+    if(!$rootScope.user)
+    {
+      $scope.showAlert('Login','You must login first');
+      return;
+    }
     var hideSheet=  $ionicActionSheet.show({
         titleText:"Preference",
         buttons:[
@@ -346,28 +351,7 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
           }
 
           console.log(optiune+" la ingredientul "+ingredient);
-          var obj={
-                     ingredient:ingredient,
-                     user:$rootScope.user,
-                     optiune:optiune,
-                 };
-          var res=$http.post('https://nodeserve-cypmaster14.c9users.io/optiuneIngredient',obj);
-
-          res.success(function (data,status,headers,config) {
-            if(status==200)
-            {
-                $scope.showAlert('Optiune',optiune+' trimisa cu succes');
-            }
-            else
-            {
-                $scope.showAlert("Product","Probleme la votarea optiunii");
-            }
-          });
-
-
-          res.error(function (data,status,headers,config) {
-                   alert("Error on request la trimiterea optiunii asupra ingredientului"+status+' '+headers) ;
-          });
+          var aux=$scope.showPopup(ingredient,optiune);
           return true; //Pentru a disparea meniul cu optiuni dupa ce dau click
         }
       });
