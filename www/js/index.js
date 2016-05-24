@@ -94,7 +94,16 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
 
 })
 
-
+.directive('gestureOnHold',function($ionicGesture ) {
+    return function(scope,element,attrs) {
+        $ionicGesture.on('hold',function() {
+            scope.$apply(function() {
+                //console.log("held");
+                scope.$eval(attrs.gestureOnHold)
+            });
+        },element);
+    }
+})
 
 .controller('HomeTabCtrl',['$scope','$state', '$stateParams', '$ionicPopup', '$timeout','$rootScope','$http','$window','logat','user',function($scope,$state,$stateParams,$ionicPopup,$timeout,$rootScope,$http,$window,logat,user) {
 
@@ -142,7 +151,7 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
 
 }])
 
-.controller('ProductCtrl',['$scope','$state', '$stateParams','$http', '$ionicPopup', '$timeout','$rootScope','logat','user',function($scope,$state,$stateParams,$http,$ionicPopup,$timeout,$rootScope,logat,user) {
+.controller('ProductCtrl',['$scope','$state', '$stateParams','$http', '$ionicPopup', '$timeout','$rootScope','$ionicActionSheet','logat','user',function($scope,$state,$stateParams,$http,$ionicPopup,$timeout,$rootScope,$ionicActionSheet,logat,user) {
 	if ($stateParams.barcode != "empty") {
 		$scope.barcode = $stateParams.barcode;
 
@@ -305,6 +314,63 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
 
     }
 
+  };
+
+
+
+  $scope.showAditionalMenu=function(ingredient)
+  {
+    var hideSheet=  $ionicActionSheet.show({
+        titleText:"Preference",
+        buttons:[
+                    {text:'<i class="icon ion-happy-outline"></i>Like '},
+                    {text:'<i class="icon ion-sad-outline"></i><em>Dislike</em>'},
+                    {text:'<i class="icon ion-android-alert"></i><b>Alert</b>'},
+                ],
+        cancelText:'Cancel',
+        cancel:function(){
+          console.log("Cancelled");
+        },
+        buttonClicked:function(index){
+          var optiune="";
+          switch(index){
+            case 0:
+              optiune="Like";
+              break;
+            case 1:
+              optiune="Dislike";
+              break;
+            case 2:
+              optiune="Alert";
+              break;
+          }
+
+          console.log(optiune+" la ingredientul "+ingredient);
+          var obj={
+                     ingredient:ingredient,
+                     user:$rootScope.user,
+                     optiune:optiune,
+                 };
+          var res=$http.post('https://nodeserve-cypmaster14.c9users.io/optiuneIngredient',obj);
+
+          res.success(function (data,status,headers,config) {
+            if(status==200)
+            {
+                $scope.showAlert('Optiune',optiune+' trimisa cu succes');
+            }
+            else
+            {
+                $scope.showAlert("Product","Probleme la votarea optiunii");
+            }
+          });
+
+
+          res.error(function (data,status,headers,config) {
+                   alert("Error on request la trimiterea optiunii asupra ingredientului"+status+' '+headers) ;
+          });
+          return true; //Pentru a disparea meniul cu optiuni dupa ce dau click
+        }
+      });
   };
 
 

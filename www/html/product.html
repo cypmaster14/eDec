@@ -62,11 +62,12 @@
 
               <br>
                 <div class="ingredient" id="div1" ng-repeat="ingredient in ingrediente">
-                     <img src="img/like_image.png" alt="like" id="{{ingredient.name}}" ng-click="likeImage('{{ingredient.name}}','like');" >
+                  <!--   <img src="img/like_image.png" alt="like" id="{{ingredient.name}}" ng-click="likeImage('{{ingredient.name}}','like');" >
                     <img src="img/unlike_image.png" alt="like" id="{{ingredient.name}}" ng-click="likeImage({{'ingredient.name'}},'dislike');"  >
-                    <p id="numeIngredient">
+                    <p id="numeIngredient" >
                         {{ingredient.name}}
-                    </p>
+                    </p>-->
+										<button class="button button-clear button-dark" gesture-on-hold="showAditionalMenu({{'ingredient.name'}})" >{{ingredient.name}}</button>
 
 
 
