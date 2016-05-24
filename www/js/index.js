@@ -5,6 +5,18 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
 .value('logat',false)
 .value('user',"")
 
+.run(function($ionicPlatform) {
+  $ionicPlatform.ready(function() {
+    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+    // for form inputs)
+    if(window.cordova && window.cordova.plugins.Keyboard) {
+      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+    }
+    if(window.StatusBar) {
+      StatusBar.styleDefault();
+    }
+  });
+})
 
 
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
@@ -124,6 +136,7 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
       $rootScope.user="";
       $rootScope.firstName="";
       $rootScope.lastName="";
+      $state.go('tabs.home');
 
     };
 
@@ -133,7 +146,7 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
 	if ($stateParams.barcode != "empty") {
 		$scope.barcode = $stateParams.barcode;
 
-     $scope.showAlert=function(titlu,mesaj)
+  $scope.showAlert=function(titlu,mesaj)
     {
         var alertPopup=$ionicPopup.alert({
           title:titlu,
@@ -145,37 +158,75 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
         });
     };
 
+
+  $scope.showPopup=function(ingredient,optiune){
+
+    $scope.data={};
+    $ionicPopup.show({
+      template:'<input type="text" placeholder="Enter Reason" ng-model="data.model">',
+      title:"Enter Reason",
+      subTitle:"Why do you "+optiune+" "+ingredient,
+      scope:$scope,
+      buttons:[
+        {text:'Cancel'},
+        {
+          text:'Submit Reason',
+          type:'button-positive',
+          onTap:function(e)
+          {
+            if(!$scope.data.model)
+            {
+              e.preventDefault();
+            }
+            else {
+              console.log('Am introdus un motiv:'+$scope.data.model);
+              var obj={
+                         ingredient:ingredient,
+                         user:$rootScope.user,
+                         optiune:optiune,
+                         motiv:$scope.data.model
+                     };
+
+
+              var res=$http.post('https://nodeserve-cypmaster14.c9users.io/optiuneIngredient',obj);
+
+              res.success(function (data,status,headers,config) {
+
+                if(status==200)
+                {
+                    $scope.showAlert('Optiune',optiune+' trimisa cu succes');
+                }
+
+                else
+                {
+                    $scope.showAlert("Product","Probleme la votarea optiunii");
+                }
+
+              });
+
+
+              res.error(function (data,status,headers,config) {
+                       alert("Error on request la trimiterea optiunii asupra ingredientului"+status+' '+headers) ;
+
+              });
+            }
+
+          }
+        }
+      ]
+    });
+  };
+
   $scope.likeImage=function (ingredient,optiune) {
 
-     $scope.showAlert(optiune,ingredient);
-     var obj={
-                ingredient:ingredient,
-                user:'cypmaster14',
-                optiune:optiune
-     };
-     var res=$http.post('https://nodeserve-cypmaster14.c9users.io/optiuneIngredient',obj);
-
-     res.success(function (data,status,headers,config) {
-
-          if(status==200)
-          {
-            $scope.showAlert('Optiune',optiune+' trimisa cu succes');
-          }
-
-          else
-          {
-            $scope.showAlert("Product","Probleme la votarea optiunii");
-          }
-
-    });
+    if(!$rootScope.user)
+    {
+      $scope.showAlert('Login','You must login first');
+      return;
+    }
 
 
-    res.error(function (data,status,headers,config) {
-         alert("Error on request la trimiterea optiunii asupra ingredientului"+status+' '+headers) ;
-
-      });
-
-
+    $scope.showPopup(ingredient,optiune);
   };
 
   $scope.ratingValue=1;
