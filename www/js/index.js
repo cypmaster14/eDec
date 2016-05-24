@@ -99,10 +99,10 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
         $ionicGesture.on('hold',function() {
             scope.$apply(function() {
                 //console.log("held");
-                scope.$eval(attrs.gestureOnHold)
+                scope.$eval(attrs.gestureOnHold);
             });
         },element);
-    }
+    };
 })
 
 .controller('HomeTabCtrl',['$scope','$state', '$stateParams', '$ionicPopup', '$timeout','$rootScope','$http','$window','logat','user',function($scope,$state,$stateParams,$ionicPopup,$timeout,$rootScope,$http,$window,logat,user) {
@@ -119,6 +119,13 @@ angular.module('ionicApp', ['ionic', 'ngCordova'])
         });
     };
 
+    $scope.openMenu = function () {
+    $ionicSideMenuDelegate.toggleLeft();
+  };
+
+  $scope.activate=function(obj){
+  
+  };
 
     $scope.showAlert('Stare:'+window.localStorage.getItem('logat'));
 
