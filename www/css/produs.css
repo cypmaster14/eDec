@@ -28,12 +28,18 @@
 	width: unset;
 	margin-top: 0px;
 	margin-right: unset;
+	margin-left: 30px;
+	border-radius: 15px;
 }
 
 .spacer{
 
 	width: 283px;
 	height: 34px;
+}
+.spacerProduct{
+	width:283px;
+	height:20px;
 }
 
 #second{
@@ -52,8 +58,11 @@ textarea{
 	margin:15px 0 10px 0;
 	padding: 3px;
 	resize: none;
+	border-radius:8px;
 
 }
+
+
 .ingredient , .parere, .campanie, .produse_similare{
 	clear: left;
 	display: none;
@@ -159,35 +168,35 @@ button [id="buton_ingrediente"]:active
 {
     display: inline-block;
 }
- 
+
 .acidjs-rating-stars label:hover,
 .acidjs-rating-stars label:hover ~ label
 {
     color: #189800;
 }
- 
+
 .acidjs-rating-stars *
 {
     margin: 0;
     padding: 0;
 }
- 
+
 .acidjs-rating-stars input
 {
     display: none;
 }
- 
+
 .acidjs-rating-stars
 {
     unicode-bidi: bidi-override;
     direction: rtl;
 }
- 
+
 .acidjs-rating-stars label
 {
     color: #ccc;
 }
- 
+
 .acidjs-rating-stars label::before
 {
     content: "\2605";
@@ -197,16 +206,16 @@ button [id="buton_ingrediente"]:active
     font-size: 18px;
     cursor: pointer;
 }
- 
+
 .acidjs-rating-stars input:checked ~ label
 {
     color: #f5b301;
 }
- 
+
 .acidjs-rating-disabled
 {
     opacity: .50;
-     
+
     -webkit-pointer-events: none;
     -moz-pointer-events: none;
     pointer-events: none;

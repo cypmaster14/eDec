@@ -1,4 +1,4 @@
-﻿<html ng-app="ionicApp">
+﻿<html ng-app="edec" >
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
@@ -10,6 +10,13 @@
 	<script src="js/ng-cordova.min.js"></script>
     <script src="cordova.js"></script>
 	<script src="js/index.js"></script>
+      <script src="js/configStates.js"></script>
+      <script src="js/homeTabCtrl.js"></script>
+      <script src="js/productCtrl.js"></script>    
+      <script src="js/barcodeCtrl.js"></script> 
+      <script src="js/loginCtrl.js"></script>
+      <script src="js/searchProductCtrl.js"></script>
+      <script src="js/registerCtrl.js"></script> 
 	<link rel="stylesheet" href="css/produs.css">
 	<link rel="stylesheet" href="css/home.css">
   <link rel="stylesheet" href="css/register.css">
@@ -34,22 +41,50 @@
 </script>
   </head>
 
-  <body>
+  <body ng-controller="HomeTabCtrl">
 
-    <ion-nav-bar class="bar-positive" >
-      <ion-nav-buttons id="button_nav"  ng-hide='$rootScope.logat'>
-        <a href="#/tab/facts" class="icon ion-log-in button button-positive">LogIn </a>
-      </ion-nav-buttons>
-    </ion-nav-bar>
 
-    <ion-nav-view>
-    </ion-nav-view>
+
+    <ion-side-menus>
+
+      <ion-pane ion-side-menu-content>
+        <ion-nav-bar class="bar-positive"  align-title="center">
+          <ion-nav-buttons id="button_nav"   side="left">
+            <a href="#/tab/facts" class="icon ion-log-in button button-positive" ng-hide="logat">LogIn </a>
+          </ion-nav-buttons>
+          <ion-nav-buttons side="right">
+            <a class="icon ion-log-out button button-positive" ng-hide="!logat" ng-click="logout()"> LogOut</a>
+          </ion-nav-buttons>
+        </ion-nav-bar>
+
+        <ion-nav-view></ion-nav-view>
+      </ion-pane>
+
+      <ion-side-menu side="left">
+        <ion-header-bar class="bar bar-header bar-positive" align-title="center">
+          <h1 class="title" style="text-align:center;">Profile</h1>
+        </ion-header-bar>
+
+        <ion-content has-header="true">
+
+          <div class="list">
+
+            <ion-radio  style="text-align:center;">{{user}}</ion-radio>
+
+          </div>
+
+        </ion-content>
+      </ion-side-menu>
+
+    </ion-side-menus>
+
+
 
 
     <script id="templates/tabs.html" type="text/ng-template">
       <ion-tabs class="tabs-icon-top tabs-positive">
 
-        <ion-tab title="Home" icon="ion-ios-home-outline" href="#/tab/home">
+        <ion-tab title="Home" icon="ion-ios-home-outline" href="#/tab/home" >
           <ion-nav-view name="home-tab"></ion-nav-view>
         </ion-tab>
 
@@ -65,7 +100,7 @@
     </script>
 
     <script id="templates/home.html" type="text/ng-template">
-      <ion-view view-title="Home">
+      <ion-view view-title="Home" >
         <ion-content class="padding">
 			<div ng-include src="'html/home.html'"></div>
         </ion-content>
@@ -101,7 +136,7 @@
     <script id="templates/product.html"  type="text/ng-template">
       <ion-view view-title="Product details">
         <ion-content class="padding">
-			<div ng-include src="'html/product.html'"></div>
+			       <div ng-include src="'html/product.html'"></div>
         </ion-content>
       </ion-view>
     </script>
