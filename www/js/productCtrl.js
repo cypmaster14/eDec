@@ -1,7 +1,7 @@
 ﻿angular.module('edec').controller('ProductCtrl', ['$scope', '$state', '$stateParams', '$http', '$ionicPopup', '$timeout', '$rootScope', '$ionicActionSheet', 'logat', 'user', function ($scope, $state, $stateParams, $http, $ionicPopup, $timeout, $rootScope, $ionicActionSheet, logat, user) {
     if ($stateParams.barcode != "empty") {
         $scope.barcode = $stateParams.barcode;
-
+        /*
         $scope.showAlert=function(titlu,mesaj)
         {
             var alertPopup=$ionicPopup.alert({
@@ -12,7 +12,7 @@
             alertPopup.then(function (res) {
 
             });
-        };
+        };*/
 
 
         $scope.showPopup=function(ingredient,optiune){
@@ -50,12 +50,12 @@
 
                                   if(status==200)
                                   {
-                                      $scope.showAlert('Optiune',optiune+' trimisa cu succes');
+                                      $scope.showAlert('New preference',data);
                                   }
 
                                   else
                                   {
-                                      $scope.showAlert("Product","Probleme la votarea optiunii");
+                                      $scope.showAlert("Error","There was a problem when sending your preference.");
                                   }
 
                               });
@@ -140,9 +140,6 @@
                             if(status==200)
                             {
                                 $scope.comentarii=data.comentarii;
-                                console.log(JSON.stringify(data));
-                                $scope.showAlert("Comentarii Primite");
-
                             }
 
                         });
@@ -215,12 +212,12 @@
                 if(data.mesaj.localeCompare("Gasit")==0)
                 {
                     $scope.mesaj=data;
-                    $scope.showAlert("Produs","Produs gasit");
+                    //$scope.showAlert("Produs","Produs gasit");
                     $scope.ingrediente=data.ingrediente;
-                    $scope.showAlert("Ingrediente gasite");
+                    //$scope.showAlert("Ingrediente gasite");
                     $scope.comentarii=data.comentarii;
-                    $scope.showAlert("Comentarii Primite");
-                    console.log(JSON.stringify(data.comentarii));
+                    //$scope.showAlert("Comentarii Primite");
+                    //console.log(JSON.stringify(data.comentarii));
 
                 }
                 else
