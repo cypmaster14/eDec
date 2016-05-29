@@ -10,15 +10,22 @@
                     {{mesaj.price}}
                 </p>
 
-                <div class="acidjs-rating-stars acidjs-rating-disabled">
-                    <form>
-                        <input disabled="disabled" type="radio"  name="group-3" id="group-3-0" value="5" /><label for="group-3-0"></label>
-                        <input disabled="disabled" type="radio" checked="checked" name="group-3" id="group-3-1" value="4" /><label for="group-3-1"></label>
-                        <input disabled="disabled" type="radio"  name="group-3" id="group-3-2" value="3" /><label for="group-3-2"></label>
-                        <input disabled="disabled" type="radio"  name="group-3" id="group-3-3" value="2" /><label for="group-3-3"></label>
-                        <input disabled="disabled" type="radio" checked="false" name="group-3" id="group-3-4"  value="1" /><label for="group-3-4"></label>
-                    </form>
-                </div>
+								<form class="starability-basic" >
+							      <input type="radio" id="rate5" name="rating" value="5" />
+							      <label for="rate5" title="Amazing">5 stars</label>
+
+							      <input type="radio" id="rate4" name="rating" value="4" />
+							      <label for="rate4" title="Very good">4 stars</label>
+
+							      <input type="radio" id="rate3" name="rating" value="3" />
+							      <label for="rate3" title="Average">3 stars</label>
+
+							      <input type="radio" id="rate2" name="rating" value="2" />
+							      <label for="rate2" title="Not good">2 stars</label>
+
+							      <input type="radio" id="rate1" name="rating" value="1" />
+							      <label for="rate1" title="Terrible">1 star</label>
+							  </form>
             </header>
     </div>
         <div  class="spacerProduct"></div>
@@ -33,10 +40,9 @@
         <div style="">
             <div id="third">
                 <button id="buton_ingrediente" onclick = "$('.ingredient').fadeToggle();" >Ingredients</button>
-				
+
 
               <br>
-                
 
                 <div class="ingredient w3-card-4" style="width:98%;margin-top: 4%" id="div1">
                     <header class="w3-container w3-green" style="height:10%">
@@ -53,20 +59,18 @@
                 <button id="buton_pareri" onclick = "$('.parere').fadeToggle();">Consumer Opinion</button>
                 <br>
 
-                <div class="parere" id="div1" >
+                <div class="parere"  >
                     <textarea id="title" rows="1" col="50" placeholder="Titlu" ng-model="titlu"></textarea>
                     <textarea id="comment"  rows="4" col="50" placeholder="Comentariu" ng-model="iol"></textarea>
-                    <div class="acidjs-rating-stars">
-                            <form id="my_form">
-                                 <input type="radio" name="comm" id="group-3-0" value="5"/><label ng-click='setRating(5)'></label>
-                                 <input type="radio" name="comm" id="group-3-1" value="4"/><label ng-click='setRating(4)'></label>
-                                 <input type="radio" name="comm" id="group-3-2" value="3"/><label ng-click='setRating(3)'></label>
-                                 <input type="radio" name="comm" id="group-3-3" value="2"/><label ng-click='setRating(2)'></label>
-                                 <input type="radio" name="comm" id="group-3-4" value="1" checked /><label ng-click='setRating(1)'></label>
-                             </form>
-                     </div>
+                    <div class="starability-basic" id="ratingComentariu">
+                                 <input type="radio" name="comm" id="group-3-10" value="5"/><label ng-click="setRating(5)" for="group-3-10"></label>
+                                 <input type="radio" name="comm" id="group-3-11" value="4"/><label ng-click="setRating(4)" for="group-3-11"></label>
+                                 <input type="radio" name="comm" id="group-3-12" value="3"/><label ng-click="setRating(3)" for="group-3-12"></label>
+                                 <input type="radio" name="comm" id="group-3-13" value="2"/><label ng-click="setRating(2)" for="group-3-13"></label>
+                                 <input type="radio" name="comm" id="group-3-14" value="1" checked /><label ng-click="setRating(1)" for="group-3-14"></label>
+                    </div>
                     <button id="post_comment" ng-click="postareComentariu()"> Post </button>
-                    <div id='comentariuNou'> </div>
+                    <div id="comentariuNou"> </div>
 					<div class="opinie_utilizator" ng-repeat="comentariu in comentarii">
                         <hr>
 
@@ -78,14 +82,12 @@
                         </article>
                         <br>
                         <p class="typo name-date"><span>{{comentariu.data}}</span>|<span>{{comentariu.prenume}} {{comentariu.nume}}</span></p>
-                        <div class="acidjs-rating-stars acidjs-rating-disabled">
-                            <form>
-                                <input disabled="disabled" ng-checked="{{comentariu.valoare5}}" type="radio" name="group-3" id="group-3-0" value="5"/><label for="group-3-0"></label>
-                                <input disabled="disabled" ng-checked="{{comentariu.valoare4}}"  type="radio" name="group-3" id="group-3-1" value="4"/><label for="group-3-1"></label>
-                                <input disabled="disabled" ng-checked="{{comentariu.valoare3}}"  type="radio" name="group-3" id="group-3-2" value="3"/><label for="group-3-2"></label>
-                                <input disabled="disabled" ng-checked="{{comentariu.valoare2}}"  type="radio" name="group-3" id="group-3-3" value="2"/><label for="group-3-3"></label>
-                                <input disabled="disabled" ng-checked="{{comentariu.valoare1}}"   type="radio" name="group-3" id="group-3-4" value="1"/><label for="group-3-4"></label>
-                            </form>
+                        <div class="starability-basic" >
+                          	<input disabled="disabled" ng-checked="{{comentariu.valoare5}}" type="radio" name="group-3" id="group-3-0" value="5"/><label for="group-3-0"></label>
+                            <input disabled="disabled" ng-checked="{{comentariu.valoare4}}"  type="radio" name="group-3" id="group-3-1" value="4"/><label for="group-3-1"></label>
+                            <input disabled="disabled" ng-checked="{{comentariu.valoare3}}"  type="radio" name="group-3" id="group-3-2" value="3"/><label for="group-3-2"></label>
+                            <input disabled="disabled" ng-checked="{{comentariu.valoare2}}"  type="radio" name="group-3" id="group-3-3" value="2"/><label for="group-3-3"></label>
+                            <input disabled="disabled" ng-checked="{{comentariu.valoare1}}"   type="radio" name="group-3" id="group-3-4" value="1"/><label for="group-3-4"></label>
                         </div>
 
                         <hr>
