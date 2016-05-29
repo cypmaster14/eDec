@@ -51,7 +51,7 @@
                         </h1>
                     </header>
                     <div class="ingredient w3-container" id="div1" ng-repeat="ingredient in ingrediente">
-                        <button class="button button-clear button-dark" gesture-on-hold="showAditionalMenu({{'ingredient'}})">{{ingredient}}</button>
+                        <button class="button button-clear button-dark" gesture-on-hold="showAditionalMenu({{'ingredient.name'}})">{{ingredient.name}}</button>
                     </div>
                 </div>
 
