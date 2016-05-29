@@ -1,7 +1,7 @@
 ﻿angular.module('edec').controller('ProductCtrl', ['$scope', '$state', '$stateParams', '$http', '$ionicPopup', '$timeout', '$rootScope', '$ionicActionSheet', 'logat', 'user', function ($scope, $state, $stateParams, $http, $ionicPopup, $timeout, $rootScope, $ionicActionSheet, logat, user) {
     if ($stateParams.barcode != "empty") {
         $scope.barcode = $stateParams.barcode;
-
+        /*
         $scope.showAlert=function(titlu,mesaj)
         {
             var alertPopup=$ionicPopup.alert({
@@ -12,7 +12,7 @@
             alertPopup.then(function (res) {
 
             });
-        };
+        };*/
 
 
         $scope.showPopup=function(ingredient,optiune){
@@ -50,12 +50,12 @@
 
                                   if(status==200)
                                   {
-                                      $scope.showAlert('Optiune',optiune+' trimisa cu succes');
+                                      $scope.showAlert('New preference',data);
                                   }
 
                                   else
                                   {
-                                      $scope.showAlert("Product","Probleme la votarea optiunii");
+                                      $scope.showAlert("Error","There was a problem when sending your preference.");
                                   }
 
                               });
@@ -140,9 +140,6 @@
                             if(status==200)
                             {
                                 $scope.comentarii=data.comentarii;
-                                console.log(JSON.stringify(data));
-                                $scope.showAlert("Comentarii Primite");
-
                             }
 
                         });
@@ -215,12 +212,22 @@
                 if(data.mesaj.localeCompare("Gasit")==0)
                 {
                     $scope.mesaj=data;
+<<<<<<< HEAD
                     $scope.ingrediente=data.ingrediente;
                     $scope.comentarii=data.comentarii;
                     console.log(JSON.stringify(data.comentarii));
 					$scope.campanii=data.campanii;
 					$scope.nrUsers=data.nrUsers;
 					$scope.data = { isLoading: true};
+=======
+                    //$scope.showAlert("Produs","Produs gasit");
+                    $scope.ingrediente=data.ingrediente;
+                    //$scope.showAlert("Ingrediente gasite");
+                    $scope.comentarii=data.comentarii;
+                    //$scope.showAlert("Comentarii Primite");
+                    //console.log(JSON.stringify(data.comentarii));
+
+>>>>>>> 617804ee5c27160544e233be957a3b5c96f44193
                 }
                 else
                 {
