@@ -95,7 +95,7 @@
 				<div class="campanie">
 					<button id="buton_vezi_mai_mult">See more</button>
 					<ion-scroll direction="x" class="wide-as-needed"  ng-show="campanii.length > 0" >
-						<a class="button" ng-repeat="campanie in campanii"><img src={{campanie.imagine}} id="campaignPhoto"></img><br>{{campanie.campaign_name}}<br>Au aderat: {{campanie.nrUsers}} persoane<br> </a>
+						<a class="buttonCampaign" ng-repeat="campanie in campanii"><img src={{campanie.imagine}} id="campaignPhoto"></img><br>{{campanie.campaign_name}}<br>Au aderat: {{campanie.nrUsers}} persoane<br> </a>
 					</ion-scroll>
 				</div>
 				<button id="button_produse_similare" onclick="$('.produse_similare').fadeToggle();"> Similar Products</button>

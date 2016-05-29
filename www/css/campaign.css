@@ -2,9 +2,29 @@
 {
 	height: auto; 
     width: auto; 
-    max-width: 400px; 
-    max-height: 400px;
+    max-width: 25%; 
+    max-height: 25%;
 }
+.buttonCampaign {
+  border-color: transparent;
+  background-color: transparent;
+  color: black;
+  position: relative;
+  display: inline-block;
+  margin: 0;
+  padding: 0 12px;
+  max-width:75%;
+  max-height:75%;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 4px;
+  vertical-align: top;
+  text-align: center;
+  text-overflow: ellipsis;
+  font-size: 16px;
+  line-height: 42px;
+  cursor: pointer; 
+ }
 
 
 .wide-as-needed {
