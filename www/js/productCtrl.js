@@ -210,13 +210,84 @@
         };
         var res = $http.post('https://nodeserve-cypmaster14.c9users.io/productPage', obj);
 
+        //get ingredients depending on option (Like,Dislike,Alert,Neutral)
+        function getIngredients(ingredients, option) {
+            var returnedIngredientes = [];
+            for (var i in ingredients) {
+                if (ingredients[i].option === option) {
+                    returnedIngredientes.push(ingredients[i]);
+                }
+            }
+            return returnedIngredientes;
+        }
+
+        //merge product ingredients with the ingredients voted by user 
+        function getProductIngredients(product_ingredients, user_voted_ingredients) {
+            var returned_ingredients = [];
+
+            //add exactly matched ingredients
+            for (var i in product_ingredients) {
+                for (var j in user_voted_ingredients) {
+                    if (product_ingredients[i].toUpperCase() === user_voted_ingredients[j].ingredient_name.toUpperCase()) {
+                        var ingredient = {
+                            name: user_voted_ingredients[j].ingredient_name,
+                            option: user_voted_ingredients[j].preference
+                        };
+                        returned_ingredients.push(ingredient);
+                        product_ingredients.splice(i, 1);
+                        break;
+                    }
+                }                
+            }
+
+            //add substring ingredients : lapte -> lapte praf
+            for (var i in product_ingredients) {
+                for (var j in user_voted_ingredients) {
+                    console.log(product_ingredients[i]);
+                    if (product_ingredients[i].toUpperCase().indexOf(user_voted_ingredients[j].ingredient_name.toUpperCase()) > -1) {
+                        var ingredient = {
+                            name: product_ingredients[i],
+                            option: user_voted_ingredients[j].preference
+                        };
+                        returned_ingredients.push(ingredient);
+                        product_ingredients.splice(i, 1);
+                        break;
+                    }
+                }
+            }
+
+            //add remaining ingredients(not voted)
+            for (var i in product_ingredients) {
+                var ingredient = {
+                    name: product_ingredients[i],
+                    option: "Neutral"
+                }
+                returned_ingredients.push(ingredient);
+            }
+            return returned_ingredients;
+        };
+
+        //Get the displayed message for neutral ingredients depending on the other voted ingredients, if they exist
+        function getNeutralIngredientsDisplayMessage(scope) {
+            if (scope.likedIngredients.length + scope.dislikedIngredients.length + scope.alertedIngredients.length > 0) {
+                return "Other ingredients";
+            } else {
+                return "Ingredients";
+            }
+        }
+
         res.success(function (data,status,headers,config) {
             if(status==200)
             {
                 if(data.mesaj.localeCompare("Gasit")==0)
                 {
-                    $scope.mesaj=data;
-                    $scope.ingrediente=data.ingrediente;
+                    $scope.mesaj = data;               
+                    var ingredients = getProductIngredients(data.product_ingredients, data.user_voted_ingredients);
+                    $scope.likedIngredients = getIngredients(ingredients, "Like");
+                    $scope.dislikedIngredients = getIngredients(ingredients, "Dislike");
+                    $scope.alertedIngredients = getIngredients(ingredients, "Alert");
+                    $scope.neutralIngredients = getIngredients(ingredients, "Neutral");
+                    $scope.neutralIngredientsDisplayMessage = getNeutralIngredientsDisplayMessage($scope);
                     $scope.comentarii = data.comentarii;
                     console.log(data.ingrediente);
                     //console.log(JSON.stringify(data.comentarii));
