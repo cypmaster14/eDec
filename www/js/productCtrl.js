@@ -204,7 +204,11 @@
 
 
         ////Noul Request/////////////
-        var res=$http.get('https://nodeserve-cypmaster14.c9users.io/productPage?barcode='+$scope.barcode);
+        var obj = {
+            barcode: $scope.barcode,
+            user: $rootScope.user
+        };
+        var res = $http.post('https://nodeserve-cypmaster14.c9users.io/productPage', obj);
 
         res.success(function (data,status,headers,config) {
             if(status==200)

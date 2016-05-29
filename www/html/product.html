@@ -36,16 +36,17 @@
 				
 
               <br>
-                <div class="ingredient" id="div1" ng-repeat="ingredient in ingrediente">
-                  <!--   <img src="img/like_image.png" alt="like" id="{{ingredient.name}}" ng-click="likeImage('{{ingredient.name}}','like');" >
-                    <img src="img/unlike_image.png" alt="like" id="{{ingredient.name}}" ng-click="likeImage({{'ingredient.name'}},'dislike');"  >
-                    <p id="numeIngredient" >
-                        {{ingredient.name}}
-                    </p>-->
-										<button class="button button-clear button-dark" gesture-on-hold="showAditionalMenu({{'ingredient.name'}})" >{{ingredient.name}}</button>
+                
 
-
-
+                <div class="ingredient w3-card-4" style="width:98%;margin-top: 4%" id="div1">
+                    <header class="w3-container w3-green" style="height:10%">
+                        <h1 style="text-align:center;">
+                            What you like
+                        </h1>
+                    </header>
+                    <div class="ingredient w3-container" id="div1" ng-repeat="ingredient in ingrediente">
+                        <button class="button button-clear button-dark" gesture-on-hold="showAditionalMenu({{'ingredient.name'}})">{{ingredient.name}}</button>
+                    </div>
                 </div>
 
 
