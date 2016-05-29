@@ -1,4 +1,4 @@
-<div ng-controller="ProductCtrl">
+ <div ng-controller="ProductCtrl">
 	 <div style="">
             <header id="first">
                 <img src="{{mesaj.image}}" alt="Poza">
@@ -116,7 +116,12 @@
                     </div>
 				</div>
 				<button id="buton_campanie" onclick = "$('.campanie').fadeToggle();">Product Campaign</button>
-
+				<div class="campanie">
+					<button id="buton_vezi_mai_mult">See more</button>
+					<ion-scroll direction="x" class="wide-as-needed"  ng-show="campanii.length > 0" >
+						<a class="button" ng-repeat="campanie in campanii"> <br>{{campanie.campaign_name}}<br>Au aderat: {{campanie.nrUsers}} persoane<br> </a>
+					</ion-scroll>
+				</div>
 				<button id="button_produse_similare" onclick="$('.produse_similare').fadeToggle();"> Similar Products</button>
                 <div class="produse_similare" >
 

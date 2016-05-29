@@ -215,13 +215,12 @@
                 if(data.mesaj.localeCompare("Gasit")==0)
                 {
                     $scope.mesaj=data;
-                    $scope.showAlert("Produs","Produs gasit");
                     $scope.ingrediente=data.ingrediente;
-                    $scope.showAlert("Ingrediente gasite");
                     $scope.comentarii=data.comentarii;
-                    $scope.showAlert("Comentarii Primite");
                     console.log(JSON.stringify(data.comentarii));
-
+					$scope.campanii=data.campanii;
+					$scope.nrUsers=data.nrUsers;
+					$scope.data = { isLoading: true};
                 }
                 else
                 {
