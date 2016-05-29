@@ -35,7 +35,7 @@
             {
                 $scope.mesaj = data;
 
-                if ($scope.mesaj.text.localeCompare('Login Succes') == 0) {
+                if ($scope.mesaj.text.localeCompare('Login Succes') === 0) {
                     logat = true;
                     $rootScope.logat = true;
                     $rootScope.user = obj.email;

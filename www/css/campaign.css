@@ -5,6 +5,26 @@
     max-width: 400px; 
     max-height: 400px;
 }
+.buttonCampaign {
+  border-color: transparent;
+  background-color: transparent;
+  color: black;
+  position: relative;
+  display: inline-block;
+  margin: 0;
+  padding: 0 12px;
+  max-width: 600px; 
+  max-height: 600px;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 4px;
+  vertical-align: top;
+  text-align: center;
+  text-overflow: ellipsis;
+  font-size: 16px;
+  line-height: 42px;
+  cursor: pointer; 
+ }
 
 
 .wide-as-needed {

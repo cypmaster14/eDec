@@ -25,7 +25,7 @@
         console.log("LocaleStorage Begin:" + window.localStorage.getItem('email'));
         var aux = window.localStorage.getItem('logat');
         console.log("Stare:" + aux);
-        if (aux && aux.localeCompare("true") == 0) {
+        if (aux && aux.localeCompare("true") === 0) {
             console.log("Sunt logat si initializez");
             $rootScope.user = window.localStorage.getItem('email');
             $rootScope.firstName = window.localStorage.getItem('firstName');
@@ -46,5 +46,12 @@
         $state.go('tabs.home');
 
     };
+
+
+    $scope.moveToCampainPage=function(nume)
+    {
+      $scope.showAlert('Campanie','Vizualizare '+nume);
+    };
+
 
 }]);
