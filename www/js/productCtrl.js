@@ -217,8 +217,9 @@
                 {
                     $scope.mesaj=data;
                     $scope.ingrediente=data.ingrediente;
-                    $scope.comentarii=data.comentarii;
-                    console.log(JSON.stringify(data.comentarii));
+                    $scope.comentarii = data.comentarii;
+                    console.log(data.ingrediente);
+                    //console.log(JSON.stringify(data.comentarii));
 					$scope.campanii=data.campanii;
 					$scope.nrUsers=data.nrUsers;
 					$scope.data = { isLoading: true};
