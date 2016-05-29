@@ -204,7 +204,11 @@
 
 
         ////Noul Request/////////////
-        var res=$http.get('https://nodeserve-cypmaster14.c9users.io/productPage?barcode='+$scope.barcode);
+        var obj = {
+            barcode: $scope.barcode,
+            user: $rootScope.user
+        };
+        var res = $http.post('https://nodeserve-cypmaster14.c9users.io/productPage', obj);
 
         res.success(function (data,status,headers,config) {
             if(status==200)
@@ -212,12 +216,19 @@
                 if(data.mesaj.localeCompare("Gasit")==0)
                 {
                     $scope.mesaj=data;
+                    $scope.ingrediente=data.ingrediente;
+                    $scope.comentarii=data.comentarii;
+                    console.log(JSON.stringify(data.comentarii));
+					$scope.campanii=data.campanii;
+					$scope.nrUsers=data.nrUsers;
+					$scope.data = { isLoading: true};
                     //$scope.showAlert("Produs","Produs gasit");
                     $scope.ingrediente=data.ingrediente;
                     //$scope.showAlert("Ingrediente gasite");
                     $scope.comentarii=data.comentarii;
                     //$scope.showAlert("Comentarii Primite");
                     //console.log(JSON.stringify(data.comentarii));
+
 
                 }
                 else
