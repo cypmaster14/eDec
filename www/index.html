@@ -7,7 +7,6 @@
     <script src="http://code.ionicframework.com/nightly/js/ionic.bundle.js"></script>
     <link href="css/ionic.css" rel="stylesheet">
     <script src="js/ionic.bundle.js"></script>
-	<script src="js/campaign.js"></script>
 	<script src="js/ng-cordova.min.js"></script>
     <script src="cordova.js"></script>
 	<script src="js/index.js"></script>
@@ -16,8 +15,10 @@
       <script src="js/productCtrl.js"></script>
       <script src="js/barcodeCtrl.js"></script>
       <script src="js/loginCtrl.js"></script>
-      <script src="js/searchProductCtrl.js"></script>
+	  <script src="js/searchProductCtrl.js"></script>
       <script src="js/registerCtrl.js"></script>
+	  	  <script src="js/campaignCtrl.js"></script>
+
 	<link rel="stylesheet" href="css/produs.css">
 	<link rel="stylesheet" href="css/home.css">
 	<link rel="stylesheet" href="css/campaign.css">
@@ -128,8 +129,14 @@
       </ion-view>
     </script>
 
-
-      <script id="templates/register.html" type="text/ng-template">
+    <script id="templates/campaign.html" type="text/ng-template">
+	<ion-view view-title="Campaign Details">
+		<ion-content class="padding">
+			<div ng-include src="'html/campaign.html'"></div>
+		<ion-content>
+	</ion-view> 
+    </script>
+	 <script id="templates/register.html" type="text/ng-template">
       <ion-view view-title="Register">
         <ion-content class="padding">
       <div ng-include src="'html/register.html'"></div>

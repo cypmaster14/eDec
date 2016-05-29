@@ -30,11 +30,20 @@
           url:"/register",
           views: {
               'home-tab': {
-                  templateUrl: "templates/register.html"
+                  templateUrl: "templates/register.html",
+				  controller: 'CampaignCtrl'
               }
           }
       })
-
+	  .state('tabs.campaign',{
+		url:"/campaign",
+		views: {
+			'home-tab':{
+				templateUrl: "templates/campaign.html"
+				
+			}
+		}
+	  })
 
       .state('tabs.product', {
           url: "/product",
