@@ -1,4 +1,4 @@
-﻿<html ng-app="edec" >
+<html ng-app="edec" >
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
@@ -25,8 +25,8 @@
   <link rel="stylesheet" href="css/facts.css">
   <link rel="stylesheet" href="css/search.css">
    <link rel="stylesheet" href="css/w3.css">
-      <link rel="icon" href="data:;base64,=">
-
+   <link rel="stylesheet" href="css/profile.css" />
+  <link rel="icon" href="data:;base64,=">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script>+-
         $(document).ready(function()
@@ -34,7 +34,6 @@
             $("#buton_ingrediente").click(function(){
                 $(".ingredient").fadeToggle();
             });
-
              $("#buton_pareri").click(function(){
                 $(".parere").fadeToggle();
             });
@@ -42,7 +41,6 @@
 		function ingredienteclick() {
 		    $(".ingredient").fadeToggle();
 		};
-
 </script>
   </head>
 
@@ -107,7 +105,7 @@
     <script id="templates/home.html" type="text/ng-template">
       <ion-view view-title="Home" >
         <ion-content class="padding">
-			<div ng-include src="'html/home.html'"></div>
+			      <div ng-include src="'html/home.html'"></div>
         </ion-content>
       </ion-view>
     </script>
@@ -123,7 +121,7 @@
     <script id="templates/facts.html" type="text/ng-template">
       <ion-view view-title="Authentication">
         <ion-content class="padding">
-			<div ng-include src="'html/facts.html'"></div>
+			      <div ng-include src="'html/facts.html'"></div>
         </ion-content>
       </ion-view>
     </script>
@@ -132,7 +130,7 @@
       <script id="templates/register.html" type="text/ng-template">
       <ion-view view-title="Register">
         <ion-content class="padding">
-      <div ng-include src="'html/register.html'"></div>
+            <div ng-include src="'html/register.html'"></div>
         </ion-content>
       </ion-view>
     </script>
@@ -149,7 +147,15 @@
     <script id="templates/search.html" type="text/ng-template">
       <ion-view view-title="Search">
         <ion-content class="padding">
-			<div ng-include src="'html/search.html'"></div>
+			       <div ng-include src="'html/search.html'"></div>
+        </ion-content>
+      </ion-view>
+    </script>
+
+    <script id="templates/profile.html" type="text/ng-template">
+      <ion-view view-title="Profile">
+        <ion-content class="padding">
+            <div ng-include="'html/profile.html'"></div>
         </ion-content>
       </ion-view>
     </script>
