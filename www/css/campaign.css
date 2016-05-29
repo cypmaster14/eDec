@@ -1,8 +1,8 @@
-#campaignPhoto 
+#campaignPhoto
 {
-	height: auto; 
-    width: auto; 
-    max-width: 25%; 
+		height: auto;
+    width: auto;
+    max-width: 25%;
     max-height: 25%;
 }
 .buttonCampaign {
@@ -23,7 +23,7 @@
   text-overflow: ellipsis;
   font-size: 16px;
   line-height: 42px;
-  cursor: pointer; 
+  cursor: pointer;
  }
 
 
@@ -32,16 +32,21 @@
   white-space: nowrap;
   min-height: 300px;
 }
-.scroll { 
+.scroll {
   min-width: 100%;
 }
+
+#scrollCampanii{
+  height: 0px;
+}
+
 .bar.bar-loading {
   display: block;
   height: 24px;
-  
+
   /* starts right below a normal header */
   top: 44px;
-  
+
   /* make the text centered vertically and horizontally */
   text-align: center;
   padding: 0;
@@ -52,7 +57,7 @@
 }
 
 
-/* 
+/*
  * make the content's top changes animate.
  * might not always look good, but looks
  * good when our loader is added & removed

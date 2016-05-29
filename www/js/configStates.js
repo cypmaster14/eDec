@@ -26,6 +26,15 @@
           }
       })
 
+      .state('tabs.profile', {
+        url:"/profile",
+        views:{
+            "home-tab":{
+              templateUrl:"templates/profile.html"
+            }
+        }
+      })
+
       .state('tabs.register',{
           url:"/register",
           views: {
