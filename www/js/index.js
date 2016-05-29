@@ -40,4 +40,3 @@ angular.module('edec', ['ionic', 'ngCordova'])
     //that would prevent CORS from working
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
 })
-

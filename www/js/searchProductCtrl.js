@@ -58,13 +58,13 @@
             });
   }
   
-  $scope.search=function (option) {
+  $scope.search=function () {
 	$scope.fakePage++;
 	if ($scope.fakePage%2==1){
 		pagina++;
 		$scope.showAlert('Search',"Pagina "+pagina);
 		console.log($rootScope.user);
-		var res=$http.get('https://nodeserve-cypmaster14.c9users.io/products?product='+$scope.searchedProduct+"&pagina="+pagina+"&user="+$rootScope.user);
+		var res=$http.get('https://nodeserve-cypmaster14.c9users.io/products?product='+$scope.searchedProduct+"&pagina="+pagina);
 
 		res.success(function (data,status,headers,config) {
 
@@ -73,6 +73,9 @@
 				$scope.text=data.text;
 				if($scope.text.localeCompare("Gasit")==0) //produsul a fost gasit
 				{
+					for (i=0;i<data.products.length;i++){
+						$scope.getPreferences(data.products[i]);
+					}
 					$scope.products.push.apply($scope.products,data.products);
 				}
 			}
@@ -82,6 +85,7 @@
 		res.error(function  (data,status,headers,config) {
             $scope.showAlert("Error on request",status+' '+headers);
 		});
+		
 		if(pagina*10<$scope.numarProduse) {
 			$scope.existaNext=true;
 		} else {
@@ -90,5 +94,23 @@
 	}
 	$scope.$broadcast('scroll.infiniteScrollComplete');
   };
+  
+  $scope.getPreferences=function (product){
+	if ($rootScope.user!=''){
+		var pref=$http.get('https://nodeserve-cypmaster14.c9users.io/getPreferences?user='+$rootScope.user+"&barcode="+product.barcode);
+		
+		pref.success(function (data,status,headers,config){
+			if (status==200){
+				product.likes=data.likes;
+				product.dislikes=data.dislikes;
+				product.alerts=data.alerts;
+			}
+			else{
+				console.log("Nu am primit preferinte pt: "+product.barcode);
+			}
+		});
+		console.log(product.likes);
+	}
+  }
 
 }]);

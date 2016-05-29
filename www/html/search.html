@@ -8,7 +8,7 @@
 		</button>
 	</div>
 		<ion-list>
-			<ion-item id="produs" ng-repeat="product in products"  ng-click="clickOnProduct({{product.barcode}})">
+			<ion-item id="produs" ng-repeat="product in products" ng-click="clickOnProduct({{product.barcode}})">
 				<div id="produs">
 					<img src="{{product.image}}" alt="Image" id="searchPage">
 					<div id="informatiiProdus">
@@ -16,9 +16,9 @@
 					<p id="productPrice"> {{product.price}}</p>
 					<div style="display: block" ng-show="displayPreferences">
 					<h2>Preferintele tale pentru acest produs:</h2>
-					<h2 class="icon ion-happy-outline"> <u>{{product.likes}}</u></h2>
-                    <h2 class="icon ion-sad-outline"> <u>{{product.dislikes}}</u></h2>
-                    <h2 class="icon ion-android-alert"> <u>{{product.alerts}}</u></h2>
+					<h2 class="icon ion-happy-outline"> {{product.likes}}</h2>
+                    <h2 class="icon ion-sad-outline"> {{product.dislikes}}</h2>
+                    <h2 class="icon ion-android-alert"> {{product.alerts}}</h2>
 					</div>
 					</div>
 				</div>
