@@ -212,14 +212,12 @@
                 if(data.mesaj.localeCompare("Gasit")==0)
                 {
                     $scope.mesaj=data;
-<<<<<<< HEAD
                     $scope.ingrediente=data.ingrediente;
                     $scope.comentarii=data.comentarii;
                     console.log(JSON.stringify(data.comentarii));
 					$scope.campanii=data.campanii;
 					$scope.nrUsers=data.nrUsers;
 					$scope.data = { isLoading: true};
-=======
                     //$scope.showAlert("Produs","Produs gasit");
                     $scope.ingrediente=data.ingrediente;
                     //$scope.showAlert("Ingrediente gasite");
@@ -227,7 +225,7 @@
                     //$scope.showAlert("Comentarii Primite");
                     //console.log(JSON.stringify(data.comentarii));
 
->>>>>>> 617804ee5c27160544e233be957a3b5c96f44193
+
                 }
                 else
                 {
