@@ -39,7 +39,7 @@
         </div>
         <div style="">
             <div id="third">
-                <button id="buton_ingrediente" onclick = "$('.ingredient').fadeToggle();" >Ingredients</button>
+                <button id="buton_ingrediente" onclick = "$('.ingredient').fadeToggle();" >Ingrediente</button>
 
 
               <br>
@@ -47,11 +47,11 @@
                 <div class="ingredient w3-card-4" style="width:98%;margin-top: 4%" id="div1" ng-show="alertedIngredients.length>0">
                     <header class="w3-container w3-yellow" style="height:10%">
                         <h1 style="text-align:center;">
-                            Danger zone
+                            Pericol
                         </h1>
                     </header>
                     <div class="ingredient w3-container" id="div1" ng-repeat="ingredient in alertedIngredients">
-                        <button class="button button-clear button-dark" gesture-on-hold="showAditionalMenu({{'ingredient.name'}})">{{ingredient.name}}</button>
+                        <button class="button button-clear button-dark" gesture-on-hold="showAditionalMenu({{'ingredient.name'}},{{'ingredient.option'}},{{'ingredient.reason'}})">{{ingredient.name}}</button>
                     </div>
                 </div>
 
@@ -59,11 +59,11 @@
                 <div class="ingredient w3-card-4" style="width:98%;margin-top: 4%" id="div1" ng-show="likedIngredients.length>0">
                     <header class="w3-container w3-green" style="height:10%">
                         <h1 style="text-align:center;">
-                            What you like
+                            Ce iti place
                         </h1>
                     </header>
                     <div class="ingredient w3-container" id="div1" ng-repeat="ingredient in likedIngredients">
-                        <button class="button button-clear button-dark" gesture-on-hold="showAditionalMenu({{'ingredient.name'}})">{{ingredient.name}}</button>
+                        <button class="button button-clear button-dark" gesture-on-hold="showAditionalMenu({{'ingredient.name'}},{{'ingredient.option'}},{{'ingredient.reason'}})">{{ingredient.name}}</button>
                     </div>
                 </div>
 
@@ -71,11 +71,11 @@
                 <div class="ingredient w3-card-4" style="width:98%;margin-top: 4%" id="div1" ng-show="dislikedIngredients.length>0">
                     <header class="w3-container w3-red" style="height:10%">
                         <h1 style="text-align:center;">
-                            What you dislike
+                            Ce nu iti place
                         </h1>
                     </header>
                     <div class="ingredient w3-container" id="div1" ng-repeat="ingredient in dislikedIngredients">
-                        <button class="button button-clear button-dark" gesture-on-hold="showAditionalMenu({{'ingredient.name'}})">{{ingredient.name}}</button>
+                        <button class="button button-clear button-dark" gesture-on-hold="showAditionalMenu({{'ingredient.name'}},{{'ingredient.option'}},{{'ingredient.reason'}})">{{ingredient.name}}</button>
                     </div>
                 </div>
                 
@@ -88,7 +88,7 @@
                         </h1>
                     </header>
                     <div class="ingredient w3-container" id="div1" ng-repeat="ingredient in neutralIngredients">
-                        <button class="button button-clear button-dark" gesture-on-hold="showAditionalMenu({{'ingredient.name'}})">{{ingredient.name}}</button>
+                        <button class="button button-clear button-dark" gesture-on-hold="showAditionalMenu({{'ingredient.name'}},{{'ingredient.option'}},{{'ingredient.reason'}})">{{ingredient.name}}</button>
                     </div>
                 </div>
 
