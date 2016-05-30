@@ -6373,7 +6373,9 @@ button.item.item-button-right {
   .item-image img:first-child, .item-image .list-img {
     width: 100%;
     vertical-align: middle; }
-
+.item-bodyCampagin{
+  border-color: white;
+}
 .item-body {
   overflow: auto;
   padding: 16px;

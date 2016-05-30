@@ -128,7 +128,7 @@
     </script>
 
     <script id="templates/campaign.html" type="text/ng-template">
-	<ion-view view-title="Campaign Details">
+	<ion-view ng-controller="CampaignCtrl" view-title="<p> {{campaign_name}} </p>">
 		<ion-content class="padding">
 			<div ng-include src="'html/campaign.html'"></div>
 		<ion-content>
