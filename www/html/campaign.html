@@ -1,13 +1,20 @@
 <div ng-controller="CampaignCtrl"  class="carddemoInCardActions">
-    <div class="list card">
-		<div class="item item-body">
-			<img style="height: auto; width: auto; max-width: 400px; max-height: 400px;" src={{campaign_image}} alt="Poza Companie"></img>
-			<article class="card__article">
-  	    		<h2><span class="elementeProfil">Descriere</span></h2>
-				<h2><span class="elementeProfil">{{campaign_description}}</span></h2>
-				<h2><span class="elementeProfil">Numarul persoanelor care au aderat</span></h2>
-				<p>{{campaign_nrUsers}}</p>
-			</article>
+    <div class="wrapper">
+		<div class="card radius shadowDepth1">
+		
+		<img style="height: auto; width: auto; max-width: 400px; max-height: 400px;" src={{campaign_image}} alt="Poza Companie"></img>
+		<div class="card__content card__padding">
+      		<article class="card__article">
+  	    		<h3><span class="elementeProfil">Descriere</span></h3>
+	            <p style="text-indent: 20px;">{{campaign_description}} {{campaign_description}} {{campaign_description}} {{campaign_description}} {{campaign_description}} {{campaign_description}} {{campaign_description}} 
+				{{campaign_description}} {{campaign_description}} {{campaign_description}} {{campaign_description}} {{campaign_description}} </p>
+				<span class="elementeProfil">Au aderat: </span>{{campaign_nrUsers}} membri
+  	    	</article>
+			<div class="card__meta">
+      			<span class="elementeProfil">Data crearii:</span>
+                <time>{{creation_date}}</time>
+      		</div>
+      	</div>
 		</div>
 	</div>
 	<div class="item item-bodyCampagin">

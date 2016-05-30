@@ -18,6 +18,8 @@ angular.module('edec').controller('CampaignCtrl', ['$scope', '$state', '$statePa
         $scope.campaign_id = $stateParams.obj.campaign_id;
 		$scope.campaign_description=$stateParams.obj.description;
 		$scope.campaign_image=$stateParams.obj.imagine;
+		$scope.creation_date=$stateParams.obj.creation_date.substring(0,10);
+		$scope.administrator=$stateParams.obj.administrator;
 		$scope.getNumberOfMembersFor($stateParams.obj);
 	}
 	else{
