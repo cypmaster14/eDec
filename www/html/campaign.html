@@ -1,8 +1,24 @@
-<div style="" ng-controller="CampaignCtrl">
-	<img  id="campaignPhoto" src={{campaign_image}}></img>
-    <button id="buton_vezi_mai_mult" >Join Campaign</button>	
-	<h3 style="color:grey;font-family:"Palatino Linotype", "Book Antiqua", Palatino, serif;"> Description </h3>
-	<div class="item item-body">
-	 	<p>{{campaign_description}}</p>
-	 </div>	 	    
+<div class="carddemoInCardActions">
+    <div class="wrapper">
+		<div class="card__content card__padding">
+		<div class="card radius shadowDepth1">
+		
+		<img style="height: auto; width: auto; max-width: 400px; max-height: 400px;" src={{campaign_image}} alt="Poza Companie"></img>
+		<div class="card__content card__padding">
+      		<article class="card__article">
+  	    		<h3><span class="elementeProfil">Descriere</span></h3>
+	            <p style="text-indent: 20px;">{{campaign_description}} Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus harum... Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus harum...</p>
+				<span class="elementeProfil">Au aderat: </span>{{campaign_nrUsers}} membri
+  	    	</article>
+			<div class="card__meta">
+      			<span class="elementeProfil">Data crearii:</span>
+                <time>{{creation_date}}</time>
+      		</div>
+			<div class="item item-bodyCampagin">
+		<button id="buton_vezi_mai_mult" >Join Campaign</button>
+	</div>
+      	</div>
+		</div>
+		</div>
+	</div>
 </div>

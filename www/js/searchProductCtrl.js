@@ -109,7 +109,6 @@
 				console.log("Nu am primit preferinte pt: "+product.barcode);
 			}
 		});
-		console.log(product.likes);
 	}
   }
 
