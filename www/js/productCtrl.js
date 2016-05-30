@@ -128,8 +128,16 @@
 
         $scope.ratingValue=1;
         $scope.setRating=function(rating) {
+            console.log("Sterg checked de la:"+'group-3-'+(5-$scope.ratingValue));
+            document.getElementById('group-3-'+(5-$scope.ratingValue)).checked="false";
+            document.getElementById('group-3-'+(5-$scope.ratingValue)).removeAttribute('checked');
+            //$('#group-3-'+(5-$scope.ratingValue)).prop('checked',false);
             $scope.ratingValue=rating;
             console.log('Modific rating:'+$scope.ratingValue);
+            console.log("Bifez steaua cu id:"+'group-3-'+(5-rating));
+            document.getElementById('group-3-'+(5-rating)).checked="true";
+              document.getElementById('group-3-'+(5-rating)).setAttribute('checked',"true");
+          //  $('#group-3-'+(5-rating)).prop('checked',true);
         };
 
         $scope.postareComentariu=function()
@@ -277,8 +285,12 @@
             return returnedIngredientes;
         }
 
+<<<<<<< HEAD
 
         //merge product ingredients with the ingredients voted by user 
+=======
+        //merge product ingredients with the ingredients voted by user
+>>>>>>> a78113e187a0711675f1b66f3714d0afbf8de103
         function getProductIngredients(product_ingredients, user_voted_ingredients) {
 
             var returned_ingredients = [];
@@ -300,7 +312,7 @@
                         product_ingredients_size--;
                         break;
                     }
-                }                
+                }
             }
 
             //add substring ingredients : lapte -> lapte praf
@@ -353,8 +365,48 @@
             }
         }
 
+<<<<<<< HEAD
         
         
+=======
+        res.success(function (data,status,headers,config) {
+            if(status==200)
+            {
+                if(data.mesaj.localeCompare("Gasit")==0)
+                {
+                    $scope.mesaj = data;
+                    var ingredients = getProductIngredients(data.product_ingredients, data.user_voted_ingredients);
+                    $scope.likedIngredients = getIngredients(ingredients, "Like");
+                    $scope.dislikedIngredients = getIngredients(ingredients, "Dislike");
+                    $scope.alertedIngredients = getIngredients(ingredients, "Alert");
+                    $scope.neutralIngredients = getIngredients(ingredients, "Neutral");
+                    $scope.neutralIngredientsDisplayMessage = getNeutralIngredientsDisplayMessage($scope);
+                    $scope.comentarii = data.comentarii;
+                    console.log(data.ingrediente);
+                    //console.log(JSON.stringify(data.comentarii));
+					$scope.campanii=data.campanii;
+					$scope.nrUsers=data.nrUsers;
+					$scope.data = { isLoading: true};
+                    //$scope.showAlert("Produs","Produs gasit");
+                    $scope.ingrediente=data.ingrediente;
+                    //$scope.showAlert("Ingrediente gasite");
+                    $scope.comentarii=data.comentarii;
+                    //$scope.showAlert("Comentarii Primite");
+                    //console.log(JSON.stringify(data.comentarii));
+
+
+                }
+                else
+                {
+                    $state.go("tabs.home");
+                    $scope.showAlert("Product","Product was not found");
+                }
+            }
+        });
+
+        res.error(function (data,status,headers,config) {
+            alert("Error on request la obtinerea produsului"+status+' '+headers) ;
+>>>>>>> a78113e187a0711675f1b66f3714d0afbf8de103
 
         
 
@@ -364,11 +416,11 @@
 
 
     }
-	
+
 	$scope.clickOnCampaign=function (campaign_id) {
 	 alert(campaign_id);
-     $state.go("tabs.campaign",{'ok':'ok','campaign_id':campaign_id});
-	}
+     $state.go("tabs.campaign",{'ok':'ok'});
+	};
 
 
 }]);

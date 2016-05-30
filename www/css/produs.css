@@ -185,7 +185,7 @@ button [id="buton_ingrediente"]:active
 	top:3px;
 }
 
-/*
+
 .acidjs-rating-stars,
 .acidjs-rating-stars label::before
 {
@@ -243,8 +243,9 @@ button [id="buton_ingrediente"]:active
     -moz-pointer-events: none;
     pointer-events: none;
 }
-*/
 
+
+/*
 .starRating:not(old){
   display        : inline-block;
   width          : 7.5em;
@@ -309,4 +310,4 @@ button [id="buton_ingrediente"]:active
 .starability-basic>input:focus+label{outline:1px dotted #999}
 .starability-basic>label{position:relative;display:inline-block;float:right;width:30px;height:30px;color:transparent;cursor:pointer;background-image:url(../img/icons.png);background-repeat:no-repeat}
 @media (-webkit-min-device-pixel-ratio:2),(min-resolution:192dpi),screen and (-webkit-min-device-pixel-ratio:2)
-{.starability-basic>label{background-image:url(../img/icons@2x.png);background-size:30px auto}}
+{.starability-basic>label{background-image:url(../img/icons@2x.png);background-size:30px auto}}*/

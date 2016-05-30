@@ -39,16 +39,18 @@
           url:"/register",
           views: {
               'home-tab': {
-                  templateUrl: "templates/register.html",
-				  controller: 'CampaignCtrl'
+                  templateUrl: "templates/register.html"
               }
           }
       })
 	  .state('tabs.campaign',{
 		url:"/campaign",
+		 params: { obj:null
+	     },
 		views: {
 			'home-tab':{
-				templateUrl: "templates/campaign.html"
+				templateUrl: "templates/campaign.html",
+				controller: 'CampaignCtrl'
 				
 			}
 		}
