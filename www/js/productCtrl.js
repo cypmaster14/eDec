@@ -1,4 +1,19 @@
 ﻿angular.module('edec').controller('ProductCtrl', ['$scope', '$state', '$stateParams', '$http', '$ionicPopup', '$timeout', '$rootScope', '$ionicActionSheet', 'logat', 'user', function ($scope, $state, $stateParams, $http, $ionicPopup, $timeout, $rootScope, $ionicActionSheet, logat, user) {
+    $scope.getNumberOfMembersFor=function(campaign){	
+		var membersResponse = $http.post('https://nodeserve-cypmaster14.c9users.io/getNumberOfMembersFor',campaign);
+		
+		membersResponse.success(function(data,status,headers,config){
+			if (status == 200){
+				campaign.nrUsers=data.nrUsers;
+			}
+		});
+		
+		membersResponse.error(function (data, status, headers, config) {
+            alert("Error on request la obtinerea numarului de membri" + status + ' ' + headers);
+
+        });
+	}
+    
     if ($stateParams.barcode != "empty") {
         $scope.barcode = $stateParams.barcode;
 
@@ -21,6 +36,9 @@
                     $scope.neutralIngredientsDisplayMessage = getNeutralIngredientsDisplayMessage($scope);
                     $scope.comentarii = data.comentarii;
                     $scope.campanii = data.campanii;
+                    for (i=0;i<$scope.campanii.length;i++){
+						            $scope.getNumberOfMembersFor($scope.campanii[i]);
+					          }
                     $scope.nrUsers = data.nrUsers;
                     $scope.data = { isLoading: true };
                     $scope.comentarii = data.comentarii;
