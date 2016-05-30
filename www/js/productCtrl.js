@@ -87,8 +87,16 @@
 
         $scope.ratingValue=1;
         $scope.setRating=function(rating) {
+            console.log("Sterg checked de la:"+'group-3-'+(5-$scope.ratingValue));
+            document.getElementById('group-3-'+(5-$scope.ratingValue)).checked="false";
+            document.getElementById('group-3-'+(5-$scope.ratingValue)).removeAttribute('checked');
+            //$('#group-3-'+(5-$scope.ratingValue)).prop('checked',false);
             $scope.ratingValue=rating;
             console.log('Modific rating:'+$scope.ratingValue);
+            console.log("Bifez steaua cu id:"+'group-3-'+(5-rating));
+            document.getElementById('group-3-'+(5-rating)).checked="true";
+              document.getElementById('group-3-'+(5-rating)).setAttribute('checked',"true");
+          //  $('#group-3-'+(5-rating)).prop('checked',true);
         };
 
         $scope.postareComentariu=function()
@@ -221,7 +229,7 @@
             return returnedIngredientes;
         }
 
-        //merge product ingredients with the ingredients voted by user 
+        //merge product ingredients with the ingredients voted by user
         function getProductIngredients(product_ingredients, user_voted_ingredients) {
             var returned_ingredients = [];
 
@@ -237,7 +245,7 @@
                         product_ingredients.splice(i, 1);
                         break;
                     }
-                }                
+                }
             }
 
             //add substring ingredients : lapte -> lapte praf
@@ -281,7 +289,7 @@
             {
                 if(data.mesaj.localeCompare("Gasit")==0)
                 {
-                    $scope.mesaj = data;               
+                    $scope.mesaj = data;
                     var ingredients = getProductIngredients(data.product_ingredients, data.user_voted_ingredients);
                     $scope.likedIngredients = getIngredients(ingredients, "Like");
                     $scope.dislikedIngredients = getIngredients(ingredients, "Dislike");
@@ -322,7 +330,7 @@
 
 
     }
-	
+
 	$scope.clickOnCampaign=function (campaign_id) {
 	 alert(campaign_id);
      $state.go("tabs.campaign",{'ok':'ok','campaign_id':campaign_id});
