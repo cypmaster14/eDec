@@ -323,10 +323,7 @@
 
     }
 	
-	$scope.clickOnCampaign=function (campaign_id) {
-	 alert(campaign_id);
-     $state.go("tabs.campaign",{'ok':'ok','campaign_id':campaign_id});
+	$scope.clickOnCampaign=function (campaign) {
+      $state.go("tabs.campaign",{obj:campaign});
 	}
-
-
 }]);
