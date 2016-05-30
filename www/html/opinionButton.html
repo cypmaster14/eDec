@@ -1,6 +1,6 @@
 <button id="buton_pareri" onclick = "$('.parere').fadeToggle();">Consumer Opinion</button>
 <br>
-<div class="parere"  >
+<div class="parere" ng-controller="ProductCtrl">
 	<textarea id="title" rows="1" col="50" placeholder="Titlu" ng-model="titlu"></textarea>
 	<textarea id="comment"  rows="4" col="50" placeholder="Comentariu" ng-model="iol"></textarea>
 	<div class="acidjs-rating-stars">
