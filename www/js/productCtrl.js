@@ -1,5 +1,5 @@
 ﻿angular.module('edec').controller('ProductCtrl', ['$scope', '$state', '$stateParams', '$http', '$ionicPopup', '$timeout', '$rootScope', '$ionicActionSheet', 'logat', 'user', function ($scope, $state, $stateParams, $http, $ionicPopup, $timeout, $rootScope, $ionicActionSheet, logat, user) {
-    
+
     if ($stateParams.barcode != "empty") {
         $scope.barcode = $stateParams.barcode;
 
@@ -129,18 +129,14 @@
             console.log($rootScope.logat);
             console.log($rootScope.user);
             console.log("Scor" + $scope.ratingValue);
-            if (!$rootScope.logat || $rootScope.logat == false) {
+            if (!$rootScope.logat || $rootScope.logat === false) {
                 $scope.showAlert('LogIn', 'You must login first');
                 return;
             }
-            else if ($scope.iol.length != 0) {
+            if ( $scope.iol && $scope.iol.length !== 0 && $scope.titlu  && $scope.titlu.length!==0) {
 
                 console.log($rootScope.logat);
                 var review = $scope.iol;
-                if (review.length == 0) {
-                    $scope.showAlert('Review', 'Insert a review');
-                    return;
-                }
                 $scope.showAlert('Postare comentariu', '(' + $rootScope.user + ')Mesaj:' + review);
                 console.log('Email:' + $rootScope.user);
                 console.log('Barcode:' + $scope.barcode);
@@ -190,6 +186,11 @@
 
             }
 
+            else
+            {
+              $scope.showAlert('Comentariu','Completati toate campurile');
+              return;
+            }
         };
 
         function showPreferenceMenu(ingredient) {
