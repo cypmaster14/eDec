@@ -1,18 +1,7 @@
 ﻿angular.module('edec').controller('ProductCtrl', ['$scope', '$state', '$stateParams', '$http', '$ionicPopup', '$timeout', '$rootScope', '$ionicActionSheet', 'logat', 'user', function ($scope, $state, $stateParams, $http, $ionicPopup, $timeout, $rootScope, $ionicActionSheet, logat, user) {
     if ($stateParams.barcode != "empty") {
         $scope.barcode = $stateParams.barcode;
-        /*
-        $scope.showAlert=function(titlu,mesaj)
-        {
-            var alertPopup=$ionicPopup.alert({
-                title:titlu,
-                template:mesaj
-            });
 
-            alertPopup.then(function (res) {
-
-            });
-        };*/
         var productInfo = {
             barcode: $scope.barcode,
             user: $rootScope.user
@@ -23,25 +12,18 @@
             if (status == 200) {
                 if (data.mesaj.localeCompare("Gasit") == 0) {
                     $scope.mesaj = data;
-                   
-                    var ingredients = getProductIngredients(data.product_ingredients, data.user_voted_ingredients);   
+
+                    var ingredients = getProductIngredients(data.product_ingredients, data.user_voted_ingredients);
                     $scope.likedIngredients = getIngredients(ingredients, "Like");
                     $scope.dislikedIngredients = getIngredients(ingredients, "Dislike");
                     $scope.alertedIngredients = getIngredients(ingredients, "Alert");
                     $scope.neutralIngredients = getIngredients(ingredients, "Neutral");
                     $scope.neutralIngredientsDisplayMessage = getNeutralIngredientsDisplayMessage($scope);
                     $scope.comentarii = data.comentarii;
-                    //console.log(JSON.stringify(data.comentarii));
                     $scope.campanii = data.campanii;
                     $scope.nrUsers = data.nrUsers;
                     $scope.data = { isLoading: true };
-                    //$scope.showAlert("Produs","Produs gasit");
-                    //$scope.showAlert("Ingrediente gasite");
                     $scope.comentarii = data.comentarii;
-                    //$scope.showAlert("Comentarii Primite");
-                    //console.log(JSON.stringify(data.comentarii));
-
-
                 }
                 else {
                     $state.go("tabs.home");
@@ -55,55 +37,60 @@
 
         });
 
+        function translateOption(option) {
+            switch (option) {
+                case "Like":
+                    return "va  place ingredientul ";
+                case "Dislike":
+                    return "nu va place ingredientul ";
+                case "Alert":
+                    return "considerati un pericol ingredientul "
+            }
+        }
 
         $scope.showPopup = function (ingredient, optiune) {
 
-            $scope.data={};
+            $scope.data = {};
             $ionicPopup.show({
-                template:'<input type="text" placeholder="Enter Reason" ng-model="data.model">',
-                title:"Enter Reason",
-                subTitle:"Why do you "+optiune+" "+ingredient,
-                scope:$scope,
-                buttons:[
-                  {text:'Cancel'},
+                template: '<input type="text" placeholder="Introduceti motivul" ng-model="data.model">',
+                title: "Preferinta noua",
+                subTitle: "De ce " + translateOption(optiune) + ingredient + "?",
+                scope: $scope,
+                buttons: [
+                  { text: 'Anuleaza' },
                   {
-                      text:'Submit',
-                      type:'button-positive',
-                      onTap:function(e)
-                      {
-                          if(!$scope.data.model)
-                          {
+                      text: 'Salveaza',
+                      type: 'button-positive',
+                      onTap: function (e) {
+                          if (!$scope.data.model) {
                               e.preventDefault();
                           }
                           else {
-                              console.log('Am introdus un motiv:'+$scope.data.model);
-                              var obj={
-                                  ingredient:ingredient,
-                                  user:$rootScope.user,
-                                  optiune:optiune,
-                                  motiv:$scope.data.model
+                              var obj = {
+                                  ingredient: ingredient,
+                                  user: $rootScope.user,
+                                  optiune: optiune,
+                                  motiv: $scope.data.model
                               };
 
 
-                              var res=$http.post('https://nodeserve-cypmaster14.c9users.io/optiuneIngredient',obj);
+                              var res = $http.post('https://nodeserve-cypmaster14.c9users.io/optiuneIngredient', obj);
 
-                              res.success(function (data,status,headers,config) {
+                              res.success(function (data, status, headers, config) {
 
-                                  if(status==200)
-                                  {
-                                      //$scope.showAlert('New preference',data);
+                                  if (status == 200) {
+                                      $scope.showAlert('Preferinta noua',data);
                                   }
 
-                                  else
-                                  {
+                                  else {
                                       //$scope.showAlert("Error","There was a problem when sending your preference.");
                                   }
 
                               });
 
 
-                              res.error(function (data,status,headers,config) {
-                                  alert("Error on request la trimiterea optiunii asupra ingredientului"+status+' '+headers) ;
+                              res.error(function (data, status, headers, config) {
+                                  alert("Error on request la trimiterea optiunii asupra ingredientului" + status + ' ' + headers);
 
                               });
                           }
@@ -114,93 +101,86 @@
             });
         };
 
-        $scope.likeImage=function (ingredient,optiune) {
+        $scope.likeImage = function (ingredient, optiune) {
 
-            if(!$rootScope.user)
-            {
-                $scope.showAlert('Login','You must login first');
+            if (!$rootScope.user) {
+                $scope.showAlert('Login', 'You must login first');
                 return;
             }
 
 
-            $scope.showPopup(ingredient,optiune);
+            $scope.showPopup(ingredient, optiune);
         };
 
-        $scope.ratingValue=1;
-        $scope.setRating=function(rating) {
-            console.log("Sterg checked de la:"+'group-3-'+(5-$scope.ratingValue));
-            document.getElementById('group-3-'+(5-$scope.ratingValue)).checked="false";
-            document.getElementById('group-3-'+(5-$scope.ratingValue)).removeAttribute('checked');
+        $scope.ratingValue = 1;
+        $scope.setRating = function (rating) {
+            console.log("Sterg checked de la:" + 'group-3-' + (5 - $scope.ratingValue));
+            document.getElementById('group-3-' + (5 - $scope.ratingValue)).checked = "false";
+            document.getElementById('group-3-' + (5 - $scope.ratingValue)).removeAttribute('checked');
             //$('#group-3-'+(5-$scope.ratingValue)).prop('checked',false);
-            $scope.ratingValue=rating;
-            console.log('Modific rating:'+$scope.ratingValue);
-            console.log("Bifez steaua cu id:"+'group-3-'+(5-rating));
-            document.getElementById('group-3-'+(5-rating)).checked="true";
-              document.getElementById('group-3-'+(5-rating)).setAttribute('checked',"true");
-          //  $('#group-3-'+(5-rating)).prop('checked',true);
+            $scope.ratingValue = rating;
+            console.log('Modific rating:' + $scope.ratingValue);
+            console.log("Bifez steaua cu id:" + 'group-3-' + (5 - rating));
+            document.getElementById('group-3-' + (5 - rating)).checked = "true";
+            document.getElementById('group-3-' + (5 - rating)).setAttribute('checked', "true");
+            //  $('#group-3-'+(5-rating)).prop('checked',true);
         };
 
-        $scope.postareComentariu=function()
-        {
+        $scope.postareComentariu = function () {
             console.log($rootScope.logat);
             console.log($rootScope.user);
-            console.log("Scor"+$scope.ratingValue);
-            if(!$rootScope.logat || $rootScope.logat==false)
-            {
-                $scope.showAlert('LogIn','You must login first');
+            console.log("Scor" + $scope.ratingValue);
+            if (!$rootScope.logat || $rootScope.logat == false) {
+                $scope.showAlert('LogIn', 'You must login first');
                 return;
             }
-            else if($scope.iol.length!=0)
-            {
+            else if ($scope.iol.length != 0) {
 
                 console.log($rootScope.logat);
-                var review= $scope.iol;
-                if(review.length==0)
-                {
-                    $scope.showAlert('Review','Insert a review');
+                var review = $scope.iol;
+                if (review.length == 0) {
+                    $scope.showAlert('Review', 'Insert a review');
                     return;
                 }
-                $scope.showAlert('Postare comentariu','('+$rootScope.user+')Mesaj:'+review);
-                console.log('Email:'+$rootScope.user);
-                console.log('Barcode:'+$scope.barcode);
-                console.log('Comentariu:'+review);
+                $scope.showAlert('Postare comentariu', '(' + $rootScope.user + ')Mesaj:' + review);
+                console.log('Email:' + $rootScope.user);
+                console.log('Barcode:' + $scope.barcode);
+                console.log('Comentariu:' + review);
 
-                var obj={
-                    email:$rootScope.user,
-                    barcode:$scope.barcode,
-                    title:$scope.titlu,
-                    grade:$scope.ratingValue,
-                    review:review
+                var obj = {
+                    email: $rootScope.user,
+                    barcode: $scope.barcode,
+                    title: $scope.titlu,
+                    grade: $scope.ratingValue,
+                    review: review
 
                 };
-                console.log("Trimit obiectul:"+JSON.stringify(obj));
+                console.log("Trimit obiectul:" + JSON.stringify(obj));
 
-                $scope.titlu="";
-                $scope.iol="";
-                var res=$http.post('https://nodeserve-cypmaster14.c9users.io/adaugaComentariu',obj);
-                res.success (function (data,status,headers,config) {
+                $scope.titlu = "";
+                $scope.iol = "";
+                var res = $http.post('https://nodeserve-cypmaster14.c9users.io/adaugaComentariu', obj);
+                res.success(function (data, status, headers, config) {
 
-                    if(status==200)
-                    {
-                        $scope.showAlert('Titlu','Mesajul a fost postat cu succes');
-                        var resComments=$http.get('https://nodeserve-cypmaster14.c9users.io/reviews?barcode='+$scope.barcode);
+                    if (status == 200) {
+                        $scope.showAlert('Titlu', 'Mesajul a fost postat cu succes');
+                        var resComments = $http.get('https://nodeserve-cypmaster14.c9users.io/reviews?barcode=' + $scope.barcode);
 
-                        resComments.success(function (data,status,headers,config){
-                            if(status==200)
-                            {
-                                $scope.comentarii=data.comentarii;
+                        resComments.success(function (data, status, headers, config) {
+                            if (status == 200) {
+                                $scope.comentarii = data.comentarii;
                             }
 
                         });
 
-                        resComments.error(function (data,status,headers,config) {
-                            alert("Error on request la obtinerea comentariilor"+status+' '+headers) ;
+                        resComments.error(function (data, status, headers, config) {
+                            alert("Error on request la obtinerea comentariilor" + status + ' ' + headers);
                         });
                     }
                 });
 
-                res.error(function (data,status,headers,config) {
-                    alert("Error on request postarea comentariului"+status+' '+headers) ;
+                res.error(function (data, status, headers, config) {
+                    alert("Error on request postarea comentariului" + status + ' ' + headers);
 
                 });
 
@@ -210,33 +190,33 @@
         };
 
         function showPreferenceMenu(ingredient) {
-            var hideSheet=  $ionicActionSheet.show({
-                titleText:"Alegeti preferinta",
-                buttons:[
-                            {text:'<i class="icon ion-happy-outline"></i>Imi place '},
-                            {text:'<i class="icon ion-sad-outline"></i><em>Nu imi place</em>'},
-                            {text:'<i class="icon ion-android-alert"></i><b>Pericol</b>'},
+            var hideSheet = $ionicActionSheet.show({
+                titleText: "Alegeti preferinta",
+                buttons: [
+                            { text: '<i class="icon ion-happy-outline"></i>Imi place ' },
+                            { text: '<i class="icon ion-sad-outline"></i><em>Nu imi place</em>' },
+                            { text: '<i class="icon ion-android-alert"></i><b>Pericol</b>' },
                 ],
-                cancelText:'Cancel',
-                cancel:function(){
+                cancelText: 'Cancel',
+                cancel: function () {
                     console.log("Cancelled");
                 },
-                buttonClicked:function(index){
-                    var optiune="";
-                    switch(index){
+                buttonClicked: function (index) {
+                    var optiune = "";
+                    switch (index) {
                         case 0:
-                            optiune="Like";
+                            optiune = "Like";
                             break;
                         case 1:
-                            optiune="Dislike";
+                            optiune = "Dislike";
                             break;
                         case 2:
-                            optiune="Alert";
+                            optiune = "Alert";
                             break;
                     }
 
-                    console.log(optiune+" la ingredientul "+ingredient);
-                    var aux=$scope.showPopup(ingredient,optiune);
+                    console.log(optiune + " la ingredientul " + ingredient);
+                    var aux = $scope.showPopup(ingredient, optiune);
                     return true; //Pentru a disparea meniul cu optiuni dupa ce dau click
                 }
             });
@@ -256,11 +236,9 @@
             });
         }
 
-        $scope.showAditionalMenu=function(ingredient,option,reason)
-        {
-            if(!$rootScope.user)
-            {
-                $scope.showAlert('Login','Va rugam sa va autentificati');
+        $scope.showAditionalMenu = function (ingredient, option, reason) {
+            if (!$rootScope.user) {
+                $scope.showAlert('Login', 'Va rugam sa va autentificati');
                 return;
             }
             if (option === "Neutral") {
@@ -272,7 +250,7 @@
 
 
         ////Noul Request/////////////
-        
+
 
         //get ingredients depending on option (Like,Dislike,Alert,Neutral)
         function getIngredients(ingredients, option) {
@@ -285,22 +263,19 @@
             return returnedIngredientes;
         }
 
-<<<<<<< HEAD
 
-        //merge product ingredients with the ingredients voted by user 
-=======
+
         //merge product ingredients with the ingredients voted by user
->>>>>>> a78113e187a0711675f1b66f3714d0afbf8de103
         function getProductIngredients(product_ingredients, user_voted_ingredients) {
 
             var returned_ingredients = [];
 
             //add exactly matched ingredients
             var product_ingredients_size = product_ingredients.length;
-            for (var i = 0; i < product_ingredients_size;i++) {
+            for (var i = 0; i < product_ingredients_size; i++) {
                 for (var j in user_voted_ingredients) {
                     if (product_ingredients[i].toUpperCase() == user_voted_ingredients[j].ingredient_name.toUpperCase()) {
-                        
+
                         var ingredient = {
                             name: user_voted_ingredients[j].ingredient_name,
                             option: user_voted_ingredients[j].preference,
@@ -322,7 +297,7 @@
                         var ingredient = {
                             name: product_ingredients[i],
                             option: user_voted_ingredients[j].preference,
-                            reason: deductReason(user_voted_ingredients[j].ingredient_name,user_voted_ingredients[j].preference)
+                            reason: deductReason(user_voted_ingredients[j].ingredient_name, user_voted_ingredients[j].preference)
                         };
                         returned_ingredients.push(ingredient);
                         product_ingredients.splice(i, 1);
@@ -365,62 +340,10 @@
             }
         }
 
-<<<<<<< HEAD
-        
-        
-=======
-        res.success(function (data,status,headers,config) {
-            if(status==200)
-            {
-                if(data.mesaj.localeCompare("Gasit")==0)
-                {
-                    $scope.mesaj = data;
-                    var ingredients = getProductIngredients(data.product_ingredients, data.user_voted_ingredients);
-                    $scope.likedIngredients = getIngredients(ingredients, "Like");
-                    $scope.dislikedIngredients = getIngredients(ingredients, "Dislike");
-                    $scope.alertedIngredients = getIngredients(ingredients, "Alert");
-                    $scope.neutralIngredients = getIngredients(ingredients, "Neutral");
-                    $scope.neutralIngredientsDisplayMessage = getNeutralIngredientsDisplayMessage($scope);
-                    $scope.comentarii = data.comentarii;
-                    console.log(data.ingrediente);
-                    //console.log(JSON.stringify(data.comentarii));
-					$scope.campanii=data.campanii;
-					$scope.nrUsers=data.nrUsers;
-					$scope.data = { isLoading: true};
-                    //$scope.showAlert("Produs","Produs gasit");
-                    $scope.ingrediente=data.ingrediente;
-                    //$scope.showAlert("Ingrediente gasite");
-                    $scope.comentarii=data.comentarii;
-                    //$scope.showAlert("Comentarii Primite");
-                    //console.log(JSON.stringify(data.comentarii));
 
-
-                }
-                else
-                {
-                    $state.go("tabs.home");
-                    $scope.showAlert("Product","Product was not found");
-                }
-            }
-        });
-
-        res.error(function (data,status,headers,config) {
-            alert("Error on request la obtinerea produsului"+status+' '+headers) ;
->>>>>>> a78113e187a0711675f1b66f3714d0afbf8de103
-
-        
-
-        /////Sfarsitul Noului Request////
-
-
-
-
+        $scope.clickOnCampaign = function (campaign_id) {
+            alert(campaign_id);
+            $state.go("tabs.campaign", { 'ok': 'ok' });
+        };
     }
-
-	$scope.clickOnCampaign=function (campaign_id) {
-	 alert(campaign_id);
-     $state.go("tabs.campaign",{'ok':'ok'});
-	};
-
-
 }]);
