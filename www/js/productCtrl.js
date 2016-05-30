@@ -159,7 +159,10 @@
                 });
 
                 res.error(function (data,status,headers,config) {
-                    alert("Error on request postarea comentariului"+status+' '+headers) ;
+                    if(status==409)
+                    {
+                      $scope.showAlert('Comentariu',"Ati postat deja un comentariu");
+                    }
 
                 });
 
