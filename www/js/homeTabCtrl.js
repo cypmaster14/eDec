@@ -1,4 +1,4 @@
-﻿angular.module('edec').controller('HomeTabCtrl', ['$scope', '$state', '$stateParams', '$ionicPopup', '$timeout', '$rootScope', '$http', '$window', 'logat', 'user', function ($scope, $state, $stateParams, $ionicPopup, $timeout, $rootScope, $http, $window, logat, user) {
+﻿angular.module('edec').controller('HomeTabCtrl', ['$scope', '$state', '$stateParams', '$ionicPopup', '$timeout', '$rootScope', '$http', '$window','$ionicSideMenuDelegate', 'logat', 'user', function ($scope, $state, $stateParams, $ionicPopup, $timeout, $rootScope, $http, $window,$ionicSideMenuDelegate, logat, user) {
 
     $scope.showAlert = function (titlu, mesaj) {
         var alertPopup = $ionicPopup.alert({
@@ -22,7 +22,10 @@
     $scope.showAlert('Stare:' + window.localStorage.getItem('logat'));
 
     $scope.initializeaza = function () {
+
         console.log("LocaleStorage Begin:" + window.localStorage.getItem('email'));
+        $rootScope.logat=false;
+        logat=false;
         var aux = window.localStorage.getItem('logat');
         console.log("Stare:" + aux);
         if (aux && aux.localeCompare("true") === 0) {
@@ -44,13 +47,19 @@
         $rootScope.firstName = "";
         $rootScope.lastName = "";
         $state.go('tabs.home');
-
     };
 
 
     $scope.moveToCampainPage=function(nume)
     {
       $scope.showAlert('Campanie','Vizualizare '+nume);
+    };
+
+    $scope.moveToProfilePage=function(user)
+    {
+        $state.go('tabs.profile',{'user':user});
+        $ionicSideMenuDelegate.toggleLeft();
+
     };
 
 

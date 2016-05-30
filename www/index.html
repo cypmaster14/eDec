@@ -49,7 +49,7 @@
 
 
 
-    <ion-side-menus >
+    <ion-side-menus ng-hide>
 
       <ion-pane ion-side-menu-content>
         <ion-nav-bar class="bar-positive"  align-title="center">
@@ -64,16 +64,22 @@
         <ion-nav-view></ion-nav-view>
       </ion-pane>
 
-      <ion-side-menu side="left">
+      <ion-side-menu side="left" >
         <ion-header-bar class="bar bar-header bar-positive" align-title="center">
-          <h1 class="title" style="text-align:center;">Profile</h1>
+          <h1 class="title" style="text-align:center;">Profil</h1>
         </ion-header-bar>
 
         <ion-content has-header="true">
 
           <div class="list">
+            <div class="item item-icon-left" ng-click="moveToProfilePage({{user}})" ng-hide="!logat">
+              <i class="ion-social-octocat"></i>
+                Profilul tau
 
-            <ion-radio  style="text-align:center;">{{user}}</ion-radio>
+            </div>
+            <div class="item">
+              Top 10 campanii
+            </div>
 
           </div>
 
@@ -132,7 +138,7 @@
 		<ion-content class="padding">
 			<div ng-include src="'html/campaign.html'"></div>
 		<ion-content>
-	</ion-view> 
+	</ion-view>
     </script>
 	 <script id="templates/register.html" type="text/ng-template">
       <ion-view view-title="Register">
