@@ -13,7 +13,6 @@
   };
 
   $scope.clickOnProduct=function (produs) {
-
      $state.go("tabs.product",{'ok':'ok','barcode':produs});
   };
 
