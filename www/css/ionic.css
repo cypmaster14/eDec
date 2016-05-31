@@ -3352,7 +3352,7 @@ body.grade-c {
   position: relative; }
 
 .scroll-content {
-  position: absolute;
+  position: inherit;
   top: 0;
   right: 0;
   bottom: 0;

@@ -1,9 +1,9 @@
-#campaignPhoto
+﻿#campaignPhoto
 {
 	height: auto;
     width: auto;
-    max-width: 400px;
-    max-height: 400px;
+    max-width: 350px;
+    max-height: 350px;
 }
 #post_commentCampaign {
 	background-color: rgba(34, 44, 230, 0.56);

@@ -1,8 +1,7 @@
-﻿angular.module('edec').controller('ProductCtrl', ['$scope', '$state', '$stateParams', '$http', '$ionicPopup', '$timeout', '$rootScope', '$ionicActionSheet', 'logat', 'user', function ($scope, $state, $stateParams, $http, $ionicPopup, $timeout, $rootScope, $ionicActionSheet, logat, user) {
+﻿angular.module('edec').controller('ProductCtrl', ['$scope', '$state', '$stateParams', '$http', '$ionicPopup', '$timeout', '$rootScope', '$ionicActionSheet','$sce', 'logat', 'user', function ($scope, $state, $stateParams, $http, $ionicPopup, $timeout, $rootScope, $ionicActionSheet,$sce, logat, user) {
 
     if ($stateParams.barcode != "empty") {
         $scope.barcode = $stateParams.barcode;
-
         var productInfo = {
             barcode: $scope.barcode,
             user: $rootScope.user
@@ -22,11 +21,32 @@
                     $scope.neutralIngredientsDisplayMessage = getNeutralIngredientsDisplayMessage($scope);
                     $scope.comentarii = data.comentarii;
                     $scope.campanii = data.campanii;
+                    $scope.nume = data.name;
                     var category = data.category;
                     var getSimilarProducts = $http.get('https://nodeserve-cypmaster14.c9users.io/getSimilarProducts?user=' + $rootScope.user + '&barcode=' + $scope.barcode + '&category=' + category);
                     getSimilarProducts.success(function (data, status, headers, config) {
                         if (status == 200) {
-                            console.log(data);
+                            var displayedSimilarProducts = getDisplayedSimilarProducts(data);
+                            var reqParams = {
+                                similarProducts: displayedSimilarProducts,
+                                user: $rootScope.user
+                            }
+                            var getLikesReq = $http.post('https://nodeserve-cypmaster14.c9users.io/getNumberOfLikes', reqParams);
+                            getLikesReq.success(function (data, status, headers, config) {
+                                if (status == 200) {
+                                    displayedSimilarProducts = data;
+                                    displayedSimilarProducts = getRandomSubarray(displayedSimilarProducts, 10) // get 10 random products
+                                    displayedSimilarProducts.sort(function (a, b) { //descending sort by similarity
+                                        return b.similarity - a.similarity;
+                                    });                                   
+                                    $scope.similarProducts = displayedSimilarProducts;
+                                    $scope.displayProductName = displayProductName;
+                                    $scope.clickOnSimilarProduct = clickOnSimilarProduct;
+                                    $scope.afis = function () {
+                                        console.log($scope.similarProducts);
+                                    };
+                                }
+                            });
                         }
                     });
                     getSimilarProducts.error(function (data, status, headers, config) {
@@ -44,6 +64,110 @@
             alert("Error on request la obtinerea produsului" + status + ' ' + headers);
 
         });
+        function clickOnSimilarProduct(barcode) {
+            $state.go("tabs.product", { 'ok': 'ok', 'barcode': barcode });
+        }
+
+
+        function displayProductName(name) {
+            var length = name.length;
+            var words = name.split(" ");
+           
+            if (length <= 30) {
+                return $sce.trustAsHtml("<h3>"+name+"</h3>");
+            }
+            if (length <= 60) {
+                var firstLine = words.slice(0, words.length / 2).join(" ");
+                var secondLine = words.slice(words.length / 2, words.length).join(" ");
+                return $sce.trustAsHtml("<h3>" + firstLine + "<br />" + secondLine + "</h3>");
+            }
+            var firstLine = words.slice(0, words.length / 3).join(" ");
+            var secondLine = words.slice(words.length / 3, words.length / 3 * 2).join(" ");
+            var thirdLine = words.slice(words.length / 3 * 2, words.length).join(" ");
+            return $sce.trustAsHtml("<h3>" + firstLine + "<br />" + secondLine + "<br />" + thirdLine + "</h3>");
+        }
+
+        function getDisplayedSimilarProducts(products) {
+            var displayed_similar_products = [];
+            for (var i in products) {
+                var longest_common_beggining_sequence = getBeginningCommonSubsequence($scope.nume.toUpperCase(), products[i].name.toUpperCase());
+                var longest_common_consecutive_sequence = getLongestCommonSubsequence($scope.nume.toUpperCase(), products[i].name.toUpperCase());
+                var ingredients_common_ratio = products[i].commonIngr * 2 / products[i].totalNrIngr;
+                var similarity_ratio = 45 / 100 * ingredients_common_ratio + 35 / 100 * longest_common_beggining_sequence + 20 / 100 * longest_common_consecutive_sequence;
+                var similarProduct = {
+                    barcode: products[i].barcode,
+                    name: products[i].name,
+                    image: products[i].image,
+                    similarity: similarity_ratio,
+                    commonIngr: products[i].commonIngr,
+                    likes: 0
+                };
+                displayed_similar_products.push(similarProduct);
+            }
+            displayed_similar_products.sort(function (a, b) { //descending sort by similarity
+                return b.similarity - a.similarity;
+            });            
+            displayed_similar_products.splice(21, displayed_similar_products.length); //get top 20 products
+            displayed_similar_products = displayed_similar_products.splice(1, displayed_similar_products.length); //remove the same product
+            return displayed_similar_products;
+        }
+
+        function getBeginningCommonSubsequence(current_product, similar_product) {
+            var cp_words = current_product.split(" ");
+            var sp_words = similar_product.split(" ");
+            var i = 0;
+            while (i < cp_words.length && i < sp_words.length && cp_words[i] == sp_words[i]) {
+                i++;
+            }
+            return i / cp_words.length;
+        }
+
+        function getLongestCommonSubsequence(current_product, similar_product) {
+            var cp_words = current_product.split(" ");
+            var sp_words = similar_product.split(" ");
+            var longestCommonSubstring = 0;
+            // init 2D array with 0
+            var table = [],
+                    len1 = cp_words.length,
+                    len2 = sp_words.length,
+                    row, col;
+            for (row = 0; row <= len1; row++) {
+                table[row] = [];
+                for (col = 0; col <= len2; col++) {
+                    table[row][col] = 0;
+                }
+            }
+            // fill table
+            var i, j;
+            for (i = 0; i < len1; i++) {
+                for (j = 0; j < len2; j++) {
+                    if (cp_words[i] === sp_words[j]) {
+                        if (table[i][j] === 0) {
+                            table[i + 1][j + 1] = 1;
+                        } else {
+                            table[i + 1][j + 1] = table[i][j] + 1;
+                        }
+                        if (table[i + 1][j + 1] > longestCommonSubstring) {
+                            longestCommonSubstring = table[i + 1][j + 1];
+                        }
+                    } else {
+                        table[i + 1][j + 1] = 0;
+                    }
+                }
+            }
+            return longestCommonSubstring/len1;
+        }
+
+        function getRandomSubarray(arr, size) {
+            var shuffled = arr.slice(0), i = arr.length, temp, index;
+            while (i--) {
+                index = Math.floor((i + 1) * Math.random());
+                temp = shuffled[index];
+                shuffled[index] = shuffled[i];
+                shuffled[i] = temp;
+            }
+            return shuffled.slice(0, size);
+        }
 
         function translateOption(option) {
             switch (option) {
@@ -376,5 +500,12 @@
             $state.go("tabs.campaign", {campaign_name: campaign.campaign_name, campaign_id: campaign.campaign_id,	campaign_description: campaign.description,
 			imagine: campaign.imagine, creation_date: campaign.creation_date, administrator: campaign.administrator});
         };
+		$scope.clickOnCreateCampaign=function(barcode){
+			 if (!$rootScope.logat || $rootScope.logat == false) {
+                $scope.showAlert('LogIn', 'Trebuie sa fiti logat!');
+                return;	
+             }
+			$state.go("tabs.createCampaign",{"ok":"ok",'barcode':barcode});
+		}
     }
 }]);
