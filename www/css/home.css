@@ -85,3 +85,12 @@ div.align-right { text-align:right; }
   padding-top:  7px;
   margin-left: -5px;
 }
+
+.gravatar {
+    border-radius: 50%;
+    bottom: 20px;
+    height: 66px;
+    overflow: hidden;
+    position: absolute;
+    right: 20px;
+    width: 66px; }
