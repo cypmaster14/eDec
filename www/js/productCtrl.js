@@ -22,7 +22,16 @@
                     $scope.neutralIngredientsDisplayMessage = getNeutralIngredientsDisplayMessage($scope);
                     $scope.comentarii = data.comentarii;
                     $scope.campanii = data.campanii;
-                    $scope.comentarii = data.comentarii;
+                    var category = data.category;
+                    var getSimilarProducts = $http.get('https://nodeserve-cypmaster14.c9users.io/getSimilarProducts?user=' + $rootScope.user + '&barcode=' + $scope.barcode + '&category=' + category);
+                    getSimilarProducts.success(function (data, status, headers, config) {
+                        if (status == 200) {
+                            console.log(data);
+                        }
+                    });
+                    getSimilarProducts.error(function (data, status, headers, config) {
+                        alert("Error on request la obtinerea recomandarilor pentru produs " + status + ' ' + headers);
+                    });
                 }
                 else {
                     $state.go("tabs.home");
@@ -78,7 +87,7 @@
                               res.success(function (data, status, headers, config) {
 
                                   if (status == 200) {
-                                      $scope.showAlert('Preferinta noua',data);
+                                      $scope.showAlert('Preferinta noua', data);
                                   }
 
                                   else {
@@ -130,7 +139,7 @@
             console.log($rootScope.user);
             console.log("Scor" + $scope.ratingValue);
             if (!$rootScope.logat || $rootScope.logat === false) {
-                $scope.showAlert('LogIn', 'You must login first');
+                $scope.showAlert('Login', 'You must login first');
                 return;
             }
             if ( $scope.iol && $scope.iol.length !== 0 && $scope.titlu  && $scope.titlu.length!==0) {
@@ -279,7 +288,6 @@
             for (var i = 0; i < product_ingredients_size; i++) {
                 for (var j in user_voted_ingredients) {
                     if (product_ingredients[i].toUpperCase() == user_voted_ingredients[j].ingredient_name.toUpperCase()) {
-
                         var ingredient = {
                             name: user_voted_ingredients[j].ingredient_name,
                             option: user_voted_ingredients[j].preference,
@@ -297,7 +305,7 @@
             //add substring ingredients : lapte -> lapte praf
             for (var i = 0; i < product_ingredients_size; i++) {
                 for (var j in user_voted_ingredients) {
-                    if (product_ingredients[i].toUpperCase().indexOf(user_voted_ingredients[j].ingredient_name.toUpperCase()) > -1) {
+                    if (deductedIngredient(product_ingredients[i].toUpperCase(),user_voted_ingredients[j].ingredient_name.toUpperCase())) {
                         var ingredient = {
                             name: product_ingredients[i],
                             option: user_voted_ingredients[j].preference,
@@ -324,6 +332,24 @@
             return returned_ingredients;
         };
 
+        //check all cases of substring appearance: (beginning) lapte -> lapte praf | (middle) grau -> faina de grau macinata | (end) cacao -> pudra de cacao
+        function deductedIngredient(product_ingredient, voted_ingredient) {
+            var index = product_ingredient.indexOf(voted_ingredient);
+            switch (index) {
+                case -1:
+                    return false;
+                case 0: //beginning
+                    if (product_ingredient[index + voted_ingredient.length] == ' ') return true;
+                    return false;
+                case (product_ingredient.length - voted_ingredient.length): //end
+                    if (product_ingredient[product_ingredient.length - voted_ingredient.length - 1] == ' ') return true;
+                    return false;
+                default: //middle
+                    if (product_ingredient[index - 1] == ' ' && product_ingredient[index + voted_ingredient.length] == ' ') return true;
+                    return false;
+            }
+        }
+
         function deductReason(name, option) {
             switch (option) {
                 case "Like":
@@ -344,9 +370,9 @@
             }
         }
 
-
-        $scope.clickOnCampaign = function (obj) {
-            $state.go("tabs.campaign", { obj:obj });
+        $scope.clickOnCampaign = function (campaign) {
+            $state.go("tabs.campaign", {campaign_name: campaign.campaign_name, campaign_id: campaign.campaign_id,	campaign_description: campaign.description,
+			imagine: campaign.imagine, creation_date: campaign.creation_date, administrator: campaign.administrator});
         };
     }
 }]);
