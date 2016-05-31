@@ -428,24 +428,26 @@
                     }
                 }
             }
-
-            //add substring ingredients : lapte -> lapte praf
-            for (var i = 0; i < product_ingredients_size; i++) {
-                for (var j in user_voted_ingredients) {
-                    if (deductedIngredient(product_ingredients[i].toUpperCase(),user_voted_ingredients[j].ingredient_name.toUpperCase())) {
-                        var ingredient = {
-                            name: product_ingredients[i],
-                            option: user_voted_ingredients[j].preference,
-                            reason: deductReason(user_voted_ingredients[j].ingredient_name, user_voted_ingredients[j].preference)
-                        };
-                        returned_ingredients.push(ingredient);
-                        product_ingredients.splice(i, 1);
-                        i--;
-                        product_ingredients_size--;
-                        break;
-                    }
-                }
-            }
+			
+			if ($scope.mesaj.category!="IT, comunicatii si foto" && $scope.mesaj.category!="Tv, electrocasnice si electronice"){
+				//add substring ingredients : lapte -> lapte praf
+				for (var i = 0; i < product_ingredients_size; i++) {
+					for (var j in user_voted_ingredients) {
+						if (deductedIngredient(product_ingredients[i].toUpperCase(),user_voted_ingredients[j].ingredient_name.toUpperCase())) {
+							var ingredient = {
+								name: product_ingredients[i],
+								option: user_voted_ingredients[j].preference,
+								reason: deductReason(user_voted_ingredients[j].ingredient_name, user_voted_ingredients[j].preference)
+							};
+							returned_ingredients.push(ingredient);
+							product_ingredients.splice(i, 1);
+							i--;
+							product_ingredients_size--;
+							break;
+						}
+					}
+				}
+			}
 
             //add remaining ingredients(not voted)
             for (var i in product_ingredients) {
@@ -501,5 +503,8 @@
             $state.go("tabs.campaign", {campaign_name: campaign.campaign_name, campaign_id: campaign.campaign_id,	campaign_description: campaign.description,
 			imagine: campaign.imagine, creation_date: campaign.creation_date, administrator: campaign.administrator});
         };
+		$scope.clickOnCreateCampaign=function(){
+			$state.go("tabs.createCampaign");
+		}
     }
 }]);
