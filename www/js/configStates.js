@@ -62,6 +62,9 @@
 	  })
 	  .state('tabs.createCampaign',{
 		url:"/createCampaign",
+		params:
+		{ "ok":"ok",
+             "barcode" : "empty"},
 		views: {
 			'home-tab':{
 				templateUrl: "templates/createCampaign.html",
