@@ -1,8 +1,8 @@
 <button id="buton_pareri" onclick = "$('.parere').fadeToggle();">Consumer Opinion</button>
 <br>
 <div class="parere" ng-controller="ProductCtrl">
-	<textarea id="title" rows="1" col="50" placeholder="Titlu" ng-model="titlu"></textarea>
-	<textarea id="comment"  rows="4" col="50" placeholder="Comentariu" ng-model="iol"></textarea>
+	<textarea id="textareaReview" rows="1" col="50" placeholder="Titlu" ng-model="titlu"></textarea>
+	<textarea id="textareaReview"  rows="4" col="50" placeholder="Comentariu" ng-model="iol"></textarea>
 	<div class="acidjs-rating-stars">
 		  <form id="my_form">
 			   <input type="radio" name="comm" id="group-3-0" value="5" /><label  ng-click="setRating(5)"></label>
