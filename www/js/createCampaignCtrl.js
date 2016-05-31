@@ -1,5 +1,4 @@
-angular.module('edec').controller("CreateCampaignCtrl", ['$scope', '$http', '$window', '$ionicPopup', '$timeout', function ($scope, $http, $window, $ionicPopup, $timeout) {
-
+angular.module('edec').controller("CreateCampaignCtrl", ['$scope','$state','$rootScope','logat','user','$ionicActionSheet', '$http', '$window', '$ionicPopup', '$timeout', function ($scope,$state,$rootScope,logat,user,$ionicActionSheet, $http, $window, $ionicPopup, $timeout) {
     $scope.showAlert = function (titlu, mesaj) {
         var alertPopup = $ionicPopup.alert({
             title: titlu,
@@ -12,7 +11,10 @@ angular.module('edec').controller("CreateCampaignCtrl", ['$scope', '$http', '$wi
     };
 
     $scope.register = function () {
-
+         if (!$rootScope.logat || $rootScope.logat == false) {
+        $scope.showAlert('LogIn', 'Trebuie sa fiti logat!');
+        return;
+       }	
         if (!$scope.numeCampanie || !$scope.descriereCampanie || !$scope.pozaCampanie) {
 
             $scope.showAlert('Try Again', "All field must be completed");
@@ -20,12 +22,12 @@ angular.module('edec').controller("CreateCampaignCtrl", ['$scope', '$http', '$wi
         }
         var pozaCampanie = $scope.pozaCampanie;
         var numeCampanie = $scope.numeCampanie;
-        var pozaCampanie = $scope.pozaCampanie;
+        var descriereCampanie = $scope.descriereCampanie;
 
         var obj = {
             pozaCampanie: pozaCampanie,
             numeCampanie: numeCampanie,
-            pozaCampanie: pozaCampanie
+            descriereCampanie: descriereCampanie
         };
 
         console.log(obj);

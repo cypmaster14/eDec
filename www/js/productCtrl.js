@@ -374,5 +374,8 @@
             $state.go("tabs.campaign", {campaign_name: campaign.campaign_name, campaign_id: campaign.campaign_id,	campaign_description: campaign.description,
 			imagine: campaign.imagine, creation_date: campaign.creation_date, administrator: campaign.administrator});
         };
+		$scope.clickOnCreateCampaign=function(){
+			$state.go("tabs.createCampaign");
+		}
     }
 }]);
