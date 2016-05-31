@@ -35,6 +35,15 @@
         }
       })
 
+      .state('tabs.addProduct',{
+        url:"/addProduct",
+        views:{
+            "home-tab":{
+              templateUrl:"templates/addProduct.html"
+            }
+        }
+      })
+
       .state('tabs.register',{
           url:"/register",
           views: {
@@ -56,7 +65,7 @@
 			'home-tab':{
 				templateUrl: "templates/campaign.html",
 				controller: 'CampaignCtrl'
-				
+
 			}
 		}
 	  })

@@ -19,6 +19,7 @@
       <script src="js/registerCtrl.js"></script>
 	  <script src="js/campaignCtrl.js"></script>
 	  <script src="js/createCampaignCtrl.js"></script>
+    <script src="js/addProductCtrl.js"></script>
 
 	<link rel="stylesheet" href="css/produs.css">
 	<link rel="stylesheet" href="css/home.css">
@@ -76,8 +77,8 @@
           <div  style="height:200px;background-image:url(../img/slideMenu.jpg);background-size: 100% 100%;" ng-hide="!logat" ng-click="moveToProfilePage({{user}})">
 
                 <img src="../img/human.png" style="height:66px; width:66px;border-radius:50% ;margin-top:20px; margin-bottom:10px" />
-                <p style="color:white">Admin admin</p>
-                <p style="color:white">admin@admin.com</p>
+                <p style="color:white">{{firstName}} {{lastName}}</p>
+                <p style="color:white">{{user}}</p>
 
           </div>
 
@@ -145,7 +146,7 @@
 		<ion-content>
 	</ion-view>
     </script>
-	
+
 	 <script id="templates/register.html" type="text/ng-template">
       <ion-view view-title="Register">
         <ion-content class="padding">
@@ -153,7 +154,7 @@
         </ion-content>
       </ion-view>
     </script>
-	
+
 	<script id="templates/createCampaign.html" type="text/ng-template">
       <ion-view view-title="Creare Campanie">
         <ion-content class="padding">
@@ -182,6 +183,14 @@
       <ion-view view-title="Profile">
         <ion-content class="padding">
             <div ng-include="'html/profile.html'"></div>
+        </ion-content>
+      </ion-view>
+    </script>
+
+    <script id="templates/addProduct.html" type="text/ng-template">
+      <ion-view view-title="Add product" >
+        <ion-content class="padding">
+            <div ng-include src="'html/addProduct.html'"></div>
         </ion-content>
       </ion-view>
     </script>
