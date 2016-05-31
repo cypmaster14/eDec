@@ -13,14 +13,15 @@ angular.module('edec').controller('CampaignCtrl', ['$scope', '$state', '$statePa
 
         });
 	}
-	if ($stateParams.obj!= null) {
-		$scope.campaign_name=$stateParams.obj.campaign_name;
-        $scope.campaign_id = $stateParams.obj.campaign_id;
-		$scope.campaign_description=$stateParams.obj.description;
-		$scope.campaign_image=$stateParams.obj.imagine;
-		$scope.creation_date=$stateParams.obj.creation_date.substring(0,10);
-		$scope.administrator=$stateParams.obj.administrator;
-		$scope.getNumberOfMembersFor($stateParams.obj);
+	
+	if ($stateParams.campaign_id!=null) {
+		$scope.campaign_name=$stateParams.campaign_name;
+        $scope.campaign_id = $stateParams.campaign_id;
+		$scope.campaign_description=$stateParams.description;
+		$scope.campaign_image=$stateParams.imagine;
+		$scope.creation_date=$stateParams.creation_date.substring(0,10);
+		$scope.administrator=$stateParams.administrator;
+		$scope.getNumberOfMembersFor($stateParams);
 	}
 	else{
 		alert("empty");

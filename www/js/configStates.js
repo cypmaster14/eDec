@@ -45,8 +45,13 @@
       })
 	  .state('tabs.campaign',{
 		url:"/campaign",
-		 params: { obj:null
-	     },
+		 params: {	campaign_name: null,
+					campaign_id: null,
+					campaign_description: null,
+					imagine: null,
+					creation_date: null,
+					administrator: null
+		 },
 		views: {
 			'home-tab':{
 				templateUrl: "templates/campaign.html",

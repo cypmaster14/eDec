@@ -1,5 +1,5 @@
-﻿angular.module('edec').controller('ProductCtrl', ['$scope', '$state', '$stateParams', '$http', '$ionicPopup', '$timeout', '$rootScope', '$ionicActionSheet', 'logat', 'user', function ($scope, $state, $stateParams, $http, $ionicPopup, $timeout, $rootScope, $ionicActionSheet, logat, user) {
-    
+﻿angular.module('edec').controller('ProductCtrl', ['$scope', '$state', '$stateParams', '$http', '$ionicPopup', '$timeout', '$rootScope', '$ionicActionSheet', 'logat','user', function ($scope, $state, $stateParams, $http, $ionicPopup, $timeout, $rootScope, $ionicActionSheet, logat, user) {
+
     if ($stateParams.barcode != "empty") {
         $scope.barcode = $stateParams.barcode;
 
@@ -343,9 +343,9 @@
             }
         }
 
-
-        $scope.clickOnCampaign = function (obj) {
-            $state.go("tabs.campaign", { obj:obj });
+        $scope.clickOnCampaign = function (campaign) {
+            $state.go("tabs.campaign", {campaign_name: campaign.campaign_name, campaign_id: campaign.campaign_id,	campaign_description: campaign.description,
+			imagine: campaign.imagine, creation_date: campaign.creation_date, administrator: campaign.administrator});
         };
     }
 }]);
