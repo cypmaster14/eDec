@@ -7758,7 +7758,8 @@ textarea {
     text-indent: -3px; }
 
 textarea {
-  height: auto; }
+  height: auto; 
+}
 
 textarea,
 input[type="text"],

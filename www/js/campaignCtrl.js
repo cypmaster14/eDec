@@ -52,9 +52,8 @@ angular.module('edec').controller('CampaignCtrl', ['$scope', '$state', '$statePa
                     email: $rootScope.user,
                     barcode: $scope.barcode,
                     title: $scope.titlu,
-                    grade: $scope.ratingValue,
-                    review: review
-
+                    review: review,
+					campaign_id:$scope.campaign_id
                 };
                 console.log("Trimit obiectul:" + JSON.stringify(obj));
 

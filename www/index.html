@@ -17,7 +17,8 @@
       <script src="js/loginCtrl.js"></script>
 	  <script src="js/searchProductCtrl.js"></script>
       <script src="js/registerCtrl.js"></script>
-	  	  <script src="js/campaignCtrl.js"></script>
+	  <script src="js/campaignCtrl.js"></script>
+	  <script src="js/createCampaignCtrl.js"></script>
 
 	<link rel="stylesheet" href="css/produs.css">
 	<link rel="stylesheet" href="css/home.css">
@@ -144,6 +145,7 @@
 		<ion-content>
 	</ion-view>
     </script>
+	
 	 <script id="templates/register.html" type="text/ng-template">
       <ion-view view-title="Register">
         <ion-content class="padding">
@@ -151,7 +153,14 @@
         </ion-content>
       </ion-view>
     </script>
-
+	
+	<script id="templates/createCampaign.html" type="text/ng-template">
+      <ion-view view-title="Creare Campanie">
+        <ion-content class="padding">
+            <div ng-include src="'html/createCampaign.html'"></div>
+        </ion-content>
+      </ion-view>
+    </script>
 
     <script id="templates/product.html"  type="text/ng-template">
       <ion-view view-title="Product details">

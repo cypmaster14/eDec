@@ -55,6 +55,15 @@
 			}
 		}
 	  })
+	  .state('tabs.createCampaign',{
+		url:"/createCampaign",
+		views: {
+			'home-tab':{
+				templateUrl: "templates/createCampaign.html",
+				controller: 'CreateCampaignCtrl'
+			}
+		}
+	  })
 
       .state('tabs.product', {
           url: "/product",
