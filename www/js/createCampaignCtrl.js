@@ -1,4 +1,4 @@
-angular.module('edec').controller("CreateCampaignCtrl", ['$scope','$state','$rootScope','logat','user','$ionicActionSheet', '$http', '$window', '$ionicPopup', '$timeout', function ($scope,$state,$rootScope,logat,user,$ionicActionSheet, $http, $window, $ionicPopup, $timeout) {
+angular.module('edec').controller("CreateCampaignCtrl", ['$scope','$stateParams','$state','$rootScope','logat','user','$ionicActionSheet', '$http', '$window', '$ionicPopup', '$timeout', function ($scope,$stateParams,$state,$rootScope,logat,user,$ionicActionSheet, $http, $window, $ionicPopup, $timeout) {
     $scope.showAlert = function (titlu, mesaj) {
         var alertPopup = $ionicPopup.alert({
             title: titlu,
@@ -10,42 +10,31 @@ angular.module('edec').controller("CreateCampaignCtrl", ['$scope','$state','$roo
         });
     };
 
-    $scope.register = function () {
-         if (!$rootScope.logat || $rootScope.logat == false) {
-        $scope.showAlert('LogIn', 'Trebuie sa fiti logat!');
-        return;
-       }	
+    $scope.register = function () {	
         if (!$scope.numeCampanie || !$scope.descriereCampanie || !$scope.pozaCampanie) {
-
-            $scope.showAlert('Try Again', "All field must be completed");
+			$scope.showAlert('Try Again', "All field must be completed");
             return;
         }
+		var barcode=$stateParams.barcode;
         var pozaCampanie = $scope.pozaCampanie;
         var numeCampanie = $scope.numeCampanie;
         var descriereCampanie = $scope.descriereCampanie;
-
+        var administrator=$rootScope.user;
         var obj = {
             pozaCampanie: pozaCampanie,
             numeCampanie: numeCampanie,
-            descriereCampanie: descriereCampanie
+            descriereCampanie: descriereCampanie,
+			administrator: administrator,
+			barcode: $stateParams.barcode
         };
 
         console.log(obj);
 
-        /*var res = $http.post('https://nodeserve-cypmaster14.c9users.io/register', obj);
+        var res = $http.post('https://nodeserve-cypmaster14.c9users.io/creareCampanie', obj);
         res.success(function (data, status, headers, config) {
             if (status == 200) {
-                $scope.mesaj = data;
-                console.log("Text:" + $scope.mesaj.text);
-
-                if ($scope.mesaj.text.localeCompare('Account created') == 0) {
-                    $scope.showAlert('Register', 'Succes');
-                    $window.location.href = "/#/tab/facts";
-                }
-
-                else {
-                    $scope.showAlert('Registration failed', $scope.mesaj.text);
-                }
+				$scope.showAlert("Campanie creata cu succes!");                  
+                    $window.location.href = "/#/tab/product";   
             }
         });
 
@@ -53,7 +42,7 @@ angular.module('edec').controller("CreateCampaignCtrl", ['$scope','$state','$roo
             alert("Error on request" + status + ' ' + headers);
 
         });
-		*/
+		
 
     };
 

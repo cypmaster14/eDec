@@ -2,7 +2,6 @@
 
     if ($stateParams.barcode != "empty") {
         $scope.barcode = $stateParams.barcode;
-
         var productInfo = {
             barcode: $scope.barcode,
             user: $rootScope.user
@@ -376,8 +375,12 @@
             $state.go("tabs.campaign", {campaign_name: campaign.campaign_name, campaign_id: campaign.campaign_id,	campaign_description: campaign.description,
 			imagine: campaign.imagine, creation_date: campaign.creation_date, administrator: campaign.administrator});
         };
-		$scope.clickOnCreateCampaign=function(){
-			$state.go("tabs.createCampaign");
+		$scope.clickOnCreateCampaign=function(barcode){
+			 if (!$rootScope.logat || $rootScope.logat == false) {
+                $scope.showAlert('LogIn', 'Trebuie sa fiti logat!');
+                return;	
+             }
+			$state.go("tabs.createCampaign",{"ok":"ok",'barcode':barcode});
 		}
     }
 }]);

@@ -54,7 +54,7 @@ angular.module('edec').controller('CampaignCtrl', ['$scope', '$state', '$statePa
         $scope.showAlert('LogIn', 'Trebuie sa fiti logat!');
         return;
      }	
-	 else{
+	 /*else{
         var aAderat = $http.get('https://nodeserve-cypmaster14.c9users.io/aderareCampanie?campaignId=' + $scope.campaign_id + '&administrator=' + $scope.administrator);
 		aAderat.success(function (data, status, headers, config) {
             if (status == 200) {
@@ -74,7 +74,7 @@ angular.module('edec').controller('CampaignCtrl', ['$scope', '$state', '$statePa
         });
             }
         });
-	 }
+	 }*/
 	}
 	$scope.postareComentariu = function () {
             console.log($rootScope.logat);
