@@ -78,10 +78,8 @@
                 return $sce.trustAsHtml("<h3>"+name+"</h3>");
             }
             if (length <= 60) {
-                console.log("<60");
                 var firstLine = words.slice(0, words.length / 2).join(" ");
                 var secondLine = words.slice(words.length / 2, words.length).join(" ");
-                console.log("<h3>" + firstLine + "<br />" + secondLine + "</h3>");
                 return $sce.trustAsHtml("<h3>" + firstLine + "<br />" + secondLine + "</h3>");
             }
             var firstLine = words.slice(0, words.length / 3).join(" ");
