@@ -63,7 +63,7 @@
 		pagina++;
 		$scope.showAlert('Search',"Pagina "+pagina);
 		console.log($rootScope.user);
-		var res=$http.get('https://nodeserve-cypmaster14.c9users.io/products?product='+$scope.searchedProduct+"&pagina="+pagina);
+		var res=$http.get('https://nodeserve-cypmaster14.c9users.io/products?product='+$scope.searchedProduct+"&pagina="+pagina+"&user="+$rootScope.user);
 
 		res.success(function (data,status,headers,config) {
 
@@ -72,9 +72,6 @@
 				$scope.text=data.text;
 				if($scope.text.localeCompare("Gasit")==0) //produsul a fost gasit
 				{
-					for (i=0;i<data.products.length;i++){
-						$scope.getPreferences(data.products[i]);
-					}
 					$scope.products.push.apply($scope.products,data.products);
 				}
 			}
@@ -94,7 +91,8 @@
 	$scope.$broadcast('scroll.infiniteScrollComplete');
   };
   
-  $scope.getPreferences=function (product){
+  //vechea abordare de obtinere a preferintelor
+  /*$scope.getPreferences=function (product){
 	if ($rootScope.user!=''){
 		var pref=$http.get('https://nodeserve-cypmaster14.c9users.io/getPreferences?user='+$rootScope.user+"&barcode="+product.barcode);
 		
@@ -109,6 +107,6 @@
 			}
 		});
 	}
-  }
+  }*/
 
 }]);
