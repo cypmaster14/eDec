@@ -1,4 +1,4 @@
-<div>
+<div ng-controller="profile" ng-init="getMyPageInfo();">
   <div id="divPoza" >
     <img src="img/human.jpg " alt="Poza Profil" id="pozaProfil" />
   </div>
@@ -12,26 +12,26 @@
 
 <div>
   <p>
-    Your Campaings:
+    Campaniile tale:
   </p>
+  <h5 ng-show="!areCampanii">Nu aveti nici o campanie</h5>
 
-  <div class="wrapper">
-
-      		<div class="card radius shadowDepth1">
+  <div class="wrapper" id="campaignList"  ng-repeat="campanie in campanii" >
+      		<div class="card radius shadowDepth1"  ng-click="goToCampaign({{campanie}})" >
       			<div class="card__image border-tlr-radius">
-        				<img src="http://tutorialsplane.com/runtest/ionic/img/cover.jpg" alt="image" class="border-tlr-radius pozeCampanie">
+        				<img src="http://tutorialsplane.com/runtest/ionic/img/cover.jpg" id="{{campanie.id}}" alt="image" class="border-tlr-radius pozeCampanie">
                   </div>
 
       			<div class="card__content card__padding">
       				<div class="card__meta">
       					<span class="elementeProfil">Date:</span>
-                          <time>17th March</time>
+                          <time>{{campanie.data}}</time>
       				</div>
 
       				<article class="card__article">
-  	    				<h2><span class="elementeProfil">Titlul Campaniei</span></h2>
+  	    				<h2><span class="elementeProfil">{{campanie.nume}}</span></h2>
 
-  	    				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus harum...</p>
+  	    				<p>{{campanie.descriere}}</p>
   	    			</article>
       			</div>
 
@@ -40,4 +40,20 @@
       			</div>
       		</div>
   </div>
+  <p>
+    Preferintele tale:
+    <h5 ng-show="!arePreferinte">Nu aveti momentan preferinte</h5>
+    <p ng-show="arePreferinte==true">Like</p>
+    <div id="likePreferences" ng-repeat="likePref in preferinteLike">
+      <i class="icon ion-happy-outline"></i>{{likePref.ingredient_name}} ({{likePref.motiv}})
+    </div>
+    <p ng-show="arePreferinte">Dislike</p>
+    <div id="dislikePreferences" ng-repeat="dislikePref in preferinteDislike">
+      <i class="icon ion-sad-outline"></i>{{dislikePref.ingredient_name}} ({{dislikePref.motiv}})
+    </div>
+    <p ng-show="arePreferinte">Alert</p>
+    <div id="alertPreferences" ng-repeat="alertPref in preferinteAlert">
+      <i class="icon ion-android-alert"></i>{{alertPref.ingredient_name}} ({{alertPref.motiv}})
+    </div>
+  </p>
 </div>
