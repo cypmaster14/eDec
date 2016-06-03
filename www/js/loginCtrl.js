@@ -42,7 +42,7 @@
                     console.log("Nume:" + data.firstName);
                     $rootScope.firstName = data.firstName;
                     $rootScope.lastName = data.lastName;
-                    $scope.showAlert('Login', 'Loged as ' + $rootScope.user + "(Log=" + $rootScope.logat + ")" + $rootScope.firstName + " " + $rootScope.lastName);
+                    $rootScope.userActiuni=data.userActiuni;
                     $state.go("tabs.home");
                     window.localStorage.setItem("email", $rootScope.user);
                     window.localStorage.setItem("firstName", $rootScope.firstName);
