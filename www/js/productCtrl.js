@@ -1,6 +1,7 @@
-﻿angular.module('edec').controller('ProductCtrl', ['$scope', '$state', '$stateParams', '$http', '$ionicPopup', '$timeout', '$rootScope', '$ionicActionSheet', '$sce', 'logat', 'user', function ($scope, $state, $stateParams, $http, $ionicPopup, $timeout, $rootScope, $ionicActionSheet, $sce, logat, user) {
-
+﻿angular.module('edec').controller('ProductCtrl', ['$scope', '$state', '$stateParams', '$http', '$ionicPopup', '$timeout', '$rootScope', '$ionicActionSheet', '$sce', '$ionicHistory', 'logat', 'user', function ($scope, $state, $stateParams, $http, $ionicPopup, $timeout, $rootScope, $ionicActionSheet, $sce, $ionicHistory, logat, user) {
+    
     if ($stateParams.barcode != "empty") {
+        console.log($ionicHistory.viewHistory());
         $scope.barcode = $stateParams.barcode;
         var productInfo = {
             barcode: $scope.barcode,
