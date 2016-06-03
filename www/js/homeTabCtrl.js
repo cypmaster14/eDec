@@ -18,6 +18,10 @@
     $scope.activate = function (obj) {
 
     };
+	
+	if ($rootScope.lastSearchedProduct == null){
+		$rootScope.lastSearchedProduct='';
+	}
 
     $scope.showAlert('Stare:' + window.localStorage.getItem('logat'));
 

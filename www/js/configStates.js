@@ -97,6 +97,7 @@
       })
       .state('tabs.search', {
           url: "/search",
+		  cache: false,
           views: {
               'search-tab': {
                   templateUrl: "templates/search.html"

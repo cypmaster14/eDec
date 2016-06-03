@@ -12,22 +12,28 @@
             if (status == 200) {
                 if (data.mesaj.localeCompare("Gasit") == 0) {
                     $scope.mesaj = data;
-
-                    var ingredients = getProductIngredients(data.product_ingredients, data.user_voted_ingredients);
-                    $scope.likedIngredients = getIngredients(ingredients, "Like");
-                    $scope.dislikedIngredients = getIngredients(ingredients, "Dislike");
-                    $scope.alertedIngredients = getIngredients(ingredients, "Alert");
-                    $scope.neutralIngredients = getIngredients(ingredients, "Neutral");
-                    $scope.neutralIngredientsDisplayMessage = getNeutralIngredientsDisplayMessage($scope);
                     $scope.comentarii = data.comentarii;
                     $scope.campanii = data.campanii;
                     $scope.nume = data.name;
                     var category = data.category;
 					if (category!="IT, comunicatii si foto" && category!="Tv, electrocasnice si electronice"){
 						$scope.ingrSource="html/ingredientsButton.html";
+						var ingredients = getProductIngredients(data.product_ingredients, data.user_voted_ingredients);
+						$scope.likedIngredients = getIngredients(ingredients, "Like");
+						$scope.dislikedIngredients = getIngredients(ingredients, "Dislike");
+						$scope.alertedIngredients = getIngredients(ingredients, "Alert");
+						$scope.neutralIngredients = getIngredients(ingredients, "Neutral");
+						$scope.neutralIngredientsDisplayMessage = getNeutralIngredientsDisplayMessage($scope);
 					}
 					else{
 						$scope.ingrSource="html/specificationButton.html";
+						$scope.spectypeobjs=data.spectypeobjs;
+						getProductSpecifications($scope.spectypeobjs,data.user_voted_ingredients);
+						$scope.likedSpecifications = getSpecifications($scope.spectypeobjs, "Like");
+						$scope.dislikedSpecifications = getSpecifications($scope.spectypeobjs, "Dislike");
+						$scope.alertedSpecifications = getSpecifications($scope.spectypeobjs, "Alert");
+						$scope.neutralSpecifications = getSpecifications($scope.spectypeobjs, "Neutral");
+						$scope.neutralSpecificationsDisplayMessage = getNeutralSpecificationsDisplayMessage($scope);
 					}
                     var getSimilarProducts = $http.get('https://nodeserve-cypmaster14.c9users.io/getSimilarProducts?user=' + $rootScope.user + '&barcode=' + $scope.barcode + '&category=' + category);
                     getSimilarProducts.success(function (data, status, headers, config) {
@@ -176,23 +182,39 @@
         }
 
         function translateOption(option) {
-            switch (option) {
-                case "Like":
-                    return "va  place ingredientul ";
-                case "Dislike":
-                    return "nu va place ingredientul ";
-                case "Alert":
-                    return "considerati un pericol ingredientul "
-            }
+			if ($scope.mesaj.category!="IT, comunicatii si foto" && $scope.mesaj.category!="Tv, electrocasnice si electronice"){
+				switch (option) {
+					case "Like":
+						return "va  place ingredientul ";
+					case "Dislike":
+						return "nu va place ingredientul ";
+					case "Alert":
+						return "considerati un pericol ingredientul "
+				}
+			}
+			else{
+				switch (option) {
+					case "Like":
+						return "va  place aceasta specificatie?";
+					case "Dislike":
+						return "nu va place aceasta specificatie?";
+					case "Alert":
+						return "considerati un pericol aceasta specificatie?"
+				}
+			}
         }
 
         $scope.showPopup = function (ingredient, optiune) {
 
             $scope.data = {};
+			var subtitle="De ce " + translateOption(optiune);
+			if ($scope.mesaj.category!="IT, comunicatii si foto" && $scope.mesaj.category!="Tv, electrocasnice si electronice"){
+				subtitle=subtitle+ingredient+"?";
+			}
             $ionicPopup.show({
                 template: '<input type="text" placeholder="Introduceti motivul" ng-model="data.model">',
                 title: "Preferinta noua",
-                subTitle: "De ce " + translateOption(optiune) + ingredient + "?",
+                subTitle: subtitle,
                 scope: $scope,
                 buttons: [
                   { text: 'Anuleaza' },
@@ -321,8 +343,6 @@
                     }
 
                 });
-
-
             }
 
             else
@@ -406,7 +426,34 @@
             return returnedIngredientes;
         }
 
-
+		function getSpecifications(spectypeobjs, option) {
+            var returnedSpecifications = [];
+			var spectypeobjs_size = spectypeobjs.length;
+            for (var i = 0; i < spectypeobjs_size; i++) {
+				subspectypeobjs=spectypeobjs[i].subspectypeobjs;
+				var newSpectypeobj=new Object();
+				newSpectypeobj.spectype=spectypeobjs[i].spectype;
+				newSpectypeobj.subspectypeobjs=[];
+				for (var j=0; j< subspectypeobjs.length;j++){
+					specvalobjs=subspectypeobjs[j].specvalobjs;
+					var newSubspectypeobj=new Object();
+					newSubspectypeobj.subspectype=subspectypeobjs[j].subspectype;
+					newSubspectypeobj.specvalobjs=[];
+					for (var e=0; e<specvalobjs.length;e++){
+						if (specvalobjs[e].option===option) {
+							newSubspectypeobj.specvalobjs.push(specvalobjs[e]);
+						}
+					}
+					if(newSubspectypeobj.specvalobjs.length>0){
+						newSpectypeobj.subspectypeobjs.push(newSubspectypeobj);
+					}
+				}
+				if (newSpectypeobj.subspectypeobjs.length>0){
+					returnedSpecifications.push(newSpectypeobj);
+				}
+            }
+            return returnedSpecifications;
+        }
 
         //merge product ingredients with the ingredients voted by user
         function getProductIngredients(product_ingredients, user_voted_ingredients) {
@@ -464,6 +511,27 @@
             return returned_ingredients;
         };
 
+		function getProductSpecifications(spectypeobjs, user_voted_ingredients) {
+
+            //add exactly matched ingredients
+            var spectypeobjs_size = spectypeobjs.length;
+            for (var i = 0; i < spectypeobjs_size; i++) {
+				subspectypeobjs=spectypeobjs[i].subspectypeobjs;
+				for (var j=0; j< subspectypeobjs.length;j++){
+					specvalobjs=subspectypeobjs[j].specvalobjs;
+					for (var e=0; e<specvalobjs.length;e++){
+						for (var k in user_voted_ingredients) {
+							if (specvalobjs[e].specification_id.toUpperCase() == user_voted_ingredients[k].ingredient_name.toUpperCase()) {
+								specvalobjs[e].option=user_voted_ingredients[k].preference;
+								specvalobjs[e].reason=user_voted_ingredients[k].reason;
+								break;
+							}
+						}
+					}
+				}
+            }
+        };
+		
         //check all cases of substring appearance: (beginning) lapte -> lapte praf | (middle) grau -> faina de grau macinata | (end) cacao -> pudra de cacao
         function deductedIngredient(product_ingredient, voted_ingredient) {
             var index = product_ingredient.indexOf(voted_ingredient);
@@ -501,7 +569,15 @@
                 return "";
             }
         }
-
+		
+		function getNeutralSpecificationsDisplayMessage(scope) {
+            if (scope.likedSpecifications.length + scope.dislikedSpecifications.length + scope.alertedSpecifications.length > 0) {
+                return "Alte specificatii";
+            } else {
+                return "";
+            }
+        }
+		
         $scope.clickOnCampaign = function (campaign) {
             $state.go("tabs.campaign", {campaign_name: campaign.campaign_name, campaign_id: campaign.campaign_id,	campaign_description: campaign.description,
 			imagine: campaign.imagine, creation_date: campaign.creation_date, administrator: $rootScope.user});
