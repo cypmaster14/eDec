@@ -33,11 +33,26 @@ angular.module('edec').controller("CreateCampaignCtrl", ['$scope','$stateParams'
         var res = $http.post('https://nodeserve-cypmaster14.c9users.io/creareCampanie', obj);
         res.success(function (data, status, headers, config) {
             if (status == 200) {
-				$scope.showAlert("Campanie creata cu succes!");                  
-                    $window.location.href = "/#/tab/product";   
+				$scope.showAlert("Campanie creata cu succes!"); 
+                   // $window.location.href = "/#/tab/product";   
+                var resCampaignId = $http.get('https://nodeserve-cypmaster14.c9users.io/trimiteCampanie?numeCampanie='+numeCampanie+'&descriereCampanie='+descriereCampanie
+                +'&pozaCampanie='+pozaCampanie +'&administrator='+administrator+'&barcode='+barcode); 
+                resCampaignId.success(function (data, status, headers, config) {
+                    if (status == 200) {
+                        $scope.idCampanie = data.campaign_id;
+                        $scope.creation_date=data.creation_date;
+                        console.log("id======="+$scope.idCampanie);
+                        var aAderat = $http.get('https://nodeserve-cypmaster14.c9users.io/aderareCampanie?campaignId=' + $scope.idCampanie + '&administrator=' + administrator);
+                        aAderat.success(function (data, status, headers, config) {
+                            if (status == 200) {
+                                $state.go("tabs.campaign", {campaign_name: numeCampanie, campaign_id: $scope.idCampanie,campaign_description: descriereCampanie,
+                                imagine: pozaCampanie, creation_date: $scope.creation_date, administrator: administrator});
+                            }          
+                        });   
+                    }   
+                });
             }
         });
-
         res.error(function (data, status, headers, config) {
             alert("Error on request" + status + ' ' + headers);
 

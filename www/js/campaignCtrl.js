@@ -23,6 +23,7 @@ angular.module('edec').controller('CampaignCtrl', ['$scope', '$state', '$statePa
 		$scope.creation_date=$stateParams.creation_date.substring(0,10);
 		$scope.administrator=$stateParams.administrator;
 		$scope.getNumberOfMembersFor($stateParams);
+        $scope.isLogged=$rootScope.logat;
 		
 		var aAderat = $http.get('https://nodeserve-cypmaster14.c9users.io/aderatCampanie?campaignId=' + $scope.campaign_id + '&administrator=' + $scope.administrator);
 		aAderat.success(function (data, status, headers, config) {
@@ -43,7 +44,6 @@ angular.module('edec').controller('CampaignCtrl', ['$scope', '$state', '$statePa
             if (status == 200) {
                 $scope.comentarii = data.comentarii;
                 }
-
         });
 	}
 	else{
@@ -54,7 +54,7 @@ angular.module('edec').controller('CampaignCtrl', ['$scope', '$state', '$statePa
         $scope.showAlert('LogIn', 'Trebuie sa fiti logat!');
         return;
      }	
-	 /*else{
+	 else{
         var aAderat = $http.get('https://nodeserve-cypmaster14.c9users.io/aderareCampanie?campaignId=' + $scope.campaign_id + '&administrator=' + $scope.administrator);
 		aAderat.success(function (data, status, headers, config) {
             if (status == 200) {
@@ -74,7 +74,7 @@ angular.module('edec').controller('CampaignCtrl', ['$scope', '$state', '$statePa
         });
             }
         });
-	 }*/
+	 }
 	}
 	$scope.postareComentariu = function () {
             console.log($rootScope.logat);

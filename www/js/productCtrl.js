@@ -498,7 +498,7 @@
 
         $scope.clickOnCampaign = function (campaign) {
             $state.go("tabs.campaign", {campaign_name: campaign.campaign_name, campaign_id: campaign.campaign_id,	campaign_description: campaign.description,
-			imagine: campaign.imagine, creation_date: campaign.creation_date, administrator: campaign.administrator});
+			imagine: campaign.imagine, creation_date: campaign.creation_date, administrator: $rootScope.user});
         };
 		$scope.clickOnCreateCampaign=function(barcode){
 			 if (!$rootScope.logat || $rootScope.logat == false) {
