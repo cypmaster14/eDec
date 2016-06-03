@@ -23,6 +23,12 @@
                     $scope.campanii = data.campanii;
                     $scope.nume = data.name;
                     var category = data.category;
+					if (category!="IT, comunicatii si foto" && category!="Tv, electrocasnice si electronice"){
+						$scope.ingrSource="html/ingredientsButton.html";
+					}
+					else{
+						$scope.ingrSource="html/specificationButton.html";
+					}
                     var getSimilarProducts = $http.get('https://nodeserve-cypmaster14.c9users.io/getSimilarProducts?user=' + $rootScope.user + '&barcode=' + $scope.barcode + '&category=' + category);
                     getSimilarProducts.success(function (data, status, headers, config) {
                         if (status == 200) {
