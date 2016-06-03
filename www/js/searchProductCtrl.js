@@ -13,7 +13,11 @@
   };
 
   $scope.clickOnProduct=function (produs) {
-     $state.go("tabs.product",{'ok':'ok','barcode':produs});
+      $state.go("tabs.product", { 'ok': 'ok', 'barcode': produs }, {
+          reload: true,
+          inherit: false,
+          notify: true
+      });
   };
 
   $scope.getNumberOfRecords=function(){
