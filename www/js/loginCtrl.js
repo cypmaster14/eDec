@@ -42,6 +42,7 @@
                     console.log("Nume:" + data.firstName);
                     $rootScope.firstName = data.firstName;
                     $rootScope.lastName = data.lastName;
+                    $rootScope.userActiuni=data.userActiuni;
                     $rootScope.reputation=data.reputation;
                     console.log("Am reputatia:"+$rootScope.reputation);
                     $scope.showAlert('Login', 'Loged as ' + $rootScope.user + "(Log=" + $rootScope.logat + ")" + $rootScope.firstName + " " + $rootScope.lastName);

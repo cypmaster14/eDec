@@ -1,2 +1,21 @@
 -modificare design scroll list
--Back-ul ala trebuie neapărat rezolvat. Designul(nu f mult dar de fixat anumite detalii). Testat pt diferite scenarii sa nu cada serverul. Tratat situații ce pot genera excepții gen introduc un nume f lung la produs sau eu știu. Jucat cu aplicația: făcut conturi, campanii, completat frumos ca sa avem ce arata profului și de pus în demo. De făcut demo-ul, actualizat raportul. Eventual dacă mai este timp(puțin probabil) făcută faza cu compararea produselor ca se cere în enunț + ce o sa mai apara.  
+-Back-ul ala trebuie neapărat rezolvat. Designul(nu f mult dar de fixat anumite detalii). Testat pt diferite scenarii sa nu cada serverul. Tratat situații ce pot genera excepții gen introduc un nume f lung la produs sau eu știu. Jucat cu aplicația: făcut conturi, campanii, completat frumos ca sa avem ce arata profului și de pus în demo. De făcut demo-ul, actualizat raportul. Eventual dacă mai este timp(puțin probabil) făcută faza cu compararea produselor ca se cere în enunț + ce o sa mai apara.  	
+
+caz general: Utilizatorul {{userActiune.lastname}} {{userActiune.firstName}} {{userActiune.actiune}} <a ng-click="clickOnActivitate(userActiune.cazActiune)"> {{produsSauCampanie}} </a>
+
+$scope.userActiuni=data.userActiuni;
+
+
+obj.lastName;
+obj.firstName;
+obj.actiune;
+obj.cazActiune;
+obj.produsSauCampanie;
+
+cazActiune:1
+	$scope.actiune="a creat campania"
+cazActiune:2
+	$scope.ingredient=obj.ingredient;
+	$scope.actiune="a votat ingredientul "+$scope.ingredient pentru produsul ";
+cazActiune:3
+	$scope.actiune="a aderat la campania "
