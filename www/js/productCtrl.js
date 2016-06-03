@@ -1,4 +1,4 @@
-﻿angular.module('edec').controller('ProductCtrl', ['$scope', '$state', '$stateParams', '$http', '$ionicPopup', '$timeout', '$rootScope', '$ionicActionSheet','$sce', 'logat', 'user', function ($scope, $state, $stateParams, $http, $ionicPopup, $timeout, $rootScope, $ionicActionSheet,$sce, logat, user) {
+﻿angular.module('edec').controller('ProductCtrl', ['$scope', '$state', '$stateParams', '$http', '$ionicPopup', '$timeout', '$rootScope', '$ionicActionSheet', '$sce', 'logat', 'user', function ($scope, $state, $stateParams, $http, $ionicPopup, $timeout, $rootScope, $ionicActionSheet, $sce, logat, user) {
 
     if ($stateParams.barcode != "empty") {
         $scope.barcode = $stateParams.barcode;
@@ -12,17 +12,29 @@
             if (status == 200) {
                 if (data.mesaj.localeCompare("Gasit") == 0) {
                     $scope.mesaj = data;
-
-                    var ingredients = getProductIngredients(data.product_ingredients, data.user_voted_ingredients);
-                    $scope.likedIngredients = getIngredients(ingredients, "Like");
-                    $scope.dislikedIngredients = getIngredients(ingredients, "Dislike");
-                    $scope.alertedIngredients = getIngredients(ingredients, "Alert");
-                    $scope.neutralIngredients = getIngredients(ingredients, "Neutral");
-                    $scope.neutralIngredientsDisplayMessage = getNeutralIngredientsDisplayMessage($scope);
                     $scope.comentarii = data.comentarii;
                     $scope.campanii = data.campanii;
                     $scope.nume = data.name;
                     var category = data.category;
+					if (category!="IT, comunicatii si foto" && category!="Tv, electrocasnice si electronice"){
+						$scope.ingrSource="html/ingredientsButton.html";
+						var ingredients = getProductIngredients(data.product_ingredients, data.user_voted_ingredients);
+						$scope.likedIngredients = getIngredients(ingredients, "Like");
+						$scope.dislikedIngredients = getIngredients(ingredients, "Dislike");
+						$scope.alertedIngredients = getIngredients(ingredients, "Alert");
+						$scope.neutralIngredients = getIngredients(ingredients, "Neutral");
+						$scope.neutralIngredientsDisplayMessage = getNeutralIngredientsDisplayMessage($scope);
+					}
+					else{
+						$scope.ingrSource="html/specificationButton.html";
+						$scope.spectypeobjs=data.spectypeobjs;
+						getProductSpecifications($scope.spectypeobjs,data.user_voted_ingredients);
+						$scope.likedSpecifications = getSpecifications($scope.spectypeobjs, "Like");
+						$scope.dislikedSpecifications = getSpecifications($scope.spectypeobjs, "Dislike");
+						$scope.alertedSpecifications = getSpecifications($scope.spectypeobjs, "Alert");
+						$scope.neutralSpecifications = getSpecifications($scope.spectypeobjs, "Neutral");
+						$scope.neutralSpecificationsDisplayMessage = getNeutralSpecificationsDisplayMessage($scope);
+					}
                     var getSimilarProducts = $http.get('https://nodeserve-cypmaster14.c9users.io/getSimilarProducts?user=' + $rootScope.user + '&barcode=' + $scope.barcode + '&category=' + category);
                     getSimilarProducts.success(function (data, status, headers, config) {
                         if (status == 200) {
@@ -38,7 +50,7 @@
                                     displayedSimilarProducts = getRandomSubarray(displayedSimilarProducts, 10) // get 10 random products
                                     displayedSimilarProducts.sort(function (a, b) { //descending sort by similarity
                                         return b.similarity - a.similarity;
-                                    });                                   
+                                    });
                                     $scope.similarProducts = displayedSimilarProducts;
                                     $scope.displayProductName = displayProductName;
                                     $scope.clickOnSimilarProduct = clickOnSimilarProduct;
@@ -53,9 +65,30 @@
                         alert("Error on request la obtinerea recomandarilor pentru produs " + status + ' ' + headers);
                     });
                 }
-                else {
-                    $state.go("tabs.home");
-                    $scope.showAlert("Product", "Product was not found");
+                else
+                {
+                    if($rootScope.logat===true)
+                    {
+                      console.log("Reputatia mea:"+$rootScope.reputation);
+                      if($rootScope.reputation>500)
+                      {
+                        console.log("Barcode-ul este:"+$scope.barcode);
+                        $rootScope.barcodeDeIntrodus=$scope.barcode;
+                        $state.go("tabs.addProduct",{'ok': 'ok'});
+                      }
+                      else
+                      {
+                        $state.go("tabs.home");
+                        $scope.showAlert("Product", "Reputatie insuficienta");
+                      }
+
+                    }
+                    else
+                    {
+                      $state.go("tabs.home");
+                      $scope.showAlert("Product", "Product was not found");
+                    }
+
                 }
             }
         });
@@ -72,9 +105,9 @@
         function displayProductName(name) {
             var length = name.length;
             var words = name.split(" ");
-           
+
             if (length <= 30) {
-                return $sce.trustAsHtml("<h3>"+name+"</h3>");
+                return $sce.trustAsHtml("<h3>" + name + "</h3>");
             }
             if (length <= 60) {
                 var firstLine = words.slice(0, words.length / 2).join(" ");
@@ -106,7 +139,7 @@
             }
             displayed_similar_products.sort(function (a, b) { //descending sort by similarity
                 return b.similarity - a.similarity;
-            });            
+            });
             displayed_similar_products.splice(21, displayed_similar_products.length); //get top 20 products
             displayed_similar_products = displayed_similar_products.splice(1, displayed_similar_products.length); //remove the same product
             return displayed_similar_products;
@@ -155,7 +188,7 @@
                     }
                 }
             }
-            return longestCommonSubstring/len1;
+            return longestCommonSubstring / len1;
         }
 
         function getRandomSubarray(arr, size) {
@@ -170,23 +203,39 @@
         }
 
         function translateOption(option) {
-            switch (option) {
-                case "Like":
-                    return "va  place ingredientul ";
-                case "Dislike":
-                    return "nu va place ingredientul ";
-                case "Alert":
-                    return "considerati un pericol ingredientul "
-            }
+			if ($scope.mesaj.category!="IT, comunicatii si foto" && $scope.mesaj.category!="Tv, electrocasnice si electronice"){
+				switch (option) {
+					case "Like":
+						return "va  place ingredientul ";
+					case "Dislike":
+						return "nu va place ingredientul ";
+					case "Alert":
+						return "considerati un pericol ingredientul "
+				}
+			}
+			else{
+				switch (option) {
+					case "Like":
+						return "va  place aceasta specificatie?";
+					case "Dislike":
+						return "nu va place aceasta specificatie?";
+					case "Alert":
+						return "considerati un pericol aceasta specificatie?"
+				}
+			}
         }
 
         $scope.showPopup = function (ingredient, optiune) {
 
             $scope.data = {};
+			var subtitle="De ce " + translateOption(optiune);
+			if ($scope.mesaj.category!="IT, comunicatii si foto" && $scope.mesaj.category!="Tv, electrocasnice si electronice"){
+				subtitle=subtitle+ingredient+"?";
+			}
             $ionicPopup.show({
                 template: '<input type="text" placeholder="Introduceti motivul" ng-model="data.model">',
                 title: "Preferinta noua",
-                subTitle: "De ce " + translateOption(optiune) + ingredient + "?",
+                subTitle: subtitle,
                 scope: $scope,
                 buttons: [
                   { text: 'Anuleaza' },
@@ -211,7 +260,19 @@
                               res.success(function (data, status, headers, config) {
 
                                   if (status == 200) {
-                                      $scope.showAlert('Preferinta noua', data);
+                                      //$scope.showAlert('Preferinta noua', data);
+                                      $scope.showAlert = function (data) {
+                                          var alertPopup = $ionicPopup.alert({
+                                              title: "Preferinta noua",
+                                              template: data
+                                          });
+
+                                          alertPopup.then(function (res) {
+                                              $state.go($state.current, $stateParams, { reload: true });
+
+                                              //console.log('Thank you for not eating my delicious ice cream cone');
+                                          });
+                                      }(data);
                                   }
 
                                   else {
@@ -266,7 +327,7 @@
                 $scope.showAlert('Login', 'You must login first');
                 return;
             }
-            if ( $scope.iol && $scope.iol.length !== 0 && $scope.titlu  && $scope.titlu.length!==0) {
+            if ($scope.iol && $scope.iol.length !== 0 && $scope.titlu && $scope.titlu.length !== 0) {
 
                 console.log($rootScope.logat);
                 var review = $scope.iol;
@@ -308,21 +369,17 @@
                 });
 
 
-                res.error(function (data,status,headers,config) {
-                    if(status==409)
-                    {
-                      $scope.showAlert('Comentariu',"Ati postat deja un comentariu");
+                res.error(function (data, status, headers, config) {
+                    if (status == 409) {
+                        $scope.showAlert('Comentariu', "Ati postat deja un comentariu");
                     }
 
                 });
-
-
             }
 
-            else
-            {
-              $scope.showAlert('Comentariu','Completati toate campurile');
-              return;
+            else {
+                $scope.showAlert('Comentariu', 'Completati toate campurile');
+                return;
             }
         };
 
@@ -352,7 +409,6 @@
                             break;
                     }
 
-                    console.log(optiune + " la ingredientul " + ingredient);
                     var aux = $scope.showPopup(ingredient, optiune);
                     return true; //Pentru a disparea meniul cu optiuni dupa ce dau click
                 }
@@ -400,7 +456,34 @@
             return returnedIngredientes;
         }
 
-
+		function getSpecifications(spectypeobjs, option) {
+            var returnedSpecifications = [];
+			var spectypeobjs_size = spectypeobjs.length;
+            for (var i = 0; i < spectypeobjs_size; i++) {
+				subspectypeobjs=spectypeobjs[i].subspectypeobjs;
+				var newSpectypeobj=new Object();
+				newSpectypeobj.spectype=spectypeobjs[i].spectype;
+				newSpectypeobj.subspectypeobjs=[];
+				for (var j=0; j< subspectypeobjs.length;j++){
+					specvalobjs=subspectypeobjs[j].specvalobjs;
+					var newSubspectypeobj=new Object();
+					newSubspectypeobj.subspectype=subspectypeobjs[j].subspectype;
+					newSubspectypeobj.specvalobjs=[];
+					for (var e=0; e<specvalobjs.length;e++){
+						if (specvalobjs[e].option===option) {
+							newSubspectypeobj.specvalobjs.push(specvalobjs[e]);
+						}
+					}
+					if(newSubspectypeobj.specvalobjs.length>0){
+						newSpectypeobj.subspectypeobjs.push(newSubspectypeobj);
+					}
+				}
+				if (newSpectypeobj.subspectypeobjs.length>0){
+					returnedSpecifications.push(newSpectypeobj);
+				}
+            }
+            return returnedSpecifications;
+        }
 
         //merge product ingredients with the ingredients voted by user
         function getProductIngredients(product_ingredients, user_voted_ingredients) {
@@ -425,26 +508,26 @@
                     }
                 }
             }
-			
-			if ($scope.mesaj.category!="IT, comunicatii si foto" && $scope.mesaj.category!="Tv, electrocasnice si electronice"){
-				//add substring ingredients : lapte -> lapte praf
-				for (var i = 0; i < product_ingredients_size; i++) {
-					for (var j in user_voted_ingredients) {
-						if (deductedIngredient(product_ingredients[i].toUpperCase(),user_voted_ingredients[j].ingredient_name.toUpperCase())) {
-							var ingredient = {
-								name: product_ingredients[i],
-								option: user_voted_ingredients[j].preference,
-								reason: deductReason(user_voted_ingredients[j].ingredient_name, user_voted_ingredients[j].preference)
-							};
-							returned_ingredients.push(ingredient);
-							product_ingredients.splice(i, 1);
-							i--;
-							product_ingredients_size--;
-							break;
-						}
-					}
-				}
-			}
+
+            if ($scope.mesaj.category != "IT, comunicatii si foto" && $scope.mesaj.category != "Tv, electrocasnice si electronice") {
+                //add substring ingredients : lapte -> lapte praf
+                for (var i = 0; i < product_ingredients_size; i++) {
+                    for (var j in user_voted_ingredients) {
+                        if (deductedIngredient(product_ingredients[i].toUpperCase(), user_voted_ingredients[j].ingredient_name.toUpperCase())) {
+                            var ingredient = {
+                                name: product_ingredients[i],
+                                option: user_voted_ingredients[j].preference,
+                                reason: deductReason(user_voted_ingredients[j].ingredient_name, user_voted_ingredients[j].preference)
+                            };
+                            returned_ingredients.push(ingredient);
+                            product_ingredients.splice(i, 1);
+                            i--;
+                            product_ingredients_size--;
+                            break;
+                        }
+                    }
+                }
+            }
 
             //add remaining ingredients(not voted)
             for (var i in product_ingredients) {
@@ -458,6 +541,27 @@
             return returned_ingredients;
         };
 
+		function getProductSpecifications(spectypeobjs, user_voted_ingredients) {
+
+            //add exactly matched ingredients
+            var spectypeobjs_size = spectypeobjs.length;
+            for (var i = 0; i < spectypeobjs_size; i++) {
+				subspectypeobjs=spectypeobjs[i].subspectypeobjs;
+				for (var j=0; j< subspectypeobjs.length;j++){
+					specvalobjs=subspectypeobjs[j].specvalobjs;
+					for (var e=0; e<specvalobjs.length;e++){
+						for (var k in user_voted_ingredients) {
+							if (specvalobjs[e].specification_id.toUpperCase() == user_voted_ingredients[k].ingredient_name.toUpperCase()) {
+								specvalobjs[e].option=user_voted_ingredients[k].preference;
+								specvalobjs[e].reason=user_voted_ingredients[k].reason;
+								break;
+							}
+						}
+					}
+				}
+            }
+        };
+		
         //check all cases of substring appearance: (beginning) lapte -> lapte praf | (middle) grau -> faina de grau macinata | (end) cacao -> pudra de cacao
         function deductedIngredient(product_ingredient, voted_ingredient) {
             var index = product_ingredient.indexOf(voted_ingredient);
@@ -495,17 +599,27 @@
                 return "";
             }
         }
-
+		
+		function getNeutralSpecificationsDisplayMessage(scope) {
+            if (scope.likedSpecifications.length + scope.dislikedSpecifications.length + scope.alertedSpecifications.length > 0) {
+                return "Alte specificatii";
+            } else {
+                return "";
+            }
+        }
+		
         $scope.clickOnCampaign = function (campaign) {
-            $state.go("tabs.campaign", {campaign_name: campaign.campaign_name, campaign_id: campaign.campaign_id,	campaign_description: campaign.description,
-			imagine: campaign.imagine, creation_date: campaign.creation_date, administrator: $rootScope.user});
+            $state.go("tabs.campaign", {
+                campaign_name: campaign.campaign_name, campaign_id: campaign.campaign_id, campaign_description: campaign.description,
+                imagine: campaign.imagine, creation_date: campaign.creation_date, administrator: $rootScope.user
+            });
         };
-		$scope.clickOnCreateCampaign=function(barcode){
-			 if (!$rootScope.logat || $rootScope.logat == false) {
+        $scope.clickOnCreateCampaign = function (barcode) {
+            if (!$rootScope.logat || $rootScope.logat == false) {
                 $scope.showAlert('LogIn', 'Trebuie sa fiti logat!');
-                return;	
-             }
-			$state.go("tabs.createCampaign",{"ok":"ok",'barcode':barcode});
-		}
+                return;
+            }
+            $state.go("tabs.createCampaign", { "ok": "ok", 'barcode': barcode });
+        }
     }
 }]);

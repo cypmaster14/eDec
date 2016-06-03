@@ -2,6 +2,11 @@
 .similar_products{
   display:none;
 }
+
+.specification{
+  display:none;
+}
+
 kbd{
   font-size: 14px;
 }
