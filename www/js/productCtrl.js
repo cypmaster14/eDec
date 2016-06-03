@@ -1,4 +1,4 @@
-﻿angular.module('edec').controller('ProductCtrl', ['$scope', '$state', '$stateParams', '$http', '$ionicPopup', '$timeout', '$rootScope', '$ionicActionSheet','$sce', 'logat', 'user', function ($scope, $state, $stateParams, $http, $ionicPopup, $timeout, $rootScope, $ionicActionSheet,$sce, logat, user) {
+﻿angular.module('edec').controller('ProductCtrl', ['$scope', '$state', '$stateParams', '$http', '$ionicPopup', '$timeout', '$rootScope', '$ionicActionSheet', '$sce', 'logat', 'user', function ($scope, $state, $stateParams, $http, $ionicPopup, $timeout, $rootScope, $ionicActionSheet, $sce, logat, user) {
 
     if ($stateParams.barcode != "empty") {
         $scope.barcode = $stateParams.barcode;
@@ -50,7 +50,7 @@
                                     displayedSimilarProducts = getRandomSubarray(displayedSimilarProducts, 10) // get 10 random products
                                     displayedSimilarProducts.sort(function (a, b) { //descending sort by similarity
                                         return b.similarity - a.similarity;
-                                    });                                   
+                                    });
                                     $scope.similarProducts = displayedSimilarProducts;
                                     $scope.displayProductName = displayProductName;
                                     $scope.clickOnSimilarProduct = clickOnSimilarProduct;
@@ -65,9 +65,30 @@
                         alert("Error on request la obtinerea recomandarilor pentru produs " + status + ' ' + headers);
                     });
                 }
-                else {
-                    $state.go("tabs.home");
-                    $scope.showAlert("Product", "Product was not found");
+                else
+                {
+                    if($rootScope.logat===true)
+                    {
+                      console.log("Reputatia mea:"+$rootScope.reputation);
+                      if($rootScope.reputation>500)
+                      {
+                        console.log("Barcode-ul este:"+$scope.barcode);
+                        $rootScope.barcodeDeIntrodus=$scope.barcode;
+                        $state.go("tabs.addProduct",{'ok': 'ok'});
+                      }
+                      else
+                      {
+                        $state.go("tabs.home");
+                        $scope.showAlert("Product", "Reputatie insuficienta");
+                      }
+
+                    }
+                    else
+                    {
+                      $state.go("tabs.home");
+                      $scope.showAlert("Product", "Product was not found");
+                    }
+
                 }
             }
         });
@@ -84,9 +105,9 @@
         function displayProductName(name) {
             var length = name.length;
             var words = name.split(" ");
-           
+
             if (length <= 30) {
-                return $sce.trustAsHtml("<h3>"+name+"</h3>");
+                return $sce.trustAsHtml("<h3>" + name + "</h3>");
             }
             if (length <= 60) {
                 var firstLine = words.slice(0, words.length / 2).join(" ");
@@ -118,7 +139,7 @@
             }
             displayed_similar_products.sort(function (a, b) { //descending sort by similarity
                 return b.similarity - a.similarity;
-            });            
+            });
             displayed_similar_products.splice(21, displayed_similar_products.length); //get top 20 products
             displayed_similar_products = displayed_similar_products.splice(1, displayed_similar_products.length); //remove the same product
             return displayed_similar_products;
@@ -167,7 +188,7 @@
                     }
                 }
             }
-            return longestCommonSubstring/len1;
+            return longestCommonSubstring / len1;
         }
 
         function getRandomSubarray(arr, size) {
@@ -239,7 +260,19 @@
                               res.success(function (data, status, headers, config) {
 
                                   if (status == 200) {
-                                      $scope.showAlert('Preferinta noua', data);
+                                      //$scope.showAlert('Preferinta noua', data);
+                                      $scope.showAlert = function (data) {
+                                          var alertPopup = $ionicPopup.alert({
+                                              title: "Preferinta noua",
+                                              template: data
+                                          });
+
+                                          alertPopup.then(function (res) {
+                                              $state.go($state.current, $stateParams, { reload: true });
+
+                                              //console.log('Thank you for not eating my delicious ice cream cone');
+                                          });
+                                      }(data);
                                   }
 
                                   else {
@@ -294,7 +327,7 @@
                 $scope.showAlert('Login', 'You must login first');
                 return;
             }
-            if ( $scope.iol && $scope.iol.length !== 0 && $scope.titlu  && $scope.titlu.length!==0) {
+            if ($scope.iol && $scope.iol.length !== 0 && $scope.titlu && $scope.titlu.length !== 0) {
 
                 console.log($rootScope.logat);
                 var review = $scope.iol;
@@ -336,19 +369,17 @@
                 });
 
 
-                res.error(function (data,status,headers,config) {
-                    if(status==409)
-                    {
-                      $scope.showAlert('Comentariu',"Ati postat deja un comentariu");
+                res.error(function (data, status, headers, config) {
+                    if (status == 409) {
+                        $scope.showAlert('Comentariu', "Ati postat deja un comentariu");
                     }
 
                 });
             }
 
-            else
-            {
-              $scope.showAlert('Comentariu','Completati toate campurile');
-              return;
+            else {
+                $scope.showAlert('Comentariu', 'Completati toate campurile');
+                return;
             }
         };
 
@@ -378,7 +409,6 @@
                             break;
                     }
 
-                    console.log(optiune + " la ingredientul " + ingredient);
                     var aux = $scope.showPopup(ingredient, optiune);
                     return true; //Pentru a disparea meniul cu optiuni dupa ce dau click
                 }
@@ -478,26 +508,26 @@
                     }
                 }
             }
-			
-			if ($scope.mesaj.category!="IT, comunicatii si foto" && $scope.mesaj.category!="Tv, electrocasnice si electronice"){
-				//add substring ingredients : lapte -> lapte praf
-				for (var i = 0; i < product_ingredients_size; i++) {
-					for (var j in user_voted_ingredients) {
-						if (deductedIngredient(product_ingredients[i].toUpperCase(),user_voted_ingredients[j].ingredient_name.toUpperCase())) {
-							var ingredient = {
-								name: product_ingredients[i],
-								option: user_voted_ingredients[j].preference,
-								reason: deductReason(user_voted_ingredients[j].ingredient_name, user_voted_ingredients[j].preference)
-							};
-							returned_ingredients.push(ingredient);
-							product_ingredients.splice(i, 1);
-							i--;
-							product_ingredients_size--;
-							break;
-						}
-					}
-				}
-			}
+
+            if ($scope.mesaj.category != "IT, comunicatii si foto" && $scope.mesaj.category != "Tv, electrocasnice si electronice") {
+                //add substring ingredients : lapte -> lapte praf
+                for (var i = 0; i < product_ingredients_size; i++) {
+                    for (var j in user_voted_ingredients) {
+                        if (deductedIngredient(product_ingredients[i].toUpperCase(), user_voted_ingredients[j].ingredient_name.toUpperCase())) {
+                            var ingredient = {
+                                name: product_ingredients[i],
+                                option: user_voted_ingredients[j].preference,
+                                reason: deductReason(user_voted_ingredients[j].ingredient_name, user_voted_ingredients[j].preference)
+                            };
+                            returned_ingredients.push(ingredient);
+                            product_ingredients.splice(i, 1);
+                            i--;
+                            product_ingredients_size--;
+                            break;
+                        }
+                    }
+                }
+            }
 
             //add remaining ingredients(not voted)
             for (var i in product_ingredients) {
@@ -579,15 +609,17 @@
         }
 		
         $scope.clickOnCampaign = function (campaign) {
-            $state.go("tabs.campaign", {campaign_name: campaign.campaign_name, campaign_id: campaign.campaign_id,	campaign_description: campaign.description,
-			imagine: campaign.imagine, creation_date: campaign.creation_date, administrator: $rootScope.user});
+            $state.go("tabs.campaign", {
+                campaign_name: campaign.campaign_name, campaign_id: campaign.campaign_id, campaign_description: campaign.description,
+                imagine: campaign.imagine, creation_date: campaign.creation_date, administrator: $rootScope.user
+            });
         };
-		$scope.clickOnCreateCampaign=function(barcode){
-			 if (!$rootScope.logat || $rootScope.logat == false) {
+        $scope.clickOnCreateCampaign = function (barcode) {
+            if (!$rootScope.logat || $rootScope.logat == false) {
                 $scope.showAlert('LogIn', 'Trebuie sa fiti logat!');
-                return;	
-             }
-			$state.go("tabs.createCampaign",{"ok":"ok",'barcode':barcode});
-		}
+                return;
+            }
+            $state.go("tabs.createCampaign", { "ok": "ok", 'barcode': barcode });
+        }
     }
 }]);

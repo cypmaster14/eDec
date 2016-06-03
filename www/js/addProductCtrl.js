@@ -1,18 +1,12 @@
 angular.module('edec').controller('AddProductCtrl',['$scope','$state','$stateParams','$http','$ionicPopup', '$timeout', '$rootScope', '$ionicActionSheet', 'logat', 'user', function ($scope, $state, $stateParams, $http, $ionicPopup, $timeout, $rootScope, $ionicActionSheet, logat, user) {
 
-  if($stateParams.barcode){
-    $scope.barcodProduse=$stateParams.barcode;
-  }
+
 
 
   $scope.preiaBarcode=function(){
 
-    if($stateParams.barcode){
-      $scope.barcodeIngredient=$stateParams.barcode;
-    }
-    else {
-      alert('Nu exista barcode');
-    }
+    $scope.barcodeProdus=$rootScope.barcodeDeIntrodus;
+    console.log("vreau sa inserez ingrediente pentru:"+$scope.barcodeProdus);
 
 
   };
@@ -40,11 +34,12 @@ $scope.insereazaProdus=function()
 {
   var produs=new Object();
   //produs.barcode=$scope.barcodeProdus;
-  produs.barcode="0000000000";
+  produs.barcode=$scope.barcodeProdus;
   produs.nume=$scope.numeProdus;
   produs.pret=$scope.pretProdus;
   produs.poza=$scope.linkPoza;
   produs.categorie="Bacanie";
+  console.log(JSON.stringify(produs));
   if(!(produs.poza.toLocaleLowerCase().includes('carrefour')|| produs.poza.toLocaleLowerCase().includes('emag')))
   {
     $scope.showAlert('Poza','Poza nu este valida(Incarcati una de la Carrefour sau Emag)');
@@ -96,7 +91,7 @@ $scope.insereazaProdus=function()
     }
 
   });
-  
+
 
 };
 

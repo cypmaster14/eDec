@@ -42,12 +42,15 @@
                     console.log("Nume:" + data.firstName);
                     $rootScope.firstName = data.firstName;
                     $rootScope.lastName = data.lastName;
+                    $rootScope.reputation=data.reputation;
+                    console.log("Am reputatia:"+$rootScope.reputation);
                     $scope.showAlert('Login', 'Loged as ' + $rootScope.user + "(Log=" + $rootScope.logat + ")" + $rootScope.firstName + " " + $rootScope.lastName);
                     $state.go("tabs.home");
                     window.localStorage.setItem("email", $rootScope.user);
                     window.localStorage.setItem("firstName", $rootScope.firstName);
                     window.localStorage.setItem("lastName", $rootScope.lastName);
                     window.localStorage.setItem("logat", $rootScope.logat);
+                    window.localStorage.setItem("reputation",$rootScope.reputation);
                     console.log("LocaleStorage:" + window.localStorage.getItem('email'));
                 }
                 else {
