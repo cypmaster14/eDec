@@ -1,7 +1,7 @@
 angular.module('edec', ['ionic', 'ngCordova'])
 
 .value('pagina',1)
-.value('produs','')
+.value('lastSearchedProduct','')
 .value('logat',false)
 .value('user',"")
 

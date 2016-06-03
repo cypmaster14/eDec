@@ -1,4 +1,4 @@
-﻿angular.module('edec').controller("searchProduct",['$scope','$http','$window', '$ionicPopup','$anchorScroll', '$timeout','$state','$rootScope','pagina','produs',function ($scope,$http,$window,$ionicPopup,$anchorScroll,$timeout,$state,$rootScope,pagina,produs) {
+﻿angular.module('edec').controller("searchProduct",['$scope','$http','$window', '$ionicPopup','$anchorScroll', '$timeout','$state','$rootScope',function ($scope,$http,$window,$ionicPopup,$anchorScroll,$timeout,$state,$rootScope) {
 
   $scope.showAlert=function(titlu,mesaj)
   {
@@ -30,6 +30,7 @@
         $scope.showAlert('Search',"Enter a product");
         return;
       }
+	  $rootScope.lastSearchedProduct=$scope.searchedProduct;
 	  if ($rootScope.user==null){
 		$rootScope.user='';
 	  } 
@@ -66,7 +67,6 @@
 	if ($scope.fakePage%2==1){
 		pagina++;
 		$scope.showAlert('Search',"Pagina "+pagina);
-		console.log($rootScope.user);
 		var res=$http.get('https://nodeserve-cypmaster14.c9users.io/products?product='+$scope.searchedProduct+"&pagina="+pagina+"&user="+$rootScope.user);
 
 		res.success(function (data,status,headers,config) {
@@ -94,6 +94,11 @@
 	}
 	$scope.$broadcast('scroll.infiniteScrollComplete');
   };
+  
+	if ($rootScope.lastSearchedProduct!=''){
+	  $scope.searchedProduct=$rootScope.lastSearchedProduct;
+	  $scope.getNumberOfRecords();
+	}
   
   //vechea abordare de obtinere a preferintelor
   /*$scope.getPreferences=function (product){

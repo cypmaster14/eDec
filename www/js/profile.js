@@ -3,6 +3,7 @@ angular.module('edec').controller('profile',['$scope','$state','$stateParams','$
   $scope.getMyPageInfo=function()
   {
     var email=$rootScope.user;
+    console.log("Reputatie:"+$rootScope.reputation);
     console.log("Vreau sa aflu campaniile pt:"+email);
 
     var requestForCampaign=$http.get('https://nodeserve-cypmaster14.c9users.io/myCampaign?user='+email);

@@ -18,6 +18,10 @@
     $scope.activate = function (obj) {
 
     };
+	
+	if ($rootScope.lastSearchedProduct == null){
+		$rootScope.lastSearchedProduct='';
+	}
 
 
     $scope.initializeaza = function () {
@@ -31,6 +35,7 @@
             $rootScope.user = window.localStorage.getItem('email');
             $rootScope.firstName = window.localStorage.getItem('firstName');
             $rootScope.lastName = window.localStorage.getItem('lastName');
+            $rootScope.reputation=window.localStorage.getItem('reputation');
             $rootScope.logat = true;
             $scope.firstname=$rootScope.firstname;
             $scope.lastName=$rootScope.lastName;
