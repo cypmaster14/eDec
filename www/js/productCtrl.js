@@ -61,8 +61,8 @@
                       if($rootScope.reputation>500)
                       {
                         console.log("Barcode-ul este:"+$scope.barcode);
-                        $rootScope.barcodeDeIntrodus=$scope.barcode;
-                        $state.go("tabs.addProduct",{'ok': 'ok'});
+                        $rootScope.barcodeDeIntrodus=$s
+                        $state.go("tabs.addProduct",{'ok': 'ok', 'barcode': $scope.barcode}, {reload: true});
                       }
                       else
                       {
@@ -241,7 +241,7 @@
 
                                           alertPopup.then(function (res) {
                                               $state.go($state.current, $stateParams, { reload: true });
-
+                                              
                                               //console.log('Thank you for not eating my delicious ice cream cone');
                                           });
                                       }(data);
