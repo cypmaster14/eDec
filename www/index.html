@@ -41,10 +41,29 @@
              $("#buton_pareri").click(function(){
                 $(".parere").fadeToggle();
             });
+			$('.specification').textfill({ maxFontPixels: 36 });
         });
 		function ingredienteclick() {
 		    $(".ingredient").fadeToggle();
 		};
+		;(function($) {
+			$.fn.textfill = function(options) {
+				var fontSize = options.maxFontPixels;
+				var ourText = $('span:visible:first', this);
+				var maxHeight = $(this).height();
+				var maxWidth = $(this).width();
+				var textHeight;
+				var textWidth;
+				do {
+					ourText.css('font-size', fontSize);
+					textHeight = ourText.height();
+					textWidth = ourText.width();
+					fontSize = fontSize - 1;
+				} while ((textHeight > maxHeight || textWidth > maxWidth) && fontSize > 3);
+				return this;
+			}
+		})(jQuery);
+
 </script>
   </head>
 
@@ -196,6 +215,21 @@
       </ion-view>
     </script>
 
+    <script id="templates/campanii.html" type="text/ng-template">
+      <ion-view view-title="Campanii" >
+        <ion-content class="padding">
+            <div ng-include src="'html/campanii.html'"></div>
+        </ion-content>
+      </ion-view>
+    </script>
+
+    <script id="templates/activitatiUseri.html" type="text/ng-template">
+      <ion-view view-title="Activitatea utilizatorilor" >
+        <ion-content class="padding">
+            <div ng-include src="'html/activitatiUseri.html'"></div>
+        </ion-content>
+      </ion-view>
+    </script>
 
 
   </body>

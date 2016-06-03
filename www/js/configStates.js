@@ -16,6 +16,24 @@
               }
           }
       })
+      .state('tabs.campanii', {
+          url: "/campanii",
+          cache: false,
+          views: {
+              'home-tab': {
+                  templateUrl: "templates/campanii.html"
+              }
+          }
+      })
+      .state('tabs.activitatiUseri', {
+          url: "/activitatiUseri",
+          cache: false,
+          views: {
+              'home-tab': {
+                  templateUrl: "templates/activitatiUseri.html"
+              }
+          }
+      })
       .state('tabs.facts', {
           url: "/facts",
           views: {
@@ -92,6 +110,7 @@
       })
       .state('tabs.search', {
           url: "/search",
+		  cache: false,
           views: {
               'search-tab': {
                   templateUrl: "templates/search.html"
