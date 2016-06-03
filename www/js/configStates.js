@@ -84,6 +84,7 @@
 
       .state('tabs.product', {
           url: "/product",
+          cache: false,
           params:
          { "ok":"ok",
              "barcode" : "empty"},
