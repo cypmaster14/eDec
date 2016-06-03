@@ -19,7 +19,6 @@
 
     };
 
-    $scope.showAlert('Stare:' + window.localStorage.getItem('logat'));
 
     $scope.initializeaza = function () {
 
@@ -27,7 +26,6 @@
         $rootScope.logat=false;
         logat=false;
         var aux = window.localStorage.getItem('logat');
-        console.log("Stare:" + aux);
         if (aux && aux.localeCompare("true") === 0) {
             console.log("Sunt logat si initializez");
             $rootScope.user = window.localStorage.getItem('email');

@@ -12,8 +12,7 @@
           cache: false,
           views: {
               'home-tab': {
-                  templateUrl: "templates/home.html",
-                  controller: 'HomeTabCtrl'
+                  templateUrl: "templates/home.html"
               }
           }
       })
@@ -63,9 +62,7 @@
 		 },
 		views: {
 			'home-tab':{
-				templateUrl: "templates/campaign.html",
-				controller: 'CampaignCtrl'
-
+				templateUrl: "templates/campaign.html"
 			}
 		}
 	  })
@@ -76,8 +73,7 @@
              "barcode" : "empty"},
 		views: {
 			'home-tab':{
-				templateUrl: "templates/createCampaign.html",
-				controller: 'CreateCampaignCtrl'
+				templateUrl: "templates/createCampaign.html"
 			}
 		}
 	  })
@@ -90,8 +86,7 @@
              "barcode" : "empty"},
           views: {
               'home-tab': {
-                  templateUrl: "templates/product.html",
-                  controller: 'ProductCtrl'
+                  templateUrl: "templates/product.html"
               }
           }
       })
@@ -110,8 +105,7 @@
           cache: false,
           views: {
               'scan-tab': {
-                  templateUrl: "templates/scan.html",
-                  controller: "BarCode"
+                  templateUrl: "templates/scan.html"
               }
           }
       });
