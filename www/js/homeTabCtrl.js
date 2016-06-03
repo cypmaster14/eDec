@@ -32,6 +32,9 @@
             $rootScope.firstName = window.localStorage.getItem('firstName');
             $rootScope.lastName = window.localStorage.getItem('lastName');
             $rootScope.logat = true;
+            $scope.firstname=$rootScope.firstname;
+            $scope.lastName=$rootScope.lastName;
+            $scope.email=$rootScope.user;
             logat = true;
         }
     };

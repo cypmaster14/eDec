@@ -28,6 +28,14 @@
 .elementeProfil{
   color:#444;
 }
+.alignleft {
+	float: left;
+	color:#444;
+}
+.alignright {
+	float: right;
+	color:#444;
+}
 
 .pozeCampanie
 {

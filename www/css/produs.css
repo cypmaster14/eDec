@@ -124,7 +124,10 @@
 .opinie_utilizator{
 	margin-top: 20px;
 }
-
+.paragrafHome{
+    font-family: courier;
+    font-size: 160%;
+}
 
 .typo {
 	margin: 0;
