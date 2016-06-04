@@ -17,28 +17,28 @@
   <h5 ng-show="!areCampanii">Nu aveti nici o campanie</h5>
 
   <div class="wrapper" id="campaignList"  ng-repeat="campanie in campanii" >
-      		<div class="card radius shadowDepth1"  ng-click="goToCampaign({{campanie}})" >
-      			<div class="card__image border-tlr-radius">
-        				<img src="http://tutorialsplane.com/runtest/ionic/img/cover.jpg" id="{{campanie.id}}" alt="image" class="border-tlr-radius pozeCampanie">
-                  </div>
+		<div class="card radius shadowDepth1"  ng-click="goToCampaign({{campanie}})" >
+			<div class="card__image border-tlr-radius">
+					<img src="http://tutorialsplane.com/runtest/ionic/img/cover.jpg" id="{{campanie.id}}" alt="image" class="border-tlr-radius pozeCampanie">
+			  </div>
 
-      			<div class="card__content card__padding">
-      				<div class="card__meta">
-      					<span class="elementeProfil">Date:</span>
-                          <time>{{campanie.data}}</time>
-      				</div>
+			<div class="card__content card__padding">
+				<div class="card__meta">
+					<span class="elementeProfil">Date:</span>
+					  <time>{{campanie.data}}</time>
+				</div>
 
-      				<article class="card__article">
-  	    				<h2><span class="elementeProfil">{{campanie.nume}}</span></h2>
+				<article class="card__article">
+					<h2><span class="elementeProfil">{{campanie.nume}}</span></h2>
 
-  	    				<p>{{campanie.descriere}}</p>
-  	    			</article>
-      			</div>
+					<p>{{campanie.descriere}}</p>
+				</article>
+			</div>
 
-      			<div class="card__action">
+			<div class="card__action">
 
-      			</div>
-      		</div>
+			</div>
+		</div>
   </div>
   <p>
     Preferintele tale:
