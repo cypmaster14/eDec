@@ -42,12 +42,29 @@
         }
         else{
         }
+        var email=$rootScope.user;
+            console.log("Vreau sa aflu campaniile pt:"+email);
+            var requestForCampaign=$http.get('https://nodeserve-cypmaster14.c9users.io/trimiteCampanii?user='+email);
+            requestForCampaign.success(function(data,status,headers,config){
+            if(status==200){
+                $rootScope.campanii=data.listaCampanii;
+                $scope.campanii=data.listaCampanii;
+                $rootScope.areCampanii=true;
+                console.log("campanii:"+JSON.stringify($scope.campanii));
+            }
+            });
+            requestForCampaign.error(function(data,status,headers,config){
+                 if(status==409){
+                     $rootScope.areCampanii=false;
+                     console.log("Nu am campanii");
+                }
+            });
     };
 
     $scope.logout = function () {
         logat = false;
         window.localStorage.clear();
-        //aici voi face requestul pentru a lua campaniile si activitatiloe userilor cele mai recente
+        //aici voi face requestul pentru a lua campaniile si activitatile userilor cele mai recente
         $rootScope.logat = false;
         $rootScope.user = "";
         $rootScope.firstName = "";
@@ -72,5 +89,11 @@
     };
     $scope.goToUsersActivities=function(){
         $state.go('tabs.activitatiUseri');
+    };
+    $scope.clickOnCampaign = function (campaign) {
+            $state.go("tabs.campaign", {
+                campaign_name: campaign.nume, campaign_id: campaign.id, campaign_description: campaign.descriere,
+                imagine: campaign.poza, creation_date: campaign.data, administrator: $rootScope.user
+            });
     };
 }]);

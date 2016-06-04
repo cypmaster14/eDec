@@ -205,7 +205,7 @@ p.name-date {
 	text-decoration:none;
 	text-shadow:0px 1px 0px #2f6627;
     font-family:Arial;
-	font-size:17px;
+	font-size:100%;
 	cursor:pointer;
 	color:#ffffff;
 }

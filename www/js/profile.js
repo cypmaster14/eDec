@@ -20,7 +20,6 @@ angular.module('edec').controller('profile',['$scope','$state','$stateParams','$
 
         if(status==409)
         {
-          $rootScope.campanii=
           $rootScope.areCampanii=false;
           console.log("Nu am campanii");
         }
