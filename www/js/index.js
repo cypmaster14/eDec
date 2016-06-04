@@ -16,6 +16,7 @@ angular.module('edec', ['ionic', 'ngCordova'])
             StatusBar.styleDefault();
         }
     });
+
 })
 
 

@@ -205,7 +205,7 @@ p.name-date {
 	text-decoration:none;
 	text-shadow:0px 1px 0px #2f6627;
     font-family:Arial;
-	font-size:17px;
+	font-size:100%;
 	cursor:pointer;
 	color:#ffffff;
 }
@@ -279,6 +279,25 @@ button [id="buton_ingrediente"]:active
     -moz-pointer-events: none;
     pointer-events: none;
 }
+
+body{
+font-family:Arial, Helvetica, sans-serif; 
+font-size:13px;
+}
+.info{
+border: 1px solid;
+margin: 10px 0px;
+padding:15px 10px 15px 50px;
+background-repeat: no-repeat;
+background-position: 10px center;
+}
+.info {
+color: #00529B;
+background-color: #BDE5F8;
+background-image: url('../img/info.png');
+}
+
+
 
 
 /*

@@ -34,13 +34,7 @@
 	    </div>
 	 	<br><br>
      	<ion-scroll direction="x" class="wide-as-needed" >
-			<a class="buttonCampaign" ><img src="http://hdwallpaperia.com/wp-content/uploads/2013/11/Aqua-Blue-Background-1024x640.jpeg" id="campaignPhoto"></img><br><h3><span class="elementeProfil">Campanie</span></h3></a> 
-			<a class="buttonCampaign" ><img src="http://hdwallpaperia.com/wp-content/uploads/2013/11/Aqua-Blue-Background-1024x640.jpeg" id="campaignPhoto"></img><br><h3><span class="elementeProfil">Campanie</span></h3></a>
-			<a class="buttonCampaign" ><img src="http://hdwallpaperia.com/wp-content/uploads/2013/11/Aqua-Blue-Background-1024x640.jpeg" id="campaignPhoto"></img><br><h3><span class="elementeProfil">Campanie</span></h3></a>
-			<a class="buttonCampaign" ><img src="http://hdwallpaperia.com/wp-content/uploads/2013/11/Aqua-Blue-Background-1024x640.jpeg" id="campaignPhoto"></img><br><h3><span class="elementeProfil">Campanie</span></h3></a>
-			<a class="buttonCampaign" ><img src="http://hdwallpaperia.com/wp-content/uploads/2013/11/Aqua-Blue-Background-1024x640.jpeg" id="campaignPhoto"></img><br><h3><span class="elementeProfil">Campanie</span></h3></a>
-			<a class="buttonCampaign" ><img src="http://hdwallpaperia.com/wp-content/uploads/2013/11/Aqua-Blue-Background-1024x640.jpeg" id="campaignPhoto"></img><br><h3><span class="elementeProfil">Campanie</span></h3></a>
-			<a class="buttonCampaign" ><img src="http://hdwallpaperia.com/wp-content/uploads/2013/11/Aqua-Blue-Background-1024x640.jpeg" id="campaignPhoto"></img><br><h3><span class="elementeProfil">Campanie</span></h3></a>
+			<a class="buttonCampaign" ng-repeat="campanie in campanii | limitTo:5" ng-click="clickOnCampaign(campanie)"><img src={{campanie.poza}} id="campaignPhoto"></img><br><h3><span class="elementeProfil">{{campanie.nume}}</span></h3></a> 
 		</ion-scroll>
         </div>
 </div>

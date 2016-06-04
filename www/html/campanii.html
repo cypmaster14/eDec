@@ -1,41 +1,17 @@
-<div class="card radius shadowDepth1">
-      			
+<div ng-controller="CampaniiCtrl"  class="card radius shadowDepth1" ng-repeat="campanie in campanii">
 				<div class="card__content card__padding">
-      				
       				<article class="card__article">
-  	    				<h2><span class="elementeProfil">Campanie</span></h2>
-
-  	    				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus harum...</p>
+  	    				<h2><span class="elementeProfil">{{campanie.campaign_name}} </span></h2>
+  	    				<p>{{campanie.descriere}}</p>
   	    			</article>
       				<div class="card__meta">
       					<span class="elementeProfil">Date:</span>
-                          <time>17th March</time>
+                          <time>{{campanie.data}}</time>
       				</div>
-      				
       			</div>
+
+
       			<div class="card__image border-tlr-radius">
-        				<a  href="http://www.google.com"><img src="http://hdwallpaperia.com/wp-content/uploads/2013/11/Aqua-Blue-Background-1024x640.jpeg" alt="image" class="border-tlr-radius"></img><br><h3><span class="elementeProfil"></span></h3></a> 
-                </div>
-
-      			
-
-
-      			
-
-      			<div class="card__content card__padding">
-      				
-      				<article class="card__article">
-  	    				<h2><span class="elementeProfil">Campanie</span></h2>
-
-  	    				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus harum...</p>
-  	    			</article>
-      				<div class="card__meta">
-      					<span class="elementeProfil">Date:</span>
-                          <time>17th March</time>
-      				</div>
-      				
-      			</div>
-      			<div class="card__image border-tlr-radius">
-        				<a  href="http://www.google.com"><img src="http://hdwallpaperia.com/wp-content/uploads/2013/11/Aqua-Blue-Background-1024x640.jpeg" alt="image" class="border-tlr-radius"></img><br><h3><span class="elementeProfil"></span></h3></a> 
+        				<a ng-click="clickOnCampaign(campanie)"><img src={{campanie.poza}} alt="image" class="border-tlr-radius pozeCampanie" ></img><br><h3><span class="elementeProfil"></span></h3></a>
                 </div>
 </div>
