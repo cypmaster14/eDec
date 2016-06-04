@@ -66,7 +66,6 @@
 	$scope.fakePage++;
 	if ($scope.fakePage%2==1){
 		pagina++;
-		$scope.showAlert('Search',"Pagina "+pagina);
 		var res=$http.get('https://nodeserve-cypmaster14.c9users.io/products?product='+$scope.searchedProduct+"&pagina="+pagina+"&user="+$rootScope.user);
 
 		res.success(function (data,status,headers,config) {

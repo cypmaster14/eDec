@@ -8,7 +8,7 @@
 		</button>
 	</div>
 		<ion-list>
-			<ion-item id="produs" ng-repeat="product in products" ng-click="clickOnProduct({{product.barcode}})">
+			<ion-item id="produs" ng-repeat="product in products" ng-click="clickOnProduct(product.barcode)">
 				<div id="produs">
 					<img src="{{product.image}}" alt="Image" id="searchPage">
 					<div id="informatiiProdus">

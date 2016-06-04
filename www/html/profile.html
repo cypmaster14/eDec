@@ -45,15 +45,15 @@
     <h5 ng-show="!arePreferinte">Nu aveti momentan preferinte</h5>
     <p ng-show="arePreferinte==true">Like</p>
     <div id="likePreferences" ng-repeat="likePref in preferinteLike">
-      <i class="icon ion-happy-outline"></i>{{likePref.ingredient_name}} ({{likePref.motiv}})
+        <p  ng-click="modify(likePref.ingredient_name)"><i class="icon ion-happy-outline"></i>{{likePref.ingredient_name}} ({{likePref.motiv}})</p>
     </div>
     <p ng-show="arePreferinte">Dislike</p>
     <div id="dislikePreferences" ng-repeat="dislikePref in preferinteDislike">
-      <i class="icon ion-sad-outline"></i>{{dislikePref.ingredient_name}} ({{dislikePref.motiv}})
+      <p  ng-click="modify(dislikePref.ingredient_name)"><i class="icon ion-sad-outline"></i>{{dislikePref.ingredient_name}} ({{dislikePref.motiv}})</p>
     </div>
     <p ng-show="arePreferinte">Alert</p>
-    <div id="alertPreferences" ng-repeat="alertPref in preferinteAlert">
-      <i class="icon ion-android-alert"></i>{{alertPref.ingredient_name}} ({{alertPref.motiv}})
+    <div id="alertPreferences" ng-repeat="alertPref in preferinteAlert" >
+        <p  ng-click="modify(alertPref.ingredient_name)"><i class="icon ion-android-alert"></i>{{alertPref.ingredient_name}} ({{alertPref.motiv}})</p>
     </div>
   </p>
 </div>
