@@ -2,101 +2,108 @@
 
     if ($stateParams.barcode != "empty") {
         $scope.barcode = $stateParams.barcode;
-        var productInfo = {
+        $scope.productInfo = {
             barcode: $scope.barcode,
             user: $rootScope.user
         };
-        var productResponse = $http.post('https://nodeserve-cypmaster14.c9users.io/productPage', productInfo);
+		$scope.intrat=0;
+        
+		makeRequest();
+		
+		function makeRequest(){
+			var productResponse = $http.post('https://nodeserve-cypmaster14.c9users.io/productPage', $scope.productInfo);
 
-        productResponse.success(function (data, status, headers, config) {
-            if (status == 200) {
-                if (data.mesaj.localeCompare("Gasit") == 0) {
-                    $scope.mesaj = data;
-                    $scope.comentarii = data.comentarii;
-                    $scope.campanii = data.campanii;
-                    $scope.nume = data.name;
-                    var category = data.category;
-					if (category!="IT, comunicatii si foto" && category!="Tv, electrocasnice si electronice"){
-						$scope.ingrSource="html/ingredientsButton.html";
-						var ingredients = getProductIngredients(data.product_ingredients, data.user_voted_ingredients);
-						$scope.likedIngredients = getIngredients(ingredients, "Like");
-						$scope.dislikedIngredients = getIngredients(ingredients, "Dislike");
-						$scope.alertedIngredients = getIngredients(ingredients, "Alert");
-						$scope.neutralIngredients = getIngredients(ingredients, "Neutral");
-						$scope.neutralIngredientsDisplayMessage = getNeutralIngredientsDisplayMessage($scope);
+			productResponse.success(function (data, status, headers, config) {
+				if (status == 200) {
+					if (data.mesaj.localeCompare("Gasit") == 0) {
+						$scope.mesaj = data;
+						$scope.comentarii = data.comentarii;
+						$scope.campanii = data.campanii;
+						$scope.nume = data.name;
+						var category = data.category;
+						if (category!="IT, comunicatii si foto" && category!="Tv, electrocasnice si electronice"){
+							$scope.ingrSource="html/ingredientsButton.html";
+							var ingredients = getProductIngredients(data.product_ingredients, data.user_voted_ingredients);
+							$scope.likedIngredients = getIngredients(ingredients, "Like");
+							$scope.dislikedIngredients = getIngredients(ingredients, "Dislike");
+							$scope.alertedIngredients = getIngredients(ingredients, "Alert");
+							$scope.neutralIngredients = getIngredients(ingredients, "Neutral");
+							$scope.neutralIngredientsDisplayMessage = getNeutralIngredientsDisplayMessage($scope);
+						}
+						else{
+							$scope.ingrSource="html/specificationButton.html";
+							$scope.spectypeobjs=data.spectypeobjs;
+							getProductSpecifications($scope.spectypeobjs,data.user_voted_ingredients);
+							$scope.likedSpecifications = getSpecifications($scope.spectypeobjs, "Like");
+							$scope.dislikedSpecifications = getSpecifications($scope.spectypeobjs, "Dislike");
+							$scope.alertedSpecifications = getSpecifications($scope.spectypeobjs, "Alert");
+							$scope.neutralSpecifications = getSpecifications($scope.spectypeobjs, "Neutral");
+							$scope.neutralSpecificationsDisplayMessage = getNeutralSpecificationsDisplayMessage($scope);
+						}
+						var getSimilarProducts = $http.get('https://nodeserve-cypmaster14.c9users.io/getSimilarProducts?user=' + $rootScope.user + '&barcode=' + $scope.barcode + '&category=' + category);
+						getSimilarProducts.success(function (data, status, headers, config) {
+							if (status == 200) {
+								var displayedSimilarProducts = getDisplayedSimilarProducts(data);
+								var reqParams = {
+									similarProducts: displayedSimilarProducts,
+									user: $rootScope.user
+								}
+								var getLikesReq = $http.post('https://nodeserve-cypmaster14.c9users.io/getNumberOfLikes', reqParams);
+								getLikesReq.success(function (data, status, headers, config) {
+									if (status == 200) {
+										displayedSimilarProducts = data;
+										displayedSimilarProducts = getRandomSubarray(displayedSimilarProducts, 10) // get 10 random products
+										displayedSimilarProducts.sort(function (a, b) { //descending sort by similarity
+											return b.similarity - a.similarity;
+										});
+										$scope.similarProducts = displayedSimilarProducts;
+										$scope.displayProductName = displayProductName;
+										$scope.clickOnSimilarProduct = clickOnSimilarProduct;
+										$scope.afis = function () {
+											console.log($scope.similarProducts);
+										};
+									}
+								});
+							}
+						});
+						getSimilarProducts.error(function (data, status, headers, config) {
+							alert("Error on request la obtinerea recomandarilor pentru produs " + status + ' ' + headers);
+						});
 					}
-					else{
-						$scope.ingrSource="html/specificationButton.html";
-						$scope.spectypeobjs=data.spectypeobjs;
-						getProductSpecifications($scope.spectypeobjs,data.user_voted_ingredients);
-						$scope.likedSpecifications = getSpecifications($scope.spectypeobjs, "Like");
-						$scope.dislikedSpecifications = getSpecifications($scope.spectypeobjs, "Dislike");
-						$scope.alertedSpecifications = getSpecifications($scope.spectypeobjs, "Alert");
-						$scope.neutralSpecifications = getSpecifications($scope.spectypeobjs, "Neutral");
-						$scope.neutralSpecificationsDisplayMessage = getNeutralSpecificationsDisplayMessage($scope);
+					else
+					{
+						if($rootScope.logat===true)
+						{
+						  console.log("Reputatia mea:"+$rootScope.reputation);
+						  if($rootScope.reputation>500)
+						  {
+							console.log("Barcode-ul este:"+$scope.barcode);
+							$rootScope.barcodeDeIntrodus=$scope.barcode;
+							$state.go("tabs.addProduct",{'ok': 'ok'});
+						  }
+						  else
+						  {
+							$state.go("tabs.home");
+							$scope.showAlert("Product", "Reputatie insuficienta");
+						  }
+
+						}
+						else
+						{
+						  $state.go("tabs.home");
+						  $scope.showAlert("Product", "Product was not found");
+						}
+
 					}
-                    var getSimilarProducts = $http.get('https://nodeserve-cypmaster14.c9users.io/getSimilarProducts?user=' + $rootScope.user + '&barcode=' + $scope.barcode + '&category=' + category);
-                    getSimilarProducts.success(function (data, status, headers, config) {
-                        if (status == 200) {
-                            var displayedSimilarProducts = getDisplayedSimilarProducts(data);
-                            var reqParams = {
-                                similarProducts: displayedSimilarProducts,
-                                user: $rootScope.user
-                            }
-                            var getLikesReq = $http.post('https://nodeserve-cypmaster14.c9users.io/getNumberOfLikes', reqParams);
-                            getLikesReq.success(function (data, status, headers, config) {
-                                if (status == 200) {
-                                    displayedSimilarProducts = data;
-                                    displayedSimilarProducts = getRandomSubarray(displayedSimilarProducts, 10) // get 10 random products
-                                    displayedSimilarProducts.sort(function (a, b) { //descending sort by similarity
-                                        return b.similarity - a.similarity;
-                                    });
-                                    $scope.similarProducts = displayedSimilarProducts;
-                                    $scope.displayProductName = displayProductName;
-                                    $scope.clickOnSimilarProduct = clickOnSimilarProduct;
-                                    $scope.afis = function () {
-                                        console.log($scope.similarProducts);
-                                    };
-                                }
-                            });
-                        }
-                    });
-                    getSimilarProducts.error(function (data, status, headers, config) {
-                        alert("Error on request la obtinerea recomandarilor pentru produs " + status + ' ' + headers);
-                    });
-                }
-                else
-                {
-                    if($rootScope.logat===true)
-                    {
-                      console.log("Reputatia mea:"+$rootScope.reputation);
-                      if($rootScope.reputation>500)
-                      {
-                        console.log("Barcode-ul este:"+$scope.barcode);
-                        $rootScope.barcodeDeIntrodus=$scope.barcode;
-                        $state.go("tabs.addProduct",{'ok': 'ok'});
-                      }
-                      else
-                      {
-                        $state.go("tabs.home");
-                        $scope.showAlert("Product", "Reputatie insuficienta");
-                      }
+				}
+			});
 
-                    }
-                    else
-                    {
-                      $state.go("tabs.home");
-                      $scope.showAlert("Product", "Product was not found");
-                    }
+			productResponse.error(function (data, status, headers, config) {
+				alert("Error on request la obtinerea produsului" + status + ' ' + headers);
 
-                }
-            }
-        });
-
-        productResponse.error(function (data, status, headers, config) {
-            alert("Error on request la obtinerea produsului" + status + ' ' + headers);
-
-        });
+			});
+		}
+		
         function clickOnSimilarProduct(barcode) {
             $state.go("tabs.product", { 'ok': 'ok', 'barcode': barcode });
         }
@@ -266,12 +273,12 @@
                                               title: "Preferinta noua",
                                               template: data
                                           });
-
-                                          alertPopup.then(function (res) {
+											makeRequest();
+                                          /*alertPopup.then(function (res) {
                                               $state.go($state.current, $stateParams, { reload: true });
 
                                               //console.log('Thank you for not eating my delicious ice cream cone');
-                                          });
+                                          });*/
                                       }(data);
                                   }
 

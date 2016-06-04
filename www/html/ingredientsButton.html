@@ -1,4 +1,4 @@
-<button id="buton_ingrediente" onclick = "$('.ingredient').fadeToggle();" >Ingrediente</button>
+<button id="buton_ingrediente" onclick = "$('.ingredient').fadeToggle();">Ingrediente</button>
 <br>
 <!--alerted ingredients container-->
 <div class="ingredient w3-card-4" style="width:98%;margin-top: 4%" id="div1" ng-show="alertedIngredients.length>0">
@@ -7,7 +7,7 @@
 			Pericol
 		</h1>
 	</header>
-	<div class="ingredient w3-container" id="div1" ng-repeat="ingredient in alertedIngredients">
+	<div class="w3-container" id="div1" ng-repeat="ingredient in alertedIngredients">
 		<button class="button button-clear button-dark" gesture-on-hold="showAditionalMenu({{'ingredient.name'}},{{'ingredient.option'}},{{'ingredient.reason'}})">{{ingredient.name}}</button>
 	</div>
 </div>
@@ -19,7 +19,7 @@
 			Ce iti place
 		</h1>
 	</header>
-	<div class="ingredient w3-container" id="div1" ng-repeat="ingredient in likedIngredients">
+	<div class="w3-container" id="div1" ng-repeat="ingredient in likedIngredients">
 		<button class="button button-clear button-dark" gesture-on-hold="showAditionalMenu({{'ingredient.name'}},{{'ingredient.option'}},{{'ingredient.reason'}})">{{ingredient.name}}</button>
 	</div>
 </div>
@@ -31,7 +31,7 @@
 			Ce nu iti place
 		</h1>
 	</header>
-	<div class="ingredient w3-container" id="div1" ng-repeat="ingredient in dislikedIngredients">
+	<div class="w3-container" id="div1" ng-repeat="ingredient in dislikedIngredients">
 		<button class="button button-clear button-dark" gesture-on-hold="showAditionalMenu({{'ingredient.name'}},{{'ingredient.option'}},{{'ingredient.reason'}})">{{ingredient.name}}</button>
 	</div>
 </div>
@@ -44,7 +44,7 @@
 			{{neutralIngredientsDisplayMessage}}
 		</h1>
 	</header>
-	<div class="ingredient w3-container" id="div1" ng-repeat="ingredient in neutralIngredients">
+	<div class="w3-container" id="div1" ng-repeat="ingredient in neutralIngredients">
 		<button class="button button-clear button-dark" gesture-on-hold="showAditionalMenu({{'ingredient.name'}},{{'ingredient.option'}},{{'ingredient.reason'}})">{{ingredient.name}}</button>
 	</div>
 </div>
