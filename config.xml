@@ -39,6 +39,6 @@
     <splash src="resources/android/splash/drawable-port-xxxhdpi-screen.png" density="port-xxxhdpi" />
   </platform>
   <plugin name="cordova-plugin-console" version="1.0.3" />
-  <plugin name="cordova-plugin-whitelist" version="1.2.2" />
   <plugin name="phonegap-plugin-barcodescanner" version="4.1.0" />
+  <plugin name="cordova-plugin-whitelist" version="1.2.2" />
 </widget>
