@@ -1,14 +1,14 @@
 ﻿angular.module('edec').controller('ProductCtrl', ['$scope', '$state', '$stateParams', '$http', '$ionicPopup', '$timeout', '$rootScope', '$ionicActionSheet', '$sce', '$ionicHistory', 'logat', 'user', function ($scope, $state, $stateParams, $http, $ionicPopup, $timeout, $rootScope, $ionicActionSheet, $sce, $ionicHistory, logat, user) {
     
     if ($stateParams.barcode != "empty") {
-        console.log($ionicHistory.viewHistory());
+        console.log($ionicHistory.viewHistory().histories);
         $scope.barcode = $stateParams.barcode;
         var productInfo = {
             barcode: $scope.barcode,
             user: $rootScope.user
         };
-        var productResponse = $http.post('https://nodeserve-cypmaster14.c9users.io/productPage', productInfo);
-
+        var productResponse;
+        productResponse = $http.post('https://nodeserve-cypmaster14.c9users.io/productPage', productInfo); 
         productResponse.success(function (data, status, headers, config) {
             if (status == 200) {
                 if (data.mesaj.localeCompare("Gasit") == 0) {
@@ -39,27 +39,33 @@
                     var getSimilarProducts = $http.get('https://nodeserve-cypmaster14.c9users.io/getSimilarProducts?user=' + $rootScope.user + '&barcode=' + $scope.barcode + '&category=' + category);
                     getSimilarProducts.success(function (data, status, headers, config) {
                         if (status == 200) {
-                            var displayedSimilarProducts = getDisplayedSimilarProducts(data);
-                            var reqParams = {
-                                similarProducts: displayedSimilarProducts,
-                                user: $rootScope.user
-                            }
-                            var getLikesReq = $http.post('https://nodeserve-cypmaster14.c9users.io/getNumberOfLikes', reqParams);
-                            getLikesReq.success(function (data, status, headers, config) {
-                                if (status == 200) {
-                                    displayedSimilarProducts = data;
-                                    displayedSimilarProducts = getRandomSubarray(displayedSimilarProducts, 10) // get 10 random products
-                                    displayedSimilarProducts.sort(function (a, b) { //descending sort by similarity
-                                        return b.similarity - a.similarity;
-                                    });
-                                    $scope.similarProducts = displayedSimilarProducts;
-                                    $scope.displayProductName = displayProductName;
-                                    $scope.clickOnSimilarProduct = clickOnSimilarProduct;
-                                    $scope.afis = function () {
-                                        console.log($scope.similarProducts);
-                                    };
+                            console.log(data);
+                            if (data == "no products") {
+                                $scope.noProducts = true;
+                            } else {
+                                $scope.noProducts = false;
+                                var displayedSimilarProducts = getDisplayedSimilarProducts(data);
+                                var reqParams = {
+                                    similarProducts: displayedSimilarProducts,
+                                    user: $rootScope.user
                                 }
-                            });
+                                var getLikesReq = $http.post('https://nodeserve-cypmaster14.c9users.io/getNumberOfLikes', reqParams);
+                                getLikesReq.success(function (data, status, headers, config) {
+                                    if (status == 200) {
+                                        displayedSimilarProducts = data;
+                                        displayedSimilarProducts = getRandomSubarray(displayedSimilarProducts, 10) // get 10 random products
+                                        displayedSimilarProducts.sort(function (a, b) { //descending sort by similarity
+                                            return b.similarity - a.similarity;
+                                        });
+                                        $scope.similarProducts = displayedSimilarProducts;
+                                        $scope.displayProductName = displayProductName;
+                                        $scope.clickOnSimilarProduct = clickOnSimilarProduct;
+                                        $scope.afis = function () {
+                                            console.log($scope.similarProducts);
+                                        };
+                                    }
+                                });
+                            }                            
                         }
                     });
                     getSimilarProducts.error(function (data, status, headers, config) {
@@ -126,7 +132,7 @@
             for (var i in products) {
                 var longest_common_beggining_sequence = getBeginningCommonSubsequence($scope.nume.toUpperCase(), products[i].name.toUpperCase());
                 var longest_common_consecutive_sequence = getLongestCommonSubsequence($scope.nume.toUpperCase(), products[i].name.toUpperCase());
-                var ingredients_common_ratio = products[i].commonIngr * 2 / products[i].totalNrIngr;
+                var ingredients_common_ratio = (products[i].commonIngr > 0 ? products[i].commonIngr : 0) * (products[i].totalNrIngr > 0 ? products[i].totalNrIngr : 0);
                 var similarity_ratio = 45 / 100 * ingredients_common_ratio + 35 / 100 * longest_common_beggining_sequence + 20 / 100 * longest_common_consecutive_sequence;
                 var similarProduct = {
                     barcode: products[i].barcode,
@@ -137,6 +143,7 @@
                     likes: 0
                 };
                 displayed_similar_products.push(similarProduct);
+                
             }
             displayed_similar_products.sort(function (a, b) { //descending sort by similarity
                 return b.similarity - a.similarity;
@@ -269,8 +276,8 @@
                                           });
 
                                           alertPopup.then(function (res) {
-                                              $state.go($state.current, $stateParams, { reload: true });
-
+                                              //$state.go($state.current, $stateParams, { reload: true });
+                                              productResponse = $http.post('https://nodeserve-cypmaster14.c9users.io/productPage', productInfo);
                                               //console.log('Thank you for not eating my delicious ice cream cone');
                                           });
                                       }(data);
