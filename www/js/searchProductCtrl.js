@@ -6,17 +6,11 @@
         title:titlu,
         template:mesaj
       });
-
-        /*alertPopup.then(function (res) {
-         console.log("You clicked Ok");
-      });*/
   };
 
   $scope.clickOnProduct=function (produs) {
       $state.go("tabs.product", { 'ok': 'ok', 'barcode': produs }, {
           reload: true,
-          inherit: false,
-          notify: true
       });
   };
 

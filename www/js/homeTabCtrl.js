@@ -65,7 +65,6 @@
     {
         $state.go('tabs.profile',{'user':user});
         $ionicSideMenuDelegate.toggleLeft();
-
     };
     $scope.goToCampaigns=function(){
         $state.go('tabs.campanii');
@@ -73,4 +72,7 @@
     $scope.goToUsersActivities=function(){
         $state.go('tabs.activitatiUseri');
     };
+	$scope.goToUserPage=function(user){
+		$state.go('tabs.profile',{'user':user});
+	}
 }]);
