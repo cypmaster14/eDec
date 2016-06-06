@@ -28,3 +28,9 @@
 	Eventual : modificat ingrediente, vazut utilizatorii cu preferinte similare (eventual te duci pe pagina lui de profil)
 
 
+-----------------------------------------
+---Bug-uri:
+-nu merge sa glisez pe pagina de profil din pagina Campanii 
+
+
+-Ciprian: - top 10 produse, top 10 sclifositi , inserare produs 

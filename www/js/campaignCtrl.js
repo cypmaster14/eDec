@@ -28,10 +28,13 @@ angular.module('edec').controller('CampaignCtrl', ['$scope', '$state', '$statePa
 		$scope.campaign_image=$stateParams.imagine;
 		$scope.creation_date=$stateParams.creation_date.substring(0,10);
 		$scope.administrator=$stateParams.administrator;
+        $scope.first_name=$stateParams.first_name;
+        $scope.last_name=$stateParams.last_name;
 		$scope.product_barcode=$stateParams.product_barcode;
 		$scope.product_name=$stateParams.product_name;
 		$scope.getNumberOfMembersFor($stateParams);
         $scope.isLogged=$rootScope.logat;
+        $scope.email_creator_campanie=$stateParams.email_creator_campanie;
 		
 		var aAderat = $http.get('https://nodeserve-cypmaster14.c9users.io/aderatCampanie?campaignId=' + $scope.campaign_id + '&administrator=' + $scope.administrator);
 		aAderat.success(function (data, status, headers, config) {
