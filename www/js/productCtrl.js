@@ -68,32 +68,12 @@
                                             };
                                         }
                                     });
-                                }                                
+                                }
                             }
                         });
                         getSimilarProducts.error(function (data, status, headers, config) {
                             alert("Error on request la obtinerea recomandarilor pentru produs " + status + ' ' + headers);
                         });
-                    }
-                    else {
-                        if ($rootScope.logat === true) {
-                            console.log("Reputatia mea:" + $rootScope.reputation);
-                            if ($rootScope.reputation > 500) {
-                                console.log("Barcode-ul este:" + $scope.barcode);
-                                $rootScope.barcodeDeIntrodus = $scope.barcode;
-                                $state.go("tabs.addProduct", { 'ok': 'ok' });
-                            }
-                            else {
-                                $state.go("tabs.home");
-                                $scope.showAlert("Product", "Reputatie insuficienta");
-                            }
-
-                        }
-                        else {
-                            $state.go("tabs.home");
-                            $scope.showAlert("Product", "Product was not found");
-                        }
-
                     }
                 }
             });
