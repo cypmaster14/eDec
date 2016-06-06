@@ -34,7 +34,7 @@
 	    </div>
 	 	<br><br>
      	<ion-scroll direction="x" class="wide-as-needed" >
-			<a class="buttonCampaign" ng-repeat="campanie in campanii | limitTo:5" ng-click="clickOnCampaign(campanie)"><img src={{campanie.poza}} id="campaignPhoto"></img><br><h3><span class="elementeProfil">{{campanie.nume}}</span></h3></a> 
+			<a class="buttonCampaign" ng-repeat="campanie in campanii | limitTo:10" ng-click="clickOnCampaign(campanie)"><img src={{campanie.poza}} id="campaignPhoto"></img><br><h3><span class="elementeProfil">{{campanie.nume}}</span></h3></a> 
 		</ion-scroll>
         </div>
 </div>
