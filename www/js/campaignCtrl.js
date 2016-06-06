@@ -32,6 +32,7 @@ angular.module('edec').controller('CampaignCtrl', ['$scope', '$state', '$statePa
         $scope.last_name=$stateParams.last_name;
 		$scope.product_barcode=$stateParams.product_barcode;
 		$scope.product_name=$stateParams.product_name;
+        console.log($scope.product_name);
 		$scope.getNumberOfMembersFor($stateParams);
         $scope.isLogged=$rootScope.logat;
         $scope.email_creator_campanie=$stateParams.email_creator_campanie;
@@ -149,5 +150,8 @@ angular.module('edec').controller('CampaignCtrl', ['$scope', '$state', '$statePa
             }
 
     };
+    $scope.goToUserPage=function(user){
+        $state.go('tabs.profile',{'user':user});
+    }
 }]);
    

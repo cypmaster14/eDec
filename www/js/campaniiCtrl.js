@@ -4,7 +4,8 @@ angular.module('edec').controller('CampaniiCtrl',['$scope','$state','$stateParam
             $state.go("tabs.campaign", {
                 campaign_name: campaign.nume, campaign_id: campaign.id, campaign_description: campaign.descriere,
                 imagine: campaign.poza, creation_date: campaign.data, administrator: $rootScope.user, first_name:campaign.first_name,
-                last_name:campaign.last_name, email_creator_campanie:campaign.email_creator_campanie
+                last_name:campaign.last_name, email_creator_campanie:campaign.email_creator_campanie,
+                product_name: $scope.mesaj.name, product_barcode: $scope.barcode
             });
     };
 }]);
