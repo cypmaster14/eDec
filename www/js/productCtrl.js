@@ -258,7 +258,9 @@
                                   ingredient: ingredient,
                                   user: $rootScope.user,
                                   optiune: optiune,
-                                  motiv: $scope.data.model
+                                  motiv: $scope.data.model,
+                                  barcode: $scope.barcode,
+                                  product_name: $scope.nume
                               };
 
 
@@ -446,10 +448,6 @@
                 showReasonMenu(ingredient, reason);
             }
         };
-
-
-        ////Noul Request/////////////
-
 
         //get ingredients depending on option (Like,Dislike,Alert,Neutral)
         function getIngredients(ingredients, option) {
