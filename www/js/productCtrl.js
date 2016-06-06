@@ -617,7 +617,9 @@
         $scope.clickOnCampaign = function (campaign) {
             $state.go("tabs.campaign", {
                 campaign_name: campaign.campaign_name, campaign_id: campaign.campaign_id, campaign_description: campaign.description,
-                imagine: campaign.imagine, creation_date: campaign.creation_date, administrator: $rootScope.user, product_name: $scope.mesaj.name, product_barcode: $scope.barcode
+                imagine: campaign.imagine, creation_date: campaign.creation_date, administrator: $rootScope.user, product_name: $scope.mesaj.name, product_barcode: $scope.barcode,
+                first_name:campaign.first_name,
+                last_name:campaign.last_name,email_creator_campanie:campaign.email_creator_campanie
             });
         };
         $scope.clickOnCreateCampaign = function (barcode) {

@@ -15,6 +15,10 @@
       			<span class="elementeProfil">Data crearii:</span>
                 <time>{{creation_date}}</time>
       		</div>
+      		<div class="card__meta">
+      			<span class="elementeProfil">Creata de:</span>
+                <time>{{last_name}} {{first_name}} {{email_creator_campanie}}</time>
+      		</div>
 			<div class="item item-bodyCampagin">
 		        <button id="buton_vezi_mai_mult" ng-click="joinCampaign()" ng-show="isLogged" ng-disabled="aAderat==1">{{buttonText}}</button><br>
 				<textarea id="textareaReview" rows="1" col="50" placeholder="Titlu" ng-model="titlu"></textarea>
