@@ -77,8 +77,11 @@
 					imagine: null,
 					creation_date: null,
 					administrator: null,
+          first_name: null,
+          last_name: null,
 					product_name: null,
-					product_barcode: null
+					product_barcode: null,
+          email_creator_campanie:null
 		 },
 		views: {
 			'home-tab':{
