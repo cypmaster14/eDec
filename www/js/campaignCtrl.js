@@ -41,7 +41,6 @@ angular.module('edec').controller('CampaignCtrl', ['$scope', '$state', '$statePa
 		aAderat.success(function (data, status, headers, config) {
             if (status == 200) {
                 $scope.aAderat = data.aAderat;
-				console.log("A aderat="+$scope.aAderat);
 				if($scope.aAderat==1){
 					$scope.buttonText="Ati aderat la aceasta campanie!";
 				}
@@ -89,20 +88,12 @@ angular.module('edec').controller('CampaignCtrl', ['$scope', '$state', '$statePa
 	 }
 	}
 	$scope.postareComentariu = function () {
-            console.log($rootScope.logat);
-            console.log($rootScope.user);
             if (!$rootScope.logat || $rootScope.logat == false) {
                 $scope.showAlert('LogIn', 'Trebuie sa fiti logat!');
                 return;
             }
             if ( $scope.iol && $scope.iol.length !== 0 && $scope.titlu  && $scope.titlu.length!==0) {
-
-                console.log($rootScope.logat);
                 var content = $scope.iol;
-                $scope.showAlert('Postare comentariu', '(' + $rootScope.user + ')Mesaj:' + content);
-                console.log('Email:' + $rootScope.user);
-                console.log('Comentariu:' + content);
-				console.log('Titlu:'+$scope.titlu);
 
                 var obj = {
                     email: $rootScope.user,
@@ -110,7 +101,6 @@ angular.module('edec').controller('CampaignCtrl', ['$scope', '$state', '$statePa
                     content: content,
 					campaign_id:$scope.campaign_id
                 };
-                console.log("Trimit obiectul:" + JSON.stringify(obj));
 
                 $scope.titlu = "";
                 $scope.iol = "";
@@ -118,7 +108,7 @@ angular.module('edec').controller('CampaignCtrl', ['$scope', '$state', '$statePa
                 res.success(function (data, status, headers, config) {
 
                     if (status == 200) {
-                        $scope.showAlert('Titlu', 'Mesajul a fost postat cu succes');
+                        $scope.showAlert('Postare mesaj', 'Mesajul a fost postat cu succes');
                         var resComments = $http.get('https://nodeserve-cypmaster14.c9users.io/contents?campaignId=' + $scope.campaign_id);
                         resComments.success(function (data, status, headers, config) {
                             if (status == 200) {

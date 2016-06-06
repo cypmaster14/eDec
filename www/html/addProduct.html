@@ -27,6 +27,25 @@
     </div>
     <button ng-click="adaugaInputIngredient()" id="adaugInput"  class="button button-clear button-light">Adauga Ingredient</button>
     <br />
+
+    <label class="item item-input item-stacked-label">
+        <span class="input-label">Categorie</span>
+        <select ng-model="categorieSelectata" ng-change="afiseazaCategorieSelectata(categorieSelectata)">
+         <option selected>Bacanie</option>
+         <option>Curatenie si intretinere</option>
+         <option>Univers bebe si jucarii</option>
+         <option>Bautura si tutun</option>
+         <option>IT, comunicatii si foto</option>
+         <option>Tv, electrocasnice si electronice</option>
+         <option>Legume si fructe</option>
+         <option>Brutarie</option>
+         <option>Carne, lactate si mezeluri</option>
+         <option>Casa, auto si hobby</option>
+         <option>Igiena si infrumusetare</option>
+      </select>
+    </label>
+    <br />
     <br />
     <button id="buton_ingrediente" ng-click="insereazaProdus()" >Adauga Produs</button>
+
   </div>

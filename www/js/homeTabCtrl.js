@@ -23,12 +23,10 @@
 	}
 
     $scope.initializeaza = function () {
-        console.log("LocaleStorage Begin:" + window.localStorage.getItem('email'));
         $rootScope.logat=false;
         logat=false;
         var aux = window.localStorage.getItem('logat');
         if (aux && aux.localeCompare("true") === 0) {
-            console.log("Sunt logat si initializez");
             //aici voi face requestul pentru campaniile si activitatile userilor filtrate 
             $rootScope.user = window.localStorage.getItem('email');
             $rootScope.firstName = window.localStorage.getItem('firstName');
@@ -43,20 +41,17 @@
         else{
         }
         var email=$rootScope.user;
-            console.log("Vreau sa aflu campaniile pt:"+email);
             var requestForCampaign=$http.get('https://nodeserve-cypmaster14.c9users.io/trimiteCampanii?user='+email);
             requestForCampaign.success(function(data,status,headers,config){
             if(status==200){
                 $rootScope.campanii=data.listaCampanii;
                 $scope.campanii=data.listaCampanii;
                 $rootScope.areCampanii=true;
-                console.log("campanii:"+JSON.stringify($scope.campanii));
             }
             });
             requestForCampaign.error(function(data,status,headers,config){
                  if(status==409){
                      $rootScope.areCampanii=false;
-                     console.log("Nu am campanii");
                 }
             });
     };
