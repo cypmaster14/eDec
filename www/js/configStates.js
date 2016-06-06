@@ -76,7 +76,9 @@
 					campaign_description: null,
 					imagine: null,
 					creation_date: null,
-					administrator: null
+					administrator: null,
+					product_name: null,
+					product_barcode: null
 		 },
 		views: {
 			'home-tab':{
@@ -86,9 +88,12 @@
 	  })
 	  .state('tabs.createCampaign',{
 		url:"/createCampaign",
+		cache: false,
 		params:
 		{ "ok":"ok",
-             "barcode" : "empty"},
+             "barcode" : "empty",
+			  "name": "empty"
+		},
 		views: {
 			'home-tab':{
 				templateUrl: "templates/createCampaign.html"

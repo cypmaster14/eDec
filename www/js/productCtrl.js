@@ -6,7 +6,6 @@
             barcode: $scope.barcode,
             user: $rootScope.user
         };
-        $scope.intrat = 0;
 
         makeRequest();
 
@@ -618,7 +617,7 @@
         $scope.clickOnCampaign = function (campaign) {
             $state.go("tabs.campaign", {
                 campaign_name: campaign.campaign_name, campaign_id: campaign.campaign_id, campaign_description: campaign.description,
-                imagine: campaign.imagine, creation_date: campaign.creation_date, administrator: $rootScope.user
+                imagine: campaign.imagine, creation_date: campaign.creation_date, administrator: $rootScope.user, product_name: $scope.mesaj.name, product_barcode: $scope.barcode
             });
         };
         $scope.clickOnCreateCampaign = function (barcode) {
@@ -626,7 +625,7 @@
                 $scope.showAlert('LogIn', 'Trebuie sa fiti logat!');
                 return;
             }
-            $state.go("tabs.createCampaign", { "ok": "ok", 'barcode': barcode });
+            $state.go("tabs.createCampaign", { "ok": "ok", 'barcode': barcode, 'name': $scope.mesaj.name});
         }
     }
 }]);

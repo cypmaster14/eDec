@@ -46,7 +46,7 @@ angular.module('edec').controller("CreateCampaignCtrl", ['$scope','$stateParams'
                         aAderat.success(function (data, status, headers, config) {
                             if (status == 200) {
                                 $state.go("tabs.campaign", {campaign_name: numeCampanie, campaign_id: $scope.idCampanie,campaign_description: descriereCampanie,
-                                imagine: pozaCampanie, creation_date: $scope.creation_date, administrator: administrator});
+                                imagine: pozaCampanie, creation_date: $scope.creation_date, administrator: administrator, product_barcode: obj.barcode, product_name: $stateParams.name});
                             }          
                         });   
                     }   

@@ -15,6 +15,12 @@ angular.module('edec').controller('CampaignCtrl', ['$scope', '$state', '$statePa
         });
 	}
 	
+	$scope.goToPoductPage=function(product_barcode){
+		$state.go("tabs.product", { 'ok': 'ok', 'barcode': product_barcode }, {
+          reload: true
+      });
+	}
+	
 	if ($stateParams.campaign_id!=null) {
 		$scope.campaign_name=$stateParams.campaign_name;
         $scope.campaign_id = $stateParams.campaign_id;
@@ -22,6 +28,8 @@ angular.module('edec').controller('CampaignCtrl', ['$scope', '$state', '$statePa
 		$scope.campaign_image=$stateParams.imagine;
 		$scope.creation_date=$stateParams.creation_date.substring(0,10);
 		$scope.administrator=$stateParams.administrator;
+		$scope.product_barcode=$stateParams.product_barcode;
+		$scope.product_name=$stateParams.product_name;
 		$scope.getNumberOfMembersFor($stateParams);
         $scope.isLogged=$rootScope.logat;
 		

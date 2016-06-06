@@ -82,18 +82,24 @@
     {
         $state.go('tabs.profile',{'user':user});
         $ionicSideMenuDelegate.toggleLeft();
-
     };
     $scope.goToCampaigns=function(){
         $state.go('tabs.campanii');
     };
+	
     $scope.goToUsersActivities=function(){
         $state.go('tabs.activitatiUseri');
     };
+
+	$scope.goToUserPage=function(user){
+		$state.go('tabs.profile',{'user':user});
+	}
+
     $scope.clickOnCampaign = function (campaign) {
-            $state.go("tabs.campaign", {
-                campaign_name: campaign.nume, campaign_id: campaign.id, campaign_description: campaign.descriere,
-                imagine: campaign.poza, creation_date: campaign.data, administrator: $rootScope.user
-            });
+		$state.go("tabs.campaign", {
+			campaign_name: campaign.nume, campaign_id: campaign.id, campaign_description: campaign.descriere,
+			imagine: campaign.poza, creation_date: campaign.data, administrator: $rootScope.user
+		});
     };
+
 }]);
