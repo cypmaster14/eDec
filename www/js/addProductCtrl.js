@@ -6,9 +6,6 @@ angular.module('edec').controller('AddProductCtrl',['$scope','$state','$statePar
   $scope.preiaBarcode=function(){
 
     $scope.barcodeProdus=$rootScope.barcodeDeIntrodus;
-    console.log("vreau sa inserez ingrediente pentru:"+$scope.barcodeProdus);
-
-
   };
 
 
@@ -22,7 +19,6 @@ angular.module('edec').controller('AddProductCtrl',['$scope','$state','$statePar
 
   $('#listaIngrediente').on('click','#remScnt', function() {
       var i=$('#listaIngrediente p').size()+1;
-      console.log('Nr de paragrame:'+i);
       if( i > 2 ) {
           $(this).parents('p').remove();
           i--;
@@ -39,7 +35,6 @@ $scope.insereazaProdus=function()
   produs.pret=$scope.pretProdus;
   produs.poza=$scope.linkPoza;
   produs.categorie="Bacanie";
-  console.log(JSON.stringify(produs));
   if(!(produs.poza.toLocaleLowerCase().includes('carrefour')|| produs.poza.toLocaleLowerCase().includes('emag')))
   {
     $scope.showAlert('Poza','Poza nu este valida(Incarcati una de la Carrefour sau Emag)');
@@ -70,7 +65,6 @@ $scope.insereazaProdus=function()
   }
 
   produs.ingrediente=listaDeIngrediente;
-  console.log(JSON.stringify(produs));
 
   //Fac request-ul de inregistare a ingredientui
 

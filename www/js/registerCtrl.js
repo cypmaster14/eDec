@@ -31,13 +31,10 @@
             password: password
         };
 
-        console.log(obj);
-
         var res = $http.post('https://nodeserve-cypmaster14.c9users.io/register', obj);
         res.success(function (data, status, headers, config) {
             if (status == 200) {
                 $scope.mesaj = data;
-                console.log("Text:" + $scope.mesaj.text);
 
                 if ($scope.mesaj.text.localeCompare('Account created') == 0) {
                     $scope.showAlert('Register', 'Succes');

@@ -4,7 +4,6 @@
             $state.go("tabs.product", { 'ok': 'ok', 'barcode': imageData.text }, {reload: true});
         }, function (error) {
             $state.go("tabs.product");
-            console.log("An error happened -> " + error);
         });
     };
 }]);
