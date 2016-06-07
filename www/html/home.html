@@ -18,12 +18,19 @@
 	 	    <p> Utilizatorul {{userActiune.lastname}} {{userActiune.firstName}} {{userActiune.actiune}} <a ng-click="clickOnActivitate(userActiune.cazActiune)"> {{produsSauCampanie}} </a> </p>
 	 	</div>
 
-		
-	 	<div class="item item-body">
-	 	    <p>User 1:<a ng-click="goToPublicProfilePage('admin@admin.com')"> admin admin</a></p>
-			<p>User 2:<a ng-click="goToPublicProfilePage('claudiu.vartolomei@gmail.com')"> Claudiu Vartolomei</a></p>
-			<p>User 3:<a ng-click="goToPublicProfilePage('usernou@email.com')"> User Nou</a></p>
-	 	</div>
+	 	<div class="item item-body" ng-repeat="activitate in activitati | limitTo:3">
+            <p>
+                {{getFirstWord(activitate)}}
+                 <a ng-click="goToUserPage(activitate.email_address)">
+                     {{activitate.first_Name}} {{activitate.last_Name}}
+                 </a>
+                {{getMiddleSentence(activitate)}}
+                <a ng-click="goToPage(activitate)">
+                    {{activitate.link_name}}
+                </a>.
+             </p> 
+                
+        </div>
 
  	</div>
      <div class="list card">
