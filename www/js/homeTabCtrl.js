@@ -177,8 +177,8 @@
 
 
     $scope.moveToWorstUsers=function(){
-
       $state.go('tabs.restrictivi');
+	  $ionicSideMenuDelegate.toggleLeft();
     };
 
     $scope.moveToTopProducts = function () {
