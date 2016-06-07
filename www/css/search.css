@@ -12,7 +12,7 @@
 
 #informatiiProdus{
 
-	padding-top: 50px;
+	padding-top: 30px;
 }
 
 
@@ -50,3 +50,7 @@ background-color: #69C;
 
 ul#navigation .left { float: left; }
 ul#navigation .right { float: right; }
+
+#produs{
+	margin-top:14px;
+}

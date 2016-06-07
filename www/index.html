@@ -23,6 +23,7 @@
     <script src="js/addProductCtrl.js"></script>
     <script src="js/campaniiCtrl.js"></script>
     <script src="js/profile.js"></script>
+    <script src="js/restrictiviCtrl.js"></script>
 
 	<link rel="stylesheet" href="css/produs.css">
 	<link rel="stylesheet" href="css/home.css">
@@ -32,6 +33,8 @@
   <link rel="stylesheet" href="css/search.css">
    <link rel="stylesheet" href="css/w3.css">
    <link rel="stylesheet" href="css/profile.css" />
+   <link rel="stylesheet" href="css/restrictivi.css" />
+   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="icon" href="data:;base64,=">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script>+-
@@ -78,10 +81,10 @@
       <ion-pane ion-side-menu-content>
         <ion-nav-bar class="bar-positive"  align-title="center">
           <ion-nav-buttons id="button_nav"   side="left">
-            <a href="#/tab/facts" class="icon ion-log-in button button-positive" ng-hide="logat">LogIn </a>
+            <a href="#/tab/facts" class="icon ion-log-in button button-positive" id="loginButton" ng-hide="logat">LogIn </a>
           </ion-nav-buttons>
           <ion-nav-buttons side="right">
-            <a class="icon ion-log-out button button-positive" ng-hide="!logat" ng-click="logout()"> LogOut</a>
+            <a class="icon ion-log-out button button-positive" ng-hide="!logat" id="logoutButton" ng-click="logout()"> LogOut</a>
           </ion-nav-buttons>
         </ion-nav-bar>
 
@@ -96,17 +99,19 @@
 
         <ion-content has-header="true">
 
-          <div  style="height:200px;background-image:url(../img/slideMenu.jpg);background-size: 100% 100%;" ng-hide="!logat" ng-click="moveToProfilePage({{user}})">
+          <div  style="height:200px;background-image:url(../img/slideMenu.jpg);background-size: 100% 100%; " ng-hide="!logat" ng-click="moveToProfilePage({{user}})">
 
-                <img src="../img/human.png" style="height:66px; width:66px;border-radius:50% ;margin-top:20px; margin-bottom:10px" />
-                <p style="color:white">{{firstName}} {{lastName}}</p>
-                <p style="color:white">{{user}}</p>
+                <img src="../img/human.png" style="height:66px; width:66px;border-radius:50% ;margin-top:35px; margin-bottom:10px;margin-left:25px;" />
+                <p style="color:white; margin-left:10px;font-size:20px;font-style: italic;">{{firstName}} {{lastName}}</p>
 
           </div>
 
           <div class="list">
-            <div class="item">
-              Top 10 campanii
+            <div class="item" ng-click="moveToWorstUsers()">
+              Top 5 clienti pretentiosi
+            </div>
+            <div class="item" ng-click="moveToTopProducts()">
+              Top 5  produse
             </div>
 
           </div>
@@ -155,7 +160,7 @@
 
     <script id="templates/facts.html" type="text/ng-template">
       <ion-view view-title="Authentication">
-        <ion-content class="padding">
+        <ion-content class="padding" id="paginaProdus">
 			      <div ng-include src="'html/facts.html'"></div>
         </ion-content>
       </ion-view>
@@ -171,7 +176,7 @@
 
 	 <script id="templates/register.html" type="text/ng-template">
       <ion-view view-title="Register">
-        <ion-content class="padding">
+        <ion-content class="padding" id="paginaProdus">
             <div ng-include src="'html/register.html'"></div>
         </ion-content>
       </ion-view>
@@ -187,7 +192,7 @@
 
     <script id="templates/product.html"  type="text/ng-template">
       <ion-view view-title="Product details">
-        <ion-content class="padding">
+        <ion-content class="padding" id="paginaProdus">
 			       <div ng-include src="'html/product.html'"></div>
         </ion-content>
       </ion-view>
@@ -203,7 +208,7 @@
 
     <script id="templates/profile.html" type="text/ng-template">
       <ion-view view-title="Profile">
-        <ion-content class="padding">
+        <ion-content class="padding" id="paginaProdus">
             <div ng-include="'html/profile.html'"></div>
         </ion-content>
       </ion-view>
@@ -213,6 +218,14 @@
       <ion-view view-title="Add product" >
         <ion-content class="padding">
             <div ng-include src="'html/addProduct.html'"></div>
+        </ion-content>
+      </ion-view>
+    </script>
+
+    <script id="templates/restrictivi.html" type="text/ng-template">
+      <ion-view view-title="Top restrictivi">
+        <ion-content class="padding" id="paginaProdus">
+          <div ng-include="'html/restrictivi.html'"></div>
         </ion-content>
       </ion-view>
     </script>

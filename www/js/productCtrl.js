@@ -39,6 +39,41 @@
                             $scope.neutralSpecifications = getSpecifications($scope.spectypeobjs, "Neutral");
                             $scope.neutralSpecificationsDisplayMessage = getNeutralSpecificationsDisplayMessage($scope);
                         }
+
+                        var getProductRating=$http.get('https://nodeserve-cypmaster14.c9users.io/rating?barcode='+$scope.barcode);
+
+                        getProductRating.success(function(data,status,headers,config){
+
+                            if(status==200)
+                            {
+                              switch (data.scor) {
+                                case 1:
+                                  console.log("Rating produs este:"+1);
+                                  $('#group-3-24').prop('checked',true);
+                                  break;
+                                case 2:
+                                  console.log("Rating produs este:"+2);
+                                  $('#group-3-23').prop('checked',true);
+                                  break;
+                                case 3:
+                                  console.log("Rating produs este:"+3);
+                                  $('#group-3-22').prop('checked',true);
+                                  break;
+                                case 4:
+                                  console.log("Rating produs este:"+4);
+                                  $('#group-3-21').prop('checked',true);
+                                  break;
+                                default:
+                                  console.log("Rating produs este:"+5);
+                                  $('#group-3-20').prop('checked',true);
+                              }
+                            }
+                        });
+
+                        getProductRating.error(function(data,status,headers,config){
+
+                        });
+
                         var getSimilarProducts = $http.get('https://nodeserve-cypmaster14.c9users.io/getSimilarProducts?user=' + $rootScope.user + '&barcode=' + $scope.barcode + '&category=' + category);
                         getSimilarProducts.success(function (data, status, headers, config) {
                             if (status == 200) {
@@ -255,6 +290,22 @@
                                               title: "Preferinta noua",
                                               template: data
                                           });
+
+                                          var getMyReputationRequest=$http.get('https://nodeserve-cypmaster14.c9users.io/getReputation?email='+$rootScope.user);
+
+                                          getMyReputationRequest.success(function(data,status,headers,config){
+                                              if(status==200)
+                                              {
+                                                console.log("Reputaie:"+data.reputatie);
+                                                $rootScope.reputation=data.reputatie;
+                                                window.localStorage.setItem("reputation",$rootScope.reputation);
+                                              }
+                                          });
+
+                                          getMyReputationRequest.error(function(data,status,headers,config){
+
+                                          });
+
                                           makeRequest();
                                           /*alertPopup.then(function (res) {
                                               $state.go($state.current, $stateParams, { reload: true });
@@ -298,13 +349,11 @@
             console.log("Sterg checked de la:" + 'group-3-' + (5 - $scope.ratingValue));
             document.getElementById('group-3-' + (5 - $scope.ratingValue)).checked = "false";
             document.getElementById('group-3-' + (5 - $scope.ratingValue)).removeAttribute('checked');
-            //$('#group-3-'+(5-$scope.ratingValue)).prop('checked',false);
             $scope.ratingValue = rating;
             console.log('Modific rating:' + $scope.ratingValue);
             console.log("Bifez steaua cu id:" + 'group-3-' + (5 - rating));
             document.getElementById('group-3-' + (5 - rating)).checked = "true";
             document.getElementById('group-3-' + (5 - rating)).setAttribute('checked', "true");
-            //  $('#group-3-'+(5-rating)).prop('checked',true);
         };
 
         $scope.postareComentariu = function () {
@@ -346,6 +395,55 @@
                         resComments.success(function (data, status, headers, config) {
                             if (status == 200) {
                                 $scope.comentarii = data.comentarii;
+                                var getMyReputationRequest=$http.get('https://nodeserve-cypmaster14.c9users.io/getReputation?email='+$rootScope.user);
+
+                                getMyReputationRequest.success(function(data,status,headers,config){
+                                    if(status==200)
+                                    {
+                                      console.log("Reputaie:"+data.reputatie);
+                                      $rootScope.reputation=data.reputatie;
+                                      window.localStorage.setItem("reputation",$rootScope.reputation);
+
+                                      var getProductRating=$http.get('https://nodeserve-cypmaster14.c9users.io/rating?barcode='+$scope.barcode);
+
+                                      getProductRating.success(function(data,status,headers,config){
+
+                                          if(status==200)
+                                          {
+                                            switch (data.scor) {
+                                              case 1:
+                                                console.log("Rating produs este:"+1);
+                                                $('#group-3-24').prop('checked',true);
+                                                break;
+                                              case 2:
+                                                console.log("Rating produs este:"+2);
+                                                $('#group-3-23').prop('checked',true);
+                                                break;
+                                              case 3:
+                                                console.log("Rating produs este:"+3);
+                                                $('#group-3-22').prop('checked',true);
+                                                break;
+                                              case 4:
+                                                console.log("Rating produs este:"+4);
+                                                $('#group-3-21').prop('checked',true);
+                                                break;
+                                              default:
+                                                console.log("Rating produs este:"+5);
+                                                $('#group-3-20').prop('checked',true);
+                                            }
+                                          }
+                                      });
+
+                                      getProductRating.error(function(data,status,headers,config){
+
+                                      });
+
+                                    }
+                                });
+
+                                getMyReputationRequest.error(function(data,status,headers,config){
+
+                                });
                             }
 
                         });
@@ -363,6 +461,10 @@
                     }
 
                 });
+
+
+
+
             }
 
             else {

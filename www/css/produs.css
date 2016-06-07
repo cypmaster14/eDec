@@ -8,15 +8,19 @@
 	margin-right:30px;
 }
 
+#paginaProdus{
+	background-color: #fff;
+}
+
 #first{
 	font-size: 20px;
 }
 
 #post_comment {
-	background-color: rgba(34, 44, 230, 0.56);
+	background-color: #0c60ee
 	-moz-border-radius: 28px;
 	-webkit-border-radius: 28px;
-	border-radius: 18px;
+	background-color: #62a0fc;
 	border: 1px solid #18ab29;
 	display: inline-block;
 	cursor: pointer;
@@ -35,11 +39,10 @@
 }
 #vezi_mai_mult_campanii_useri {
     float:right;
-	background-color: rgba(34, 44, 230, 0.56);
+	background-color: #62a0fc;
 	-moz-border-radius: 28px;
 	-webkit-border-radius: 28px;
-	border-radius: 18px;
-	border: 1px solid #18ab29;
+	border: 1px solid #11c1f3;
 	display: inline-block;
 	cursor: pointer;
 	color: #ffffff;
@@ -53,7 +56,7 @@
 	margin-top: 13px;
 	margin-right: unset;
 	margin-left: 30px;
-	border-radius: 15px;
+	border-radius: 2px;
 }
 
 .spacer{
@@ -281,7 +284,7 @@ button [id="buton_ingrediente"]:active
 }
 
 body{
-font-family:Arial, Helvetica, sans-serif; 
+font-family:Arial, Helvetica, sans-serif;
 font-size:13px;
 }
 .info{

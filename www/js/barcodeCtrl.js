@@ -22,7 +22,7 @@
                       if(parseInt(data.reputatie)>500)
                       {
                           $scope.showConfirm(imageData.text);
-                          $rootScope.reputation=data.reputation;// actualizez reputatia
+                          $rootScope.reputation=data.reputatie;// actualizez reputatia
                           window.localStorage.setItem("reputation",$rootScope.reputation); //actualizez si localeStorage
                       }
 

@@ -17,7 +17,7 @@
     $scope.activate = function (obj) {
 
     };
-	
+
 	if ($rootScope.lastSearchedProduct == null){
 		$rootScope.lastSearchedProduct='';
 	}
@@ -29,7 +29,7 @@
         var aux = window.localStorage.getItem('logat');
         if (aux && aux.localeCompare("true") === 0) {
             console.log("Sunt logat si initializez");
-            //aici voi face requestul pentru campaniile si activitatile userilor filtrate 
+            //aici voi face requestul pentru campaniile si activitatile userilor filtrate
             $rootScope.user = window.localStorage.getItem('email');
             $rootScope.firstName = window.localStorage.getItem('firstName');
             $rootScope.lastName = window.localStorage.getItem('lastName');
@@ -39,6 +39,21 @@
             $scope.lastName=$rootScope.lastName;
             $scope.email=$rootScope.user;
             logat = true;
+
+            var getMyReputationRequest=$http.get('https://nodeserve-cypmaster14.c9users.io/getReputation?email='+$rootScope.user);
+
+            getMyReputationRequest.success(function(data,status,headers,config){
+                if(status==200)
+                {
+                  console.log("Reputaie:"+data.reputatie);
+                  $rootScope.reputation=data.reputatie;
+                  window.localStorage.setItem("reputation",$rootScope.reputation);
+                }
+            });
+
+            getMyReputationRequest.error(function(data,status,headers,config){
+
+            });
         }
         else{
         }
@@ -86,7 +101,7 @@
     $scope.goToCampaigns=function(){
         $state.go('tabs.campanii');
     };
-	
+
     $scope.goToUsersActivities=function(){
         $state.go('tabs.activitatiUseri');
     };
@@ -102,5 +117,15 @@
             last_name:campaign.last_name,email_creator_campanie:campaign.email_creator_campanie
 		});
     };
+
+    $scope.moveToWorstUsers=function(){
+
+      $state.go('tabs.restrictivi');
+    };
+
+    $scope.moveToTopProducts=function(){
+
+      alert('TOp produse');
+    }
 
 }]);

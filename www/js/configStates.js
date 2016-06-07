@@ -61,6 +61,15 @@
         }
       })
 
+      .state('tabs.restrictivi',{
+        url:"/restrictivi",
+        views:{
+            "home-tab":{
+              templateUrl:"templates/restrictivi.html"
+            }
+        }
+      })
+
       .state('tabs.register',{
           url:"/register",
           views: {
