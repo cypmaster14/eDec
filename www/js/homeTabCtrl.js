@@ -186,7 +186,7 @@
     $scope.moveToTopProducts=function(){
 
       alert('TOp produse');
-
+    }
     $scope.getFirstWord = function getFirstWord(activity) {
         var firstWord = activity.action.split(" ")[0];
         return firstWord;
