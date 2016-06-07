@@ -4,5 +4,4 @@
     $scope.goToUserPage = $stateParams.goToUserPage;
     $scope.getMiddleSentence = $stateParams.getMiddleSentence;
     $scope.goToPage = $stateParams.goToPage;
-    alert("wa");
 }]);
