@@ -120,7 +120,13 @@
     };
 	
     $scope.goToUsersActivities=function(){
-        $state.go('tabs.activitatiUseri');
+        $state.go('tabs.activitatiUseri', {
+                 activitati: $scope.activitati,
+                 getFirstWord: $scope.getFirstWord,
+                 goToUserPage: $scope.goToUserPage,
+                 getMiddleSentence: $scope.getMiddleSentence,
+                 goToPage: $scope.goToPage
+        });
     };
 
 
