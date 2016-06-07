@@ -45,7 +45,6 @@
             getMyReputationRequest.success(function(data,status,headers,config){
                 if(status==200)
                 {
-                  console.log("Reputaie:"+data.reputatie);
                   $rootScope.reputation=data.reputatie;
                   window.localStorage.setItem("reputation",$rootScope.reputation);
                 }
@@ -81,7 +80,6 @@
                 if (status == 200) {
                     $scope.top3Activitati = data.slice(0, 3);
                     $scope.activitati = data;
-                    console.log($scope.activitati);
                 }
             });
     };
@@ -129,7 +127,7 @@
 
     $scope.moveToProfilePage=function(user)
     {
-        $state.go('tabs.profile',{'user':user});
+        $state.go('tabs.profile');
         $ionicSideMenuDelegate.toggleLeft();
     };
     $scope.goToCampaigns=function(){
@@ -185,6 +183,7 @@
     $scope.moveToTopProducts=function(){
 
       alert('TOp produse');
+	}
 
     $scope.getFirstWord = function getFirstWord(activity) {
         var firstWord = activity.action.split(" ")[0];
