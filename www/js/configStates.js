@@ -53,6 +53,7 @@
 
       .state('tabs.profile', {
         url:"/profile",
+		cache: false,
         views:{
             "home-tab":{
               templateUrl:"templates/profile.html"
