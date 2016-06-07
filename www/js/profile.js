@@ -3,8 +3,6 @@ angular.module('edec').controller('profile',['$scope','$state','$stateParams','$
   $scope.getMyPageInfo=function()
   {
     var email=$rootScope.user;
-    console.log("Reputatie:"+$rootScope.reputation);
-    console.log("Vreau sa aflu campaniile pt:"+email);
 
     var requestForCampaign=$http.get('https://nodeserve-cypmaster14.c9users.io/myCampaign?user='+email);
     requestForCampaign.success(function(data,status,headers,config){
@@ -12,7 +10,6 @@ angular.module('edec').controller('profile',['$scope','$state','$stateParams','$
         {
           $rootScope.campanii=data.listaCampanii;
           $rootScope.areCampanii=true;
-          console.log("campanii:"+JSON.stringify($scope.campanii));
         }
     });
 
@@ -21,12 +18,8 @@ angular.module('edec').controller('profile',['$scope','$state','$stateParams','$
         if(status==409)
         {
           $rootScope.areCampanii=false;
-          console.log("Nu am campanii");
         }
     });
-
-
-    console.log("Vreau sa aflu preferintele lui:"+email);
 
     var requestForPreferences=$http.get('https://nodeserve-cypmaster14.c9users.io/getUserPreferences?email='+email);
     requestForPreferences.success(function(data,status,headers,config){
@@ -35,11 +28,7 @@ angular.module('edec').controller('profile',['$scope','$state','$stateParams','$
             $rootScope.preferinteLike=data.like;
             $rootScope.preferinteDislike=data.dislike;
             $rootScope.preferinteAlert=data.alert;
-            console.log("Like:"+JSON.stringify($rootScope.preferinteLike));
-            console.log("Dislike:"+JSON.stringify($rootScope.preferinteDislike));
-            console.log("Alert:"+JSON.stringify($rootScope.preferinteAlert));
             $rootScope.arePreferinte=true;
-
           }
     });
 
@@ -50,18 +39,12 @@ angular.module('edec').controller('profile',['$scope','$state','$stateParams','$
         $rootScope.preferinteDislike=null;
         $rootScope.preferinteAlert=null;
         $rootScope.arePreferinte=false;
-        console.log("Nu am preferinte");
       }
     });
-
-
-
-
   };
 
   $rootScope.goToCampaign=function(campaign)
   {
-
     $state.go("tabs.campaign",
                 {
                   campaign_name:campaign.nume,
@@ -72,20 +55,12 @@ angular.module('edec').controller('profile',['$scope','$state','$stateParams','$
                   administrator:campaign.administrator
                 }
     );
-
   };
 
 
   $rootScope.modify=function(produs){
-
-    console.log("Modific:"+produs);
     $scope.showConfirm(produs);
-
   };
-
-
-
-
 
   $scope.showConfirm=function(produs){
       var confirmPopup=$ionicPopup.confirm({
@@ -95,18 +70,15 @@ angular.module('edec').controller('profile',['$scope','$state','$stateParams','$
 
       confirmPopup.then(function(res) {
          if(res) {
-           console.log('Sterg:'+produs +"email:"+$rootScope.user);
            var obj={
                       email:$rootScope.user,
                       ingredient:produs
                     };
-            console.log("Trimit server-ului:"+JSON.stringify(obj));
 
             var requestForRemovePreference=$http.post('https://nodeserve-cypmaster14.c9users.io/removePreference',obj);
             requestForRemovePreference.success(function(data,status,headers,config){
                   if(status==200)
                   {
-                    console.log('Am sterg produsul');
                     var email=$rootScope.user;
                     var requestForPreferences=$http.get('https://nodeserve-cypmaster14.c9users.io/getUserPreferences?email='+email);
                     requestForPreferences.success(function(data,status,headers,config){
@@ -115,9 +87,6 @@ angular.module('edec').controller('profile',['$scope','$state','$stateParams','$
                             $rootScope.preferinteLike=data.like;
                             $rootScope.preferinteDislike=data.dislike;
                             $rootScope.preferinteAlert=data.alert;
-                            console.log("Like:"+JSON.stringify($rootScope.preferinteLike));
-                            console.log("Dislike:"+JSON.stringify($rootScope.preferinteDislike));
-                            console.log("Alert:"+JSON.stringify($rootScope.preferinteAlert));
                             $rootScope.arePreferinte=true;
 
                           }
@@ -130,7 +99,6 @@ angular.module('edec').controller('profile',['$scope','$state','$stateParams','$
                         $rootScope.preferinteDislike=null;
                         $rootScope.preferinteAlert=null;
                         $rootScope.arePreferinte=false;
-                        console.log("Nu am preferinte");
                       }
                     });
 
@@ -144,10 +112,6 @@ angular.module('edec').controller('profile',['$scope','$state','$stateParams','$
                   }
             });
 
-         }
-         else
-         {
-           console.log('Nu mai sterg:'+produs);
          }
        });
 

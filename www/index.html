@@ -122,15 +122,15 @@
     <script id="templates/tabs.html" type="text/ng-template">
       <ion-tabs class="tabs-icon-top tabs-positive">
 
-        <ion-tab title="Home" icon="ion-ios-home-outline" href="#/tab/home" >
+        <ion-tab title="Acasa" icon="ion-ios-home-outline" href="#/tab/home" >
           <ion-nav-view name="home-tab"></ion-nav-view>
         </ion-tab>
 
-		<ion-tab title="Scan" icon="ion-ios-barcode-outline"  href="#/tab/scan">
+		<ion-tab title="Scanare" icon="ion-ios-barcode-outline"  href="#/tab/scan">
 			<ion-nav-view name="scan-tab"></ion-nav-view>
 		</ion-tab>
 
-        <ion-tab title="Search" icon="ion-ios-search-strong" href="#/tab/search">
+        <ion-tab title="Cautare" icon="ion-ios-search-strong" href="#/tab/search">
           <ion-nav-view name="search-tab"></ion-nav-view>
         </ion-tab>
 
@@ -138,7 +138,7 @@
     </script>
 
     <script id="templates/home.html" type="text/ng-template">
-      <ion-view view-title="Home" >
+      <ion-view view-title="Acasa" >
         <ion-content class="padding">
 			      <div ng-include src="'html/home.html'"></div>
         </ion-content>
@@ -147,14 +147,14 @@
 
 
 	<script id="templates/scan.html" type="text/ng-template">
-      <ion-view view-title="Scan" ng-controller="BarCode" ng-init="scanBarcode()">
+      <ion-view view-title="Scanare" ng-controller="BarCode" ng-init="scanBarcode()">
       </ion-view>
     </script>
 
 
 
     <script id="templates/facts.html" type="text/ng-template">
-      <ion-view view-title="Authentication">
+      <ion-view view-title="Autentificare">
         <ion-content class="padding">
 			      <div ng-include src="'html/facts.html'"></div>
         </ion-content>
@@ -170,7 +170,7 @@
     </script>
 
 	 <script id="templates/register.html" type="text/ng-template">
-      <ion-view view-title="Register">
+      <ion-view view-title="Inregistrare">
         <ion-content class="padding">
             <div ng-include src="'html/register.html'"></div>
         </ion-content>
@@ -178,7 +178,7 @@
     </script>
 
 	<script id="templates/createCampaign.html" type="text/ng-template">
-      <ion-view view-title="Creare Campanie">
+      <ion-view view-title="Creare campanie">
         <ion-content class="padding">
             <div ng-include src="'html/createCampaign.html'"></div>
         </ion-content>
@@ -186,7 +186,7 @@
     </script>
 
     <script id="templates/product.html"  type="text/ng-template">
-      <ion-view view-title="Product details">
+      <ion-view view-title="Detalii produs">
         <ion-content class="padding">
 			       <div ng-include src="'html/product.html'"></div>
         </ion-content>
@@ -194,7 +194,7 @@
     </script>
 
     <script id="templates/search.html" type="text/ng-template">
-      <ion-view view-title="Search">
+      <ion-view view-title="Cautare">
         <ion-content class="padding">
 			       <div ng-include src="'html/search.html'"></div>
         </ion-content>
@@ -202,7 +202,7 @@
     </script>
 
     <script id="templates/profile.html" type="text/ng-template">
-      <ion-view view-title="Profile">
+      <ion-view view-title="Profil utilizator">
         <ion-content class="padding">
             <div ng-include="'html/profile.html'"></div>
         </ion-content>
@@ -210,7 +210,7 @@
     </script>
 
     <script id="templates/addProduct.html" type="text/ng-template">
-      <ion-view view-title="Add product" >
+      <ion-view view-title="Adaugare produs" >
         <ion-content class="padding">
             <div ng-include src="'html/addProduct.html'"></div>
         </ion-content>

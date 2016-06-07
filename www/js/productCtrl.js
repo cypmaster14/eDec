@@ -42,7 +42,6 @@
                         var getSimilarProducts = $http.get('https://nodeserve-cypmaster14.c9users.io/getSimilarProducts?user=' + $rootScope.user + '&barcode=' + $scope.barcode + '&category=' + category);
                         getSimilarProducts.success(function (data, status, headers, config) {
                             if (status == 200) {
-                                console.log(data);
                                 if (data == "no products") {
                                     $scope.noProducts = true;
                                 } else {
@@ -63,12 +62,9 @@
                                             $scope.similarProducts = displayedSimilarProducts;
                                             $scope.displayProductName = displayProductName;
                                             $scope.clickOnSimilarProduct = clickOnSimilarProduct;
-                                            $scope.afis = function () {
-                                                console.log($scope.similarProducts);
-                                            };
                                         }
                                     });
-                                }                                
+                                }
                             }
                         });
                         getSimilarProducts.error(function (data, status, headers, config) {
@@ -77,9 +73,7 @@
                     }
                     else {
                         if ($rootScope.logat === true) {
-                            console.log("Reputatia mea:" + $rootScope.reputation);
                             if ($rootScope.reputation > 500) {
-                                console.log("Barcode-ul este:" + $scope.barcode);
                                 $rootScope.barcodeDeIntrodus = $scope.barcode;
                                 $state.go("tabs.addProduct", { 'ok': 'ok' });
                             }
@@ -276,17 +270,8 @@
                                               template: data
                                           });
                                           makeRequest();
-                                          /*alertPopup.then(function (res) {
-                                              $state.go($state.current, $stateParams, { reload: true });
-                                              //console.log('Thank you for not eating my delicious ice cream cone');
-                                          });*/
                                       }(data);
                                   }
-
-                                  else {
-                                      //$scope.showAlert("Error","There was a problem when sending your preference.");
-                                  }
-
                               });
 
 
@@ -315,34 +300,22 @@
 
         $scope.ratingValue = 1;
         $scope.setRating = function (rating) {
-            console.log("Sterg checked de la:" + 'group-3-' + (5 - $scope.ratingValue));
             document.getElementById('group-3-' + (5 - $scope.ratingValue)).checked = "false";
             document.getElementById('group-3-' + (5 - $scope.ratingValue)).removeAttribute('checked');
             //$('#group-3-'+(5-$scope.ratingValue)).prop('checked',false);
             $scope.ratingValue = rating;
-            console.log('Modific rating:' + $scope.ratingValue);
-            console.log("Bifez steaua cu id:" + 'group-3-' + (5 - rating));
             document.getElementById('group-3-' + (5 - rating)).checked = "true";
             document.getElementById('group-3-' + (5 - rating)).setAttribute('checked', "true");
             //  $('#group-3-'+(5-rating)).prop('checked',true);
         };
 
         $scope.postareComentariu = function () {
-            console.log($rootScope.logat);
-            console.log($rootScope.user);
-            console.log("Scor" + $scope.ratingValue);
             if (!$rootScope.logat || $rootScope.logat === false) {
                 $scope.showAlert('Login', 'You must login first');
                 return;
             }
             if ($scope.iol && $scope.iol.length !== 0 && $scope.titlu && $scope.titlu.length !== 0) {
-
-                console.log($rootScope.logat);
                 var review = $scope.iol;
-                $scope.showAlert('Postare comentariu', '(' + $rootScope.user + ')Mesaj:' + review);
-                console.log('Email:' + $rootScope.user);
-                console.log('Barcode:' + $scope.barcode);
-                console.log('Comentariu:' + review);
 
                 var obj = {
                     email: $rootScope.user,
@@ -352,7 +325,6 @@
                     review: review
 
                 };
-                console.log("Trimit obiectul:" + JSON.stringify(obj));
 
                 $scope.titlu = "";
                 $scope.iol = "";
@@ -401,7 +373,6 @@
                 ],
                 cancelText: 'Cancel',
                 cancel: function () {
-                    console.log("Cancelled");
                 },
                 buttonClicked: function (index) {
                     var optiune = "";
@@ -617,7 +588,7 @@
                 campaign_name: campaign.campaign_name, campaign_id: campaign.campaign_id, campaign_description: campaign.description,
                 imagine: campaign.imagine, creation_date: campaign.creation_date, administrator: $rootScope.user, product_name: $scope.mesaj.name, product_barcode: $scope.barcode,
                 first_name:campaign.first_name,
-                last_name:campaign.last_name,email_creator_campanie:campaign.email_creator_campanie
+                last_name:campaign.last_name,email_creator_campanie : campaign.email_creator_campanie
             });
         };
         $scope.clickOnCreateCampaign = function (barcode) {

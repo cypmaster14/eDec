@@ -23,12 +23,10 @@
 	}
 
     $scope.initializeaza = function () {
-        console.log("LocaleStorage Begin:" + window.localStorage.getItem('email'));
         $rootScope.logat=false;
         logat=false;
         var aux = window.localStorage.getItem('logat');
         if (aux && aux.localeCompare("true") === 0) {
-            console.log("Sunt logat si initializez");
             //aici voi face requestul pentru campaniile si activitatile userilor filtrate 
             $rootScope.user = window.localStorage.getItem('email');
             $rootScope.firstName = window.localStorage.getItem('firstName');
@@ -44,6 +42,7 @@
         }
         var email=$rootScope.user;
             //console.log("Vreau sa aflu campaniile pt:"+email);
+
             var requestForCampaign=$http.get('https://nodeserve-cypmaster14.c9users.io/trimiteCampanii?user='+email);
             requestForCampaign.success(function(data,status,headers,config){
             if(status==200){
@@ -51,6 +50,7 @@
                 $scope.campanii=data.listaCampanii;
                 $rootScope.areCampanii=true;
                 //console.log("campanii:"+JSON.stringify($scope.campanii));
+
             }
             });
             requestForCampaign.error(function(data,status,headers,config){
@@ -142,7 +142,8 @@
 		$state.go("tabs.campaign", {
 			campaign_name: campaign.nume, campaign_id: campaign.id, campaign_description: campaign.descriere,
 			imagine: campaign.poza, creation_date: campaign.data, administrator: $rootScope.user,first_name:campaign.first_name,
-            last_name:campaign.last_name,email_creator_campanie:campaign.email_creator_campanie
+            last_name:campaign.last_name,email_creator_campanie:campaign.email_creator_campanie,
+            product_name: campaign.product_name, product_barcode: campaign.product_barcode
 		});
     };
 
