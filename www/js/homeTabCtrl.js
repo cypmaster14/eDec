@@ -18,7 +18,7 @@
     $scope.activate = function (obj) {
 
     };
-	
+
 	if ($rootScope.lastSearchedProduct == null){
 		$rootScope.lastSearchedProduct='';
 	}
@@ -28,7 +28,9 @@
         logat=false;
         var aux = window.localStorage.getItem('logat');
         if (aux && aux.localeCompare("true") === 0) {
-            //aici voi face requestul pentru campaniile si activitatile userilor filtrate 
+
+            //aici voi face requestul pentru campaniile si activitatile userilor filtrate
+
             $rootScope.user = window.localStorage.getItem('email');
             $rootScope.firstName = window.localStorage.getItem('firstName');
             $rootScope.lastName = window.localStorage.getItem('lastName');
@@ -38,6 +40,21 @@
             $scope.lastName=$rootScope.lastName;
             $scope.email=$rootScope.user;
             logat = true;
+
+            var getMyReputationRequest=$http.get('https://nodeserve-cypmaster14.c9users.io/getReputation?email='+$rootScope.user);
+
+            getMyReputationRequest.success(function(data,status,headers,config){
+                if(status==200)
+                {
+                  console.log("Reputaie:"+data.reputatie);
+                  $rootScope.reputation=data.reputatie;
+                  window.localStorage.setItem("reputation",$rootScope.reputation);
+                }
+            });
+
+            getMyReputationRequest.error(function(data,status,headers,config){
+
+            });
         }
         else{
         }
@@ -82,7 +99,6 @@
         $scope.initializeaza();
     };
 
-    
     $scope.goToCampaignPage = function(campaign_id)
     {
         var res = $http.get("https://nodeserve-cypmaster14.c9users.io/trimiteCampaniePeBazaID?campaign_id=" + campaign_id);
@@ -99,7 +115,9 @@
                         administrator: data.email_creator_campanie,
                         first_name: data.first_name,
                         last_name: data.last_name,
-                        email_creator_campanie: data.email_creator_campanie
+                        email_creator_campanie: data.email_creator_campanie,
+						product_name: data.product_name,
+						product_barcode: data.product_barcode
                     }
                 );
             }
@@ -118,10 +136,21 @@
     $scope.goToCampaigns=function(){
         $state.go('tabs.campanii');
     };
-	
+
     $scope.goToUsersActivities=function(){
-        $state.go('tabs.activitatiUseri');
+        $state.go('tabs.activitatiUseri', {
+                 activitati: $scope.activitati,
+                 getFirstWord: $scope.getFirstWord,
+                 goToUserPage: $scope.goToUserPage,
+                 getMiddleSentence: $scope.getMiddleSentence,
+                 goToPage: $scope.goToPage
+        });
     };
+
+
+	$scope.goToPublicProfilePage=function(user){
+		$state.go('tabs.publicProfilePage',{'user':user});
+	}
 
     $scope.goToUserPage = function (user) {
 		$state.go('tabs.publicProfilePage',{'user':user});
@@ -133,7 +162,7 @@
 
     $scope.goToPage = function (activitate) {
         if (activitate.action_code == "votare_ingredient") {
-            $scope.goToProductPage(activitate.link_id);            
+            $scope.goToProductPage(activitate.link_id);
         } else {
             $scope.goToCampaignPage(activitate.link_id);
         }
@@ -148,17 +177,26 @@
 		});
     };
 
+
+    $scope.moveToWorstUsers=function(){
+
+      $state.go('tabs.restrictivi');
+    };
+
+    $scope.moveToTopProducts=function(){
+
+      alert('TOp produse');
+
     $scope.getFirstWord = function getFirstWord(activity) {
         var firstWord = activity.action.split(" ")[0];
         return firstWord;
-    }
+    };
 
     $scope.getMiddleSentence = function getMiddleSentence(activity) {
         var action = activity.action;
         action = action.split(" ").splice(3, action.length).join(" ");
         return action;
-    }
 
-    
+    };
 
 }]);

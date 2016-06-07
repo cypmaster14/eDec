@@ -105,5 +105,11 @@ div.align-right { text-align:right; }
     width: 66px;
   }
 ion-content{
-  
+  background-color: #eaeaea;
+}
+
+#logoutButton,#loginButton{
+  font-family: "-apple-system", "Helvetica Neue", "Roboto", "Segoe UI", sans-serif;
+  font-size: 15px;
+
 }

@@ -1,4 +1,4 @@
-angular.module('edec').controller('profile',['$scope','$state','$stateParams','$http','$ionicPopup', '$timeout', '$rootScope', '$ionicActionSheet', 'logat', 'user', function ($scope, $state, $stateParams, $http, $ionicPopup, $timeout, $rootScope, $ionicActionSheet, logat, user) {
+angular.module('edec').controller('profile',['$scope','$state','$stateParams','$http','$ionicPopup', '$timeout', '$rootScope', '$ionicActionSheet', function ($scope, $state, $stateParams, $http, $ionicPopup, $timeout, $rootScope, $ionicActionSheet) {
 
   $scope.getMyPageInfo=function()
   {
@@ -8,8 +8,11 @@ angular.module('edec').controller('profile',['$scope','$state','$stateParams','$
     requestForCampaign.success(function(data,status,headers,config){
         if(status==200)
         {
-          $rootScope.campanii=data.listaCampanii;
-          $rootScope.areCampanii=true;
+		  $scope.firstName=data.firstName;
+		  $scope.lastName=data.lastName;
+		  $scope.reputation=data.reputation;
+          $scope.campanii=data.listaCampanii;
+          $scope.areCampanii=true;
         }
     });
 
@@ -17,7 +20,7 @@ angular.module('edec').controller('profile',['$scope','$state','$stateParams','$
 
         if(status==409)
         {
-          $rootScope.areCampanii=false;
+          $scope.areCampanii=false;
         }
     });
 
@@ -25,40 +28,55 @@ angular.module('edec').controller('profile',['$scope','$state','$stateParams','$
     requestForPreferences.success(function(data,status,headers,config){
           if(status==200)
           {
-            $rootScope.preferinteLike=data.like;
-            $rootScope.preferinteDislike=data.dislike;
-            $rootScope.preferinteAlert=data.alert;
-            $rootScope.arePreferinte=true;
+            $scope.preferinteLike=data.like;
+            $scope.preferinteDislike=data.dislike;
+            $scope.preferinteAlert=data.alert;
+            $scope.arePreferinte=true;
           }
     });
 
     requestForPreferences.error(function(data,status,headers,config){
-      if(status==409)
-      {
-        $rootScope.preferinteLike=null;
-        $rootScope.preferinteDislike=null;
-        $rootScope.preferinteAlert=null;
-        $rootScope.arePreferinte=false;
-      }
+		/*if(status==409)
+		{
+			$rootScope.preferinteLike=null;
+			$rootScope.preferinteDislike=null;
+			$rootScope.preferinteAlert=null;
+			$rootScope.arePreferinte=false;
+		}*/
     });
   };
 
-  $rootScope.goToCampaign=function(campaign)
+  $scope.goToCampaign=function(campaign)
   {
-    $state.go("tabs.campaign",
+	var res=$http.get("https://nodeserve-cypmaster14.c9users.io/trimiteCampaniePeBazaID?campaign_id="+campaign.id);
+	
+	res.success(function(data,status,headers,config){
+          if(status==200)
+          {
+			$state.go("tabs.campaign",
                 {
-                  campaign_name:campaign.nume,
-                  campaign_id:campaign.id,
-                  campaign_description:campaign.descriere,
-                  imagine:campaign.poza,
-                  creation_date:campaign.data,
-                  administrator:campaign.administrator
+					campaign_name: data.campaign_name,
+					campaign_id: campaign.id,
+					campaign_description: data.description,
+					imagine: data.campaign_photo,
+					creation_date: data.creation_date,
+					administrator: data.email_creator_campanie,
+					first_name: data.first_name,
+					last_name: data.last_name,
+					email_creator_campanie: data.email_creator_campanie,
+					product_name: data.product_name,
+					product_barcode: data.product_barcode
                 }
-    );
+			);
+          }
+    });
+	
+	res.error(function(data,status,headers,config){
+    });
   };
 
 
-  $rootScope.modify=function(produs){
+  $scope.modify=function(produs){
     $scope.showConfirm(produs);
   };
 
@@ -84,10 +102,10 @@ angular.module('edec').controller('profile',['$scope','$state','$stateParams','$
                     requestForPreferences.success(function(data,status,headers,config){
                           if(status==200)
                           {
-                            $rootScope.preferinteLike=data.like;
-                            $rootScope.preferinteDislike=data.dislike;
-                            $rootScope.preferinteAlert=data.alert;
-                            $rootScope.arePreferinte=true;
+                            $scope.preferinteLike=data.like;
+                            $scope.preferinteDislike=data.dislike;
+                            $scope.preferinteAlert=data.alert;
+                            $scope.arePreferinte=true;
 
                           }
                     });
@@ -95,10 +113,10 @@ angular.module('edec').controller('profile',['$scope','$state','$stateParams','$
                     requestForPreferences.error(function(data,status,headers,config){
                       if(status==409)
                       {
-                        $rootScope.preferinteLike=null;
-                        $rootScope.preferinteDislike=null;
-                        $rootScope.preferinteAlert=null;
-                        $rootScope.arePreferinte=false;
+                        $scope.preferinteLike=null;
+                        $scope.preferinteDislike=null;
+                        $scope.preferinteAlert=null;
+                        $scope.arePreferinte=false;
                       }
                     });
 
@@ -111,15 +129,7 @@ angular.module('edec').controller('profile',['$scope','$state','$stateParams','$
                     $scope.showAlert('Eroare','A aparut o eroare la stergerea produsului');
                   }
             });
-
          }
        });
-
-
     };
-
-
-
-
-
 }]);

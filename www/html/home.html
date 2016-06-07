@@ -18,7 +18,6 @@
 	 	    <p> Utilizatorul {{userActiune.lastname}} {{userActiune.firstName}} {{userActiune.actiune}} <a ng-click="clickOnActivitate(userActiune.cazActiune)"> {{produsSauCampanie}} </a> </p>
 	 	</div>
 
-		
 	 	<div class="item item-body" ng-repeat="activitate in activitati | limitTo:3">
             <p>
                 {{getFirstWord(activitate)}}

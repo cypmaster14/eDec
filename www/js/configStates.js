@@ -28,6 +28,13 @@
       })
       .state('tabs.activitatiUseri', {
           url: "/activitatiUseri",
+          params: {
+              activitati: null,
+              getFirstWord: null,
+              goToUserPage: null,
+              getMiddleSentence: null,
+              goToPage:null
+          },
           cache: false,
           views: {
               'home-tab': {
@@ -55,9 +62,19 @@
 
       .state('tabs.addProduct',{
         url:"/addProduct",
+		cache: false,
         views:{
             "home-tab":{
               templateUrl:"templates/addProduct.html"
+            }
+        }
+      })
+
+      .state('tabs.restrictivi',{
+        url:"/restrictivi",
+        views:{
+            "home-tab":{
+              templateUrl:"templates/restrictivi.html"
             }
         }
       })
@@ -117,6 +134,19 @@
               }
           }
       })
+	  
+	  .state('tabs.publicProfilePage', {
+          url: "/publicProfilePage",
+          params: {
+			  user : null,
+		  },
+          views: {
+              'home-tab': {
+                  templateUrl: "templates/publicProfilePage.html"
+              }
+          }
+      })
+	  
       .state('tabs.search', {
           url: "/search",
 		  cache: false,

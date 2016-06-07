@@ -30,9 +30,10 @@ angular.module('edec').controller('CampaignCtrl', ['$scope', '$state', '$statePa
 		$scope.administrator=$stateParams.administrator;
         $scope.first_name=$stateParams.first_name;
         $scope.last_name=$stateParams.last_name;
-		$scope.product_barcode=$stateParams.product_barcode;
+        $scope.product_barcode = $stateParams.product_barcode;
+        console.log($scope.product_barcode);
 		$scope.product_name=$stateParams.product_name;
-        console.log($scope.product_name);
+        //console.log($scope.product_name);
 		$scope.getNumberOfMembersFor($stateParams);
         $scope.isLogged=$rootScope.logat;
         $scope.email_creator_campanie=$stateParams.email_creator_campanie;

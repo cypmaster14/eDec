@@ -80,7 +80,6 @@ $scope.insereazaProdus=function()
       $scope.showAlert('Inserare produs','Produsul a fost inserat cu succes');
       $state.go('tabs.addProduct');
     }
-
   });
 
   res.error(function(data,status,headers,config){
@@ -90,8 +89,6 @@ $scope.insereazaProdus=function()
     }
 
   });
-
-
 };
 
 function verificaDuplicatIngredient(lista,ingredient){
