@@ -64,6 +64,7 @@
                 if (status == 200) {
                     $scope.top3Activitati = data.slice(0, 3);
                     $scope.activitati = data;
+                    console.log($scope.activitati);
                 }
             });
     };
@@ -79,29 +80,53 @@
         $state.go('tabs.home');
         $scope.initializeaza();
     };
+    
+    $scope.goToCampaignPage = function(campaign_id)
+    {
+        var res = $http.get("https://nodeserve-cypmaster14.c9users.io/trimiteCampaniePeBazaID?campaign_id=" + campaign_id);
 
-    
-    
+        res.success(function (data, status, headers, config) {
+            if (status == 200) {
+                $state.go("tabs.campaign",
+                    {
+                        campaign_name: data.campaign_name,
+                        campaign_id: campaign_id,
+                        campaign_description: data.description,
+                        imagine: data.campaign_photo,
+                        creation_date: data.creation_date,
+                        administrator: data.email_creator_campanie,
+                        first_name: data.first_name,
+                        last_name: data.last_name,
+                        email_creator_campanie: data.email_creator_campanie,
+						product_name: data.product_name,
+						product_barcode: data.product_barcode
+                    }
+                );
+            }
+        });
+
+        res.error(function (data, status, headers, config) {
+            console.log("Eroare la navigarea spre campanie");
+        });
+    };
 
     $scope.moveToProfilePage=function(user)
     {
         $state.go('tabs.profile',{'user':user});
         $ionicSideMenuDelegate.toggleLeft();
     };
-
     $scope.goToCampaigns=function(){
         $state.go('tabs.campanii');
     };
 	
     $scope.goToUsersActivities=function(){
-        $state.go('tabs.activitatiUseri', {
-            activitati: $scope.activitati,
-            getFirstWord: $scope.getFirstWord,
-            goToUserPage: $scope.goToUserPage,
-            getMiddleSentence: $scope.getMiddleSentence,
-            goToPage: $scope.goToPage
-        });
+        $state.go('tabs.activitatiUseri');
     };
+
+
+	$scope.goToPublicProfilePage=function(user){
+		$state.go('tabs.publicProfilePage',{'user':user});
+	}
 
     $scope.goToUserPage = function (user) {
 		$state.go('tabs.publicProfilePage',{'user':user});
@@ -138,7 +163,5 @@
         action = action.split(" ").splice(3, action.length).join(" ");
         return action;
     }
-
-    
 
 }]);

@@ -61,6 +61,7 @@
 
       .state('tabs.addProduct',{
         url:"/addProduct",
+		cache: false,
         views:{
             "home-tab":{
               templateUrl:"templates/addProduct.html"
@@ -123,6 +124,19 @@
               }
           }
       })
+	  
+	  .state('tabs.publicProfilePage', {
+          url: "/publicProfilePage",
+          params: {
+			  user : null,
+		  },
+          views: {
+              'home-tab': {
+                  templateUrl: "templates/publicProfilePage.html"
+              }
+          }
+      })
+	  
       .state('tabs.search', {
           url: "/search",
 		  cache: false,

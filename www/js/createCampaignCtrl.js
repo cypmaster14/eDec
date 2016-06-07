@@ -12,7 +12,6 @@ angular.module('edec').controller("CreateCampaignCtrl", ['$scope','$stateParams'
 
 	$scope.barcode=$stateParams.barcode;
 	$scope.productName=$stateParams.name;
-	console.log($scope.productName);
 	
     $scope.createCampaign = function () {	
         if (!$scope.numeCampanie || !$scope.descriereCampanie || !$scope.pozaCampanie) {
