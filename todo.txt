@@ -34,3 +34,9 @@
 
 
 -Ciprian: - top 10 produse, top 10 sclifositi , inserare produs 
+-
+
+
+--De modificat:
+	-lasam iconul si numele si prenumele userului pe pagina de home daca e logat?
+	-!!!! butonul de la campanie se vede ca naiba

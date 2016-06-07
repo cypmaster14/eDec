@@ -1,5 +1,6 @@
 ﻿angular.module('edec').config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
     $ionicConfigProvider.tabs.position('bottom');
+    
 
     $stateProvider
       .state('tabs', {
