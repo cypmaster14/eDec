@@ -5,10 +5,6 @@
             title: titlu,
             template: mesaj
         });
-
-        alertPopup.then(function (res) {
-            console.log("You clicked Ok");
-        });
     };
 
     $scope.login = function () {
@@ -26,8 +22,6 @@
             password: password
         };
 
-        console.log(obj);
-
         var res = $http.post('https://nodeserve-cypmaster14.c9users.io/login', obj);
 
         res.success(function (data, status, headers, config) {
@@ -39,20 +33,16 @@
                     logat = true;
                     $rootScope.logat = true;
                     $rootScope.user = obj.email;
-                    console.log("Nume:" + data.firstName);
                     $rootScope.firstName = data.firstName;
                     $rootScope.lastName = data.lastName;
                     $rootScope.userActiuni=data.userActiuni;
                     $rootScope.reputation=data.reputation;
-                    console.log("Am reputatia:"+$rootScope.reputation);
-                    $scope.showAlert('Login', 'Loged as ' + $rootScope.user + "(Log=" + $rootScope.logat + ")" + $rootScope.firstName + " " + $rootScope.lastName);
                     $state.go("tabs.home");
                     window.localStorage.setItem("email", $rootScope.user);
                     window.localStorage.setItem("firstName", $rootScope.firstName);
                     window.localStorage.setItem("lastName", $rootScope.lastName);
                     window.localStorage.setItem("logat", $rootScope.logat);
                     window.localStorage.setItem("reputation",$rootScope.reputation);
-                    console.log("LocaleStorage:" + window.localStorage.getItem('email'));
                 }
                 else {
                     $scope.showAlert('Login failed', $scope.mesaj.text);

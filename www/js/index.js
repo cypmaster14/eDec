@@ -24,7 +24,6 @@ angular.module('edec', ['ionic', 'ngCordova'])
     return function(scope,element,attrs) {
         $ionicGesture.on('hold',function() {
             scope.$apply(function() {
-                //console.log("held");
                 scope.$eval(attrs.gestureOnHold);
             });
         },element);

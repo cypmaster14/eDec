@@ -49,7 +49,6 @@
 
         }, function (error) {
             $state.go("tabs.home");
-            console.log("An error happened -> " + error);
         });
     };
 

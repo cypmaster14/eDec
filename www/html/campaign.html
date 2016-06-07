@@ -3,21 +3,25 @@
 		<div class="card__content card__padding">
 		<div class="card radius shadowDepth1">
 		
-		<img style="height: auto; width: auto; max-width: 400px; max-height: 400px;" src={{campaign_image}} alt="Poza Companie"></img>
+		<img style="height: auto; width: auto; max-width: 100%; max-height: 100%;" src={{campaign_image}} alt="Poza Companie"></img>
 		<div class="card__content card__padding">
       		<article class="card__article">
   	    		<h3><span class="elementeProfil">Descriere</span></h3>
-	            <p style="text-indent: 20px;">{{campaign_description}} Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus harum... Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus harum...</p>
-				<p>Produsul campaniei: <a style="color: #0A9DC7;" ng-click="goToPoductPage(product_barcode)">{{product_name}}</a></p>
-				<span class="elementeProfil">Au aderat: </span>{{campaign_nrUsers}} membri
-  	    	</article>
+	            <p style="text-indent: 10px;">{{campaign_description}}</p>
+			</article>
 			<div class="card__meta">
+				<span class="elementeProfil">Produsul campaniei: </span> <a style="color: #0A9DC7;" ng-click="goToPoductPage(product_barcode)">{{product_name}}</a>
+			</div>
+			<div class="card__meta">
+				<span class="elementeProfil">Au aderat: </span>{{campaign_nrUsers}} membri
+  	    	</div>
+  	    	<div class="card__meta">
       			<span class="elementeProfil">Data crearii:</span>
                 <time>{{creation_date}}</time>
       		</div>
       		<div class="card__meta">
       			<span class="elementeProfil">Creata de:</span>
-                <time>{{last_name}} {{first_name}} {{email_creator_campanie}}</time>
+                <time><a ng-click="goToUserPage(email_creator_campanie)" > {{last_name}} {{first_name}} </a></time>
       		</div>
 			<div class="item item-bodyCampagin">
 		        <button id="buton_vezi_mai_mult" ng-click="joinCampaign()" ng-show="isLogged" ng-disabled="aAderat==1">{{buttonText}}</button><br>
