@@ -69,10 +69,6 @@
     };
 
 
-    $scope.moveToCampainPage=function(nume)
-    {
-    };
-
     $scope.moveToProfilePage=function(user)
     {
         $state.go('tabs.profile',{'user':user});
@@ -86,8 +82,8 @@
         $state.go('tabs.activitatiUseri');
     };
 
-	$scope.goToUserPage=function(user){
-		$state.go('tabs.profile',{'user':user});
+	$scope.goToPublicProfilePage=function(user){
+		$state.go('tabs.publicProfilePage',{'user':user});
 	}
 
     $scope.clickOnCampaign = function (campaign) {

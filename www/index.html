@@ -11,16 +11,17 @@
 	<script src="js/ng-cordova.min.js"></script>
     <script src="cordova.js"></script>
 	<script src="js/index.js"></script>
-      <script src="js/configStates.js"></script>
-      <script src="js/homeTabCtrl.js"></script>
-      <script src="js/productCtrl.js"></script>
-      <script src="js/barcodeCtrl.js"></script>
-      <script src="js/loginCtrl.js"></script>
-	  <script src="js/searchProductCtrl.js"></script>
-      <script src="js/registerCtrl.js"></script>
-	  <script src="js/campaignCtrl.js"></script>
-	  <script src="js/createCampaignCtrl.js"></script>
+	<script src="js/configStates.js"></script>
+	<script src="js/homeTabCtrl.js"></script>
+	<script src="js/productCtrl.js"></script>
+	<script src="js/barcodeCtrl.js"></script>
+	<script src="js/loginCtrl.js"></script>
+	<script src="js/searchProductCtrl.js"></script>
+	<script src="js/registerCtrl.js"></script>
+	<script src="js/campaignCtrl.js"></script>
+	<script src="js/createCampaignCtrl.js"></script>
     <script src="js/addProductCtrl.js"></script>
+	<script src="js/publicProfilePageCtrl.js"></script>
     <script src="js/campaniiCtrl.js"></script>
     <script src="js/profile.js"></script>
 
@@ -205,6 +206,14 @@
       <ion-view view-title="Profil utilizator">
         <ion-content class="padding">
             <div ng-include="'html/profile.html'"></div>
+        </ion-content>
+      </ion-view>
+    </script>
+	
+	<script id="templates/publicProfilePage.html" type="text/ng-template">
+      <ion-view view-title="Profil public utilizator">
+        <ion-content class="padding">
+            <div ng-include="'html/publicProfilePage.html'"></div>
         </ion-content>
       </ion-view>
     </script>
