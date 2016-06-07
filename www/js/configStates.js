@@ -78,6 +78,15 @@
         }
       })
 
+      .state('tabs.topProducts',{
+        url:"/topProducts",
+        views:{
+            "home-tab":{
+              templateUrl:"templates/topProducts.html"
+            }
+        }
+      })
+
       .state('tabs.register',{
           url:"/register",
           views: {
@@ -133,7 +142,7 @@
               }
           }
       })
-	  
+
 	  .state('tabs.publicProfilePage', {
           url: "/publicProfilePage",
           params: {
@@ -145,7 +154,7 @@
               }
           }
       })
-	  
+
       .state('tabs.search', {
           url: "/search",
 		  cache: false,

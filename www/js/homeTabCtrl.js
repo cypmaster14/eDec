@@ -184,7 +184,8 @@
 
     $scope.moveToTopProducts=function(){
 
-      alert('TOp produse');
+      $state.go('tabs.topProducts');
+    };
 
     $scope.getFirstWord = function getFirstWord(activity) {
         var firstWord = activity.action.split(" ")[0];
