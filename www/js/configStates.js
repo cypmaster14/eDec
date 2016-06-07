@@ -11,6 +11,7 @@
       .state('tabs.home', {
           url: "/home",
           cache: false,
+		  reload: true,
           views: {
               'home-tab': {
                   templateUrl: "templates/home.html"
