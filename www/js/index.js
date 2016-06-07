@@ -16,9 +16,8 @@ angular.module('edec', ['ionic', 'ngCordova'])
             StatusBar.styleDefault();
         }
     });
-    $ionicPlatform.registerBackButtonAction(function (event) {
-                    event.preventDefault();
-            }, 100);
+   
+    
 
 })
 

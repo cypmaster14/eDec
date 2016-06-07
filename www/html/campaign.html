@@ -1,8 +1,4 @@
-<div ng-controller="CampaignCtrl" class="carddemoInCardActions" >
-		
-<div >
-		<img style="height: 300px; width: 300px; max-width: 400px; max-height: 400px;" src={{campaign_image}} alt="Poza Companie"></img>
-</div>
+<div ng-controller="CampaignCtrl" class="wrapper" >
 
 <div class="list card">
 
@@ -11,6 +7,9 @@
 	<div class="item item-body">
 		<h1 style="font-size: 130% ;color:grey;font-family:"Palatino Linotype", "Book Antiqua", Palatino, serif;"><span class="elementeProfil">Descriere</span></h1>
 		<p style="text-indent: 10px;">{{campaign_description}}</p>
+
+        <img style="height: auto; min-width: 300px; max-width: 400px; max-height: 400px;" src={{campaign_image}} alt="Poza Companie"></img>
+
 
 		<div class="card__meta">
 				<span class="elementeProfil">Produsul campaniei: </span> <a style="color: #0A9DC7;" ng-click="goToPoductPage(product_barcode)">{{product_name}}</a>
