@@ -1,4 +1,4 @@
-angular.module('edec').controller('RestrictiviCtrl',['$scope','$state','$stateParams','$http','$ionicPopup', '$timeout', '$rootScope', '$ionicActionSheet', 'logat', 'user', function ($scope, $state, $stateParams, $http, $ionicPopup, $timeout, $rootScope, $ionicActionSheet, logat, user){
+angular.module('edec').controller('RestrictiviCtrl',['$scope','$state','$stateParams','$http','$ionicPopup', '$timeout', '$rootScope', '$ionicActionSheet', function ($scope, $state, $stateParams, $http, $ionicPopup, $timeout, $rootScope, $ionicActionSheet){
 
   $scope.getMostRestrictiveUsers=function(){
 
@@ -17,8 +17,8 @@ angular.module('edec').controller('RestrictiviCtrl',['$scope','$state','$statePa
     });
   };
 
-  $scope.visitProfile=function(profil){
-    $scope.showAlert("Profil","vizitez profilul:"+profil);
+  $scope.visitProfile=function(user){
+	$state.go('tabs.publicProfilePage',{'user':user});
   };
 
 }]);
