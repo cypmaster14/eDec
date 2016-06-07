@@ -12,7 +12,7 @@
 	  <p>
 		Campaniile create de utilizatorul {{firstName}} {{lastName}}:
 	  </p>
-	  <h5 ng-show="!areCampanii">Nu aveti nici o campanie</h5>
+	  <h5 ng-show="!areCampanii">Utilizatorul {{firstName}} {{lastName}} nu are nici o campanie creata.</h5>
 
 	  <div class="wrapper" id="campaignList"  ng-repeat="campanie in campanii" >
 			<div class="card radius shadowDepth1"  ng-click="goToCampaign(campanie)" >
@@ -41,7 +41,7 @@
 		<p>
 			Preferintele utilizatorului {{firstName}} {{lastName}}:
 		</p>
-		<h5 ng-show="!arePreferinte">Nu aveti momentan preferinte</h5>
+		<h5 ng-show="!arePreferinte">Utilizatorul {{firstName}} {{lastName}} nu are momentan nici o preferinta.</h5>
 		<p ng-show="arePreferinte==true" style="display: inline-block; clear:both; float:left">Like</p>
 		<div id="likePreferences" ng-repeat="likePref in preferinteLike" style="display: inline-block; clear:both; float:left">
 			<p><i class="icon ion-happy-outline" style="color:green"></i> {{likePref.ingredient_name}} ({{likePref.motiv}})</p>
