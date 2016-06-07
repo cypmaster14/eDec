@@ -1,36 +1,47 @@
-<div class="carddemoInCardActions" ng-controller="CampaignCtrl">
-    <div class="wrapper">
-		<div class="card__content card__padding">
-		<div class="card radius shadowDepth1">
+<div ng-controller="CampaignCtrl" class="carddemoInCardActions" >
 		
-		<img style="height: 400px; width: 400px; max-width: 400px; max-height: 400px;" src={{campaign_image}} alt="Poza Companie"></img>
-		<div class="card__content card__padding">
-      		<article class="card__article">
-  	    		<h3><span class="elementeProfil">Descriere</span></h3>
-	            <p style="text-indent: 10px;">{{campaign_description}}</p>
-			</article>
-			<div class="card__meta">
+<div >
+		<img style="height: 300px; width: 300px; max-width: 400px; max-height: 400px;" src={{campaign_image}} alt="Poza Companie"></img>
+</div>
+
+<div class="list card">
+
+	
+
+	<div class="item item-body">
+		<h1 style="font-size: 130% ;color:grey;font-family:"Palatino Linotype", "Book Antiqua", Palatino, serif;"><span class="elementeProfil">Descriere</span></h1>
+		<p style="text-indent: 10px;">{{campaign_description}}</p>
+
+		<div class="card__meta">
 				<span class="elementeProfil">Produsul campaniei: </span> <a style="color: #0A9DC7;" ng-click="goToPoductPage(product_barcode)">{{product_name}}</a>
-			</div>
-			<div class="card__meta">
+		</div>
+
+		<div class="card__meta">
+      			<span class="elementeProfil">Date:</span>
+                <time>{{campanie.data}}</time>
+      	</div>
+
+      	<div class="card__meta">
 				<span class="elementeProfil">Au aderat: </span>{{campaign_nrUsers}} membri
-  	    	</div>
-  	    	<div class="card__meta">
+  	    </div>
+
+  	    <div class="card__meta">
       			<span class="elementeProfil">Data crearii:</span>
                 <time>{{creation_date}}</time>
-      		</div>
-      		<div class="card__meta">
+      	</div>
+      	<div class="card__meta">
       			<span class="elementeProfil">Creata de:</span>
-                <time><a ng-click="goToUserPage(email_creator_campanie)" > {{last_name}} {{first_name}} </a></time>
-      		</div>
-			<div class="item item-bodyCampagin">
+                <time><a ng-click="goToUserPage(email_creator_campanie)"> {{last_name}} {{first_name}} </a></time>
+      	</div>
+
+      	<div class="item item-bodyCampagin">
 		        <button id="buton_vezi_mai_mult" ng-click="joinCampaign()" ng-show="isLogged" ng-disabled="aAderat==1">{{buttonText}}</button><br>
 				<textarea id="textareaReview" rows="1" col="50" placeholder="Titlu" ng-model="titlu"></textarea>
 	            <textarea id="textareaReview"  rows="4" col="50" placeholder="Comentariu" ng-model="iol"></textarea><br>
 	           <button id="post_commentCampaign" ng-click="postareComentariu()"> Post </button>
 	           <div id="comentariuNou"> </div>
-		    </div>
-	    <div class="opinie_utilizator" ng-repeat="comentariu in comentarii">
+		</div>
+		 <div class="opinie_utilizator" ng-repeat="comentariu in comentarii">
 		<hr>
 		<h5>
 			#{{comentariu.titlu}}
@@ -42,10 +53,13 @@
 		<p class="typo name-date"><span>{{comentariu.data}}</span>|<span>{{comentariu.prenume}} {{comentariu.nume}}</span></p>
 		<hr>
 	    </div>
-			
-      	</div>
-		</div>
-		</div>
+
 	</div>
-	
+
 </div>
+
+</div>
+
+
+
+
