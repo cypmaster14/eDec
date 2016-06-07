@@ -183,6 +183,7 @@
 
     $scope.moveToTopProducts = function () {
       $state.go('tabs.topProducts');
+	  $ionicSideMenuDelegate.toggleLeft();
     };
 
     $scope.getFirstWord = function getFirstWord(activity) {
