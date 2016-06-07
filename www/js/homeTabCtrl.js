@@ -1,4 +1,5 @@
 ﻿angular.module('edec').controller('HomeTabCtrl', ['$scope', '$state', '$stateParams', '$ionicPopup', '$timeout', '$rootScope', '$http', '$window','$ionicSideMenuDelegate','$sce', 'logat', 'user', function ($scope, $state, $stateParams, $ionicPopup, $timeout, $rootScope, $http, $window,$ionicSideMenuDelegate, $sce, logat, user) {
+
     $scope.showAlert = function (titlu, mesaj) {
         var alertPopup = $ionicPopup.alert({
             title: titlu,
@@ -45,7 +46,6 @@
             getMyReputationRequest.success(function(data,status,headers,config){
                 if(status==200)
                 {
-                  console.log("Reputaie:"+data.reputatie);
                   $rootScope.reputation=data.reputatie;
                   window.localStorage.setItem("reputation",$rootScope.reputation);
                 }
@@ -81,7 +81,6 @@
                 if (status == 200) {
                     $scope.top3Activitati = data.slice(0, 3);
                     $scope.activitati = data;
-                    console.log($scope.activitati);
                 }
             });
     };
@@ -129,7 +128,7 @@
 
     $scope.moveToProfilePage=function(user)
     {
-        $state.go('tabs.profile',{'user':user});
+        $state.go('tabs.profile');
         $ionicSideMenuDelegate.toggleLeft();
     };
     $scope.goToCampaigns=function(){
@@ -178,12 +177,11 @@
 
 
     $scope.moveToWorstUsers=function(){
-
       $state.go('tabs.restrictivi');
+	  $ionicSideMenuDelegate.toggleLeft();
     };
 
-    $scope.moveToTopProducts=function(){
-
+    $scope.moveToTopProducts = function () {
       $state.go('tabs.topProducts');
     };
 

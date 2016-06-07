@@ -142,7 +142,7 @@ angular.module('edec').controller('CampaignCtrl', ['$scope', '$state', '$statePa
 
     };
     $scope.goToUserPage=function(user){
-        $state.go('tabs.profile',{'user':user});
+        $state.go('tabs.publicProfilePage',{'user':user});
     }
 }]);
    
