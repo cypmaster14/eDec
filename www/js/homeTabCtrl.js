@@ -180,11 +180,9 @@
       $state.go('tabs.restrictivi');
     };
 
-    $scope.moveToTopProducts=function(){
-
+    $scope.moveToTopProducts = function () {
       alert('TOp produse');
 	}
-
     $scope.getFirstWord = function getFirstWord(activity) {
         var firstWord = activity.action.split(" ")[0];
         return firstWord;
