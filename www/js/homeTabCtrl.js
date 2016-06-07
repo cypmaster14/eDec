@@ -182,9 +182,10 @@
       $state.go('tabs.restrictivi');
     };
 
-    $scope.moveToTopProducts=function(){
+    $scope.moveToTopProducts = function () {
 
-      alert('TOp produse');
+        alert('TOp produse');
+    };
 
     $scope.getFirstWord = function getFirstWord(activity) {
         var firstWord = activity.action.split(" ")[0];
