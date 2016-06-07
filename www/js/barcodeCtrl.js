@@ -13,6 +13,12 @@
               if(status==409)
               {
                 console.log("Produsul nu exista");
+                if(!imageData.text || imageData.text.length===0)
+                {
+                    $state.go("tabs.home");
+                    return;
+
+                }
                 var getMyReputationRequest=$http.get('https://nodeserve-cypmaster14.c9users.io/getReputation?email='+$rootScope.user);
 
                 getMyReputationRequest.success(function(data,status,headers,config){

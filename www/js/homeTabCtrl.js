@@ -1,5 +1,5 @@
 ﻿angular.module('edec').controller('HomeTabCtrl', ['$scope', '$state', '$stateParams', '$ionicPopup', '$timeout', '$rootScope', '$http', '$window','$ionicSideMenuDelegate','$sce', 'logat', 'user', function ($scope, $state, $stateParams, $ionicPopup, $timeout, $rootScope, $http, $window,$ionicSideMenuDelegate, $sce, logat, user) {
-    
+
     $scope.showAlert = function (titlu, mesaj) {
         var alertPopup = $ionicPopup.alert({
             title: titlu,
@@ -182,11 +182,8 @@
     };
 
     $scope.moveToTopProducts = function () {
-
-
-
-      alert('TOp produse');
-    }
+      $state.go('tabs.topProducts');
+    };
 
     $scope.getFirstWord = function getFirstWord(activity) {
         var firstWord = activity.action.split(" ")[0];
