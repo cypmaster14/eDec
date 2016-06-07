@@ -27,6 +27,13 @@
       })
       .state('tabs.activitatiUseri', {
           url: "/activitatiUseri",
+          params: {
+              activitati: null,
+              getFirstWord: null,
+              goToUserPage: null,
+              getMiddleSentence: null,
+              goToPage:null
+          },
           cache: false,
           views: {
               'home-tab': {
